@@ -101,7 +101,7 @@ export default function Hero() {
               color: "var(--teak)",
             }}
           >
-            Software Studio
+            Teak Software Studio
           </span>
         </div>
 
