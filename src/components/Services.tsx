@@ -1,110 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 import { Reveal, fadeUp, stagger } from "./motion";
-
-type Service = {
-  number: string;
-  title: string;
-  plain: string;
-  description: string;
-  tags: string[];
-  icon: React.ReactNode;
-  span: 2 | 3;
-  dark?: boolean;
-};
-
-const iconProps = {
-  width: 26,
-  height: 26,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.5,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
-
-const services: Service[] = [
-  {
-    number: "01",
-    title: "SaaS Products",
-    plain: "Software people subscribe to",
-    description:
-      "We take your idea from a sketch to a product with paying customers — design, engineering, billing, and launch, handled end to end.",
-    tags: ["Product Strategy", "Full-Stack Dev", "Auth & Billing", "Launch"],
-    span: 3,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <rect x="3" y="4" width="18" height="14" rx="2" />
-        <path d="M3 9h18M7 6.5h.01M10 6.5h.01" />
-        <path d="M9 21h6" />
-      </svg>
-    ),
-  },
-  {
-    number: "02",
-    title: "Web Applications",
-    plain: "Powerful tools that run in the browser",
-    description:
-      "Dashboards, portals, marketplaces — complex web apps engineered to feel fast and simple, whether you serve ten users or ten million.",
-    tags: ["Next.js", "React", "APIs", "Performance"],
-    span: 3,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z" />
-      </svg>
-    ),
-  },
-  {
-    number: "03",
-    title: "Mobile Apps",
-    plain: "iOS & Android, one codebase",
-    description:
-      "Native-quality apps for iPhone and Android — clean UX, smooth animations, push notifications to offline mode.",
-    tags: ["React Native", "iOS & Android", "App Store"],
-    span: 2,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <rect x="7" y="2.5" width="10" height="19" rx="2.5" />
-        <path d="M11 18.5h2" />
-      </svg>
-    ),
-  },
-  {
-    number: "04",
-    title: "AI Applications",
-    plain: "Products with intelligence built in",
-    description:
-      "Chat assistants, copilots, search that actually understands — AI-native products built on the latest models, tuned to your data.",
-    tags: ["LLM Integration", "Copilots", "RAG / Your Data"],
-    span: 2,
-    dark: true,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <path d="M12 3l1.8 4.5L18 9l-4.2 1.5L12 15l-1.8-4.5L6 9l4.2-1.5L12 3Z" />
-        <path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z" />
-      </svg>
-    ),
-  },
-  {
-    number: "05",
-    title: "AI Automation",
-    plain: "Your busywork, done by machines",
-    description:
-      "We wire AI into your operations — automating support, documents, and workflows so your team spends time where it matters.",
-    tags: ["AI Agents", "Workflows", "Integrations"],
-    span: 2,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" />
-      </svg>
-    ),
-  },
-];
+import { services, type Service } from "@/data/services";
 
 function ServiceCard({ service }: { service: Service }) {
   const [hovered, setHovered] = useState(false);
@@ -127,10 +27,17 @@ function ServiceCard({ service }: { service: Service }) {
       className="service-card"
       style={{
         gridColumn: `span ${service.span}`,
+      }}
+    >
+    <Link
+      href={`/services/${service.slug}`}
+      style={{
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         padding: "36px 32px",
         borderRadius: 20,
+        textDecoration: "none",
         background: dark ? "var(--ink)" : "rgba(255,255,255,0.72)",
         border: dark
           ? "1px solid var(--ink)"
@@ -140,7 +47,6 @@ function ServiceCard({ service }: { service: Service }) {
           : "0 4px 16px -10px rgba(21,19,17,0.08)",
         transition: "border-color 0.35s ease, box-shadow 0.35s ease",
         color: textColor,
-        cursor: "default",
         position: "relative",
         overflow: "hidden",
       }}
@@ -273,6 +179,40 @@ function ServiceCard({ service }: { service: Service }) {
           </span>
         ))}
       </div>
+
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          marginTop: 24,
+          fontFamily: "var(--font-sans)",
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: "0.02em",
+          color: dark ? "var(--teak-light)" : "var(--teak)",
+        }}
+      >
+        Learn more
+        <motion.svg
+          width="15"
+          height="15"
+          viewBox="0 0 16 16"
+          fill="none"
+          animate={reduce ? undefined : { x: hovered ? 4 : 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          aria-hidden="true"
+        >
+          <path
+            d="M3 8h10M9 4l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </motion.svg>
+      </span>
+    </Link>
     </motion.div>
   );
 }
