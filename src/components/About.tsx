@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Reveal, fadeUp, stagger } from "./motion";
 
 const stats = [
-  { value: "50+", label: "Products Shipped" },
-  { value: "8yr", label: "In Business" },
-  { value: "US/EU", label: "Client Focus" },
-  { value: "100%", label: "Remote-Native" },
+  { value: "2", label: "Products Shipped" },
+  { value: "2yr", label: "In Business" },
+  { value: "100%", label: "Client Retention" },
+  { value: "24/7", label: "Support & Delivery" },
 ];
 
 const values = [
