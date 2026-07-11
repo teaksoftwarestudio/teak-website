@@ -40,22 +40,35 @@ export default function Nav() {
           maxWidth: 1200,
           margin: "0 auto",
           padding: "0 32px",
-          height: 72,
+          height: 88,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <Image
             src="/teak-logo-primary.svg"
             alt="Teak Software Studio"
             width={140}
             height={36}
             priority
-            style={{ height: 32, width: "auto" }}
+            style={{ height: 38, width: "auto" }}
           />
+          <span
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 17,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              color: "var(--ink)",
+              whiteSpace: "nowrap",
+            }}
+            className="brand-name"
+          >
+            Teak Software Studio
+          </span>
         </Link>
 
         {/* Desktop links */}
@@ -207,6 +220,9 @@ export default function Nav() {
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .burger-btn { display: flex !important; }
+        }
+        @media (max-width: 480px) {
+          .brand-name { display: none !important; }
         }
       `}</style>
     </header>
