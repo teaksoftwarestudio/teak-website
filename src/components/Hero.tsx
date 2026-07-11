@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { EASE, blurUp } from "./motion";
+import { blurUp } from "./motion";
 
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -86,22 +86,12 @@ export default function Hero() {
           width: "100%",
           position: "relative",
           zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
         }}
       >
-        {/* Eyebrow */}
-        <motion.div
-          variants={blurUp}
-          style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 40 }}
-        >
-          <motion.div
-            initial={reduce ? false : { scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
-            style={{ width: 44, height: 1, background: "var(--teak)", transformOrigin: "left" }}
-          />
-          <span className="eyebrow">Teak Software Studio</span>
-        </motion.div>
-
         {/* Main heading */}
         <h1
           style={{
@@ -111,7 +101,6 @@ export default function Hero() {
             lineHeight: 0.98,
             letterSpacing: "var(--tracking-tight)",
             color: "var(--ink)",
-            maxWidth: 960,
             marginBottom: 38,
           }}
         >
@@ -136,7 +125,7 @@ export default function Hero() {
             lineHeight: 1.7,
             color: "var(--ink)",
             opacity: 0.65,
-            maxWidth: 540,
+            maxWidth: 560,
             marginBottom: 52,
           }}
         >
@@ -151,6 +140,7 @@ export default function Hero() {
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             gap: 32,
             flexWrap: "wrap",
           }}
