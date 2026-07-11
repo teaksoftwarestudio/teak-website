@@ -60,26 +60,26 @@ export default function Footer() {
               {
                 heading: "Studio",
                 links: [
-                  { label: "Our Work", href: "#work" },
-                  { label: "Services", href: "#services" },
-                  { label: "About", href: "#about" },
-                  { label: "Contact", href: "#contact" },
+                  { label: "Our Work", href: "/#work" },
+                  { label: "Services", href: "/#services" },
+                  { label: "About", href: "/about" },
+                  { label: "Contact", href: "/#contact" },
                 ],
               },
               {
                 heading: "Services",
                 links: [
-                  { label: "SaaS Products", href: "#services" },
-                  { label: "Web Apps", href: "#services" },
-                  { label: "Mobile Apps", href: "#services" },
-                  { label: "Design Systems", href: "#services" },
+                  { label: "SaaS Products", href: "/#services" },
+                  { label: "Web Apps", href: "/#services" },
+                  { label: "Mobile Apps", href: "/#services" },
+                  { label: "Design Systems", href: "/#services" },
                 ],
               },
               {
                 heading: "Contact",
                 links: [
                   { label: "hello@teaksoftware.studio", href: "mailto:hello@teaksoftware.studio" },
-                  { label: "Start a Project", href: "#contact" },
+                  { label: "Start a Project", href: "/#contact" },
                 ],
               },
             ].map((col) => (

@@ -7,10 +7,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE } from "./motion";
 
 const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Nav() {
@@ -109,7 +109,7 @@ export default function Nav() {
             </a>
           ))}
           <motion.a
-            href="#contact"
+            href="/#contact"
             whileHover={reduce ? undefined : { scale: 1.04 }}
             whileTap={reduce ? undefined : { scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -218,7 +218,7 @@ export default function Nav() {
                 </motion.a>
               ))}
               <a
-                href="#contact"
+                href="/#contact"
                 onClick={() => setMenuOpen(false)}
                 style={{
                   display: "inline-block",
