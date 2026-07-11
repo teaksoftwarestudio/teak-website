@@ -191,7 +191,7 @@ function HireUsBand() {
           >
             Have a product in mind?{" "}
             <span style={{ fontStyle: "italic", opacity: 0.85 }}>
-              We&rsquo;ll build it for you.
+              Let&rsquo;s build it together!
             </span>
           </p>
           <p

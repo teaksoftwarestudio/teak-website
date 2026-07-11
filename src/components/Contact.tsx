@@ -44,7 +44,15 @@ const questions: Record<Intent, { key: string; label: string; options: string[] 
     {
       key: "type",
       label: "What are you looking to build?",
-      options: ["Web app", "Mobile app", "Website", "AI / automation", "Something else"],
+      options: [
+        "Web Apps",
+        "Mobile Apps",
+        "AI Systems",
+        "Web + Mobile",
+        "Web + AI",
+        "Mobile + AI",
+        "Everything Together (Web + Mobile + AI)",
+      ],
     },
     {
       key: "stage",
@@ -52,14 +60,14 @@ const questions: Record<Intent, { key: string; label: string; options: string[] 
       options: ["Just an idea", "Have designs", "Existing product", "Rescue / rebuild"],
     },
     {
-      key: "budget",
-      label: "Rough budget range?",
-      options: ["Under $25k", "$25k – $75k", "$75k – $150k", "$150k+", "Not sure yet"],
+      key: "priority",
+      label: "What matters most right now?",
+      options: ["Launch quickly", "Get the UX right", "Scale the product", "Add AI", "Not sure yet"],
     },
     {
       key: "timeline",
       label: "When do you want to start?",
-      options: ["ASAP", "This quarter", "Just exploring"],
+      options: ["ASAP", "This month", "This quarter"],
     },
   ],
   general: [
@@ -80,6 +88,7 @@ export default function Contact() {
   const [step, setStep] = useState(0); // 0 = intent, 1..n = questions, then email
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
@@ -120,6 +129,7 @@ export default function Contact() {
     setStep(0);
     setAnswers({});
     setMessage("");
+    setName("");
     setEmail("");
     setStatus("idle");
   }
@@ -159,7 +169,6 @@ export default function Contact() {
                 marginBottom: 20,
               }}
             >
-              Contact
             </div>
 
             <h2
@@ -498,6 +507,48 @@ export default function Contact() {
                       />
 
                       <label
+                        htmlFor="c-name"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: 11,
+                          fontWeight: 600,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "var(--teak)",
+                          display: "block",
+                          marginBottom: 6,
+                        }}
+                      >
+                        Your name
+                      </label>
+                      <input
+                        id="c-name"
+                        required
+                        type="text"
+                        autoFocus
+                        placeholder="Your name"
+                        autoComplete="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        style={{
+                          width: "100%",
+                          fontFamily: "var(--font-sans)",
+                          fontSize: 16,
+                          fontWeight: 300,
+                          color: "var(--ink)",
+                          background: "transparent",
+                          border: "none",
+                          borderBottom: "1px solid var(--ink-subtle)",
+                          padding: "12px 0",
+                          outline: "none",
+                          marginBottom: 24,
+                          transition: "border-color 0.3s",
+                        }}
+                        onFocus={(e) => (e.target.style.borderBottomColor = "var(--teak)")}
+                        onBlur={(e) => (e.target.style.borderBottomColor = "var(--ink-subtle)")}
+                      />
+
+                      <label
                         htmlFor="c-email"
                         style={{
                           fontFamily: "var(--font-sans)",
@@ -516,7 +567,6 @@ export default function Contact() {
                         id="c-email"
                         required
                         type="email"
-                        autoFocus
                         placeholder="you@company.com"
                         autoComplete="email"
                         value={email}
