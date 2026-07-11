@@ -2,217 +2,154 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Reveal, fadeUp, stagger } from "./motion";
-import { services, type Service } from "@/data/services";
+import { services } from "@/data/services";
 
-function ServiceCard({ service }: { service: Service }) {
+function getService(slug: string) {
+  const service = services.find((item) => item.slug === slug);
+
+  if (!service) {
+    throw new Error(`Missing service data for ${slug}`);
+  }
+
+  return service;
+}
+
+const webService = getService("web-applications");
+const mobileService = getService("mobile-apps");
+const aiService = getService("ai-applications");
+
+type Capability = {
+  title: string;
+  kicker: string;
+  body: string;
+  href: string;
+  icon: ReactNode;
+  accent: string;
+  soft: string;
+  tags: string[];
+};
+
+const capabilities: Capability[] = [
+  {
+    title: "Web Apps",
+    kicker: "Browser-based products",
+    body:
+      "Web products that are easy to use, fast to load, and built to scale as your business grows.",
+    href: `/services/${webService.slug}`,
+    icon: webService.icon,
+    accent: "var(--teak)",
+    soft: "var(--teak-pale)",
+    tags: ["Dashboards", "Marketplaces", "SaaS"],
+  },
+  {
+    title: "Mobile Apps",
+    kicker: "iOS and Android",
+    body:
+      "Mobile apps that feel smooth, work reliably, and are ready for both iOS and Android.",
+    href: `/services/${mobileService.slug}`,
+    icon: mobileService.icon,
+    accent: "var(--teak)",
+    soft: "var(--teak-pale)",
+    tags: ["App Dev", "Cross Platform", "App Store"],
+  },
+  {
+    title: "AI Systems",
+    kicker: "Intelligence and automation",
+    body:
+      "Copilots, smart search, agents, and automated workflows grounded in your real data.",
+    href: `/services/${aiService.slug}`,
+    icon: aiService.icon,
+    accent: "var(--teak)",
+    soft: "var(--teak-pale)",
+    tags: ["LLM Integration", "RAG", "AI Automation"],
+  },
+];
+
+const overlaps = [
+  {
+    title: "Web + Mobile",
+    body: "A web product with companion apps for customers, teams, or field work.",
+  },
+  {
+    title: "Web + AI",
+    body: "SaaS, portals, and internal tools with copilots, smart search, or document intelligence.",
+  },
+  {
+    title: "Mobile + AI",
+    body: "Phone-first experiences with voice, camera, assistant, or on-the-go automation.",
+  },
+  {
+    title: "Everything Together",
+    body: "A complete product ecosystem across web, mobile, and AI-backed workflows.",
+  },
+];
+
+function CapabilityCard({ capability }: { capability: Capability }) {
   const [hovered, setHovered] = useState(false);
   const reduce = useReducedMotion();
-  const dark = !!service.dark;
-
-  const textColor = dark ? "var(--cream)" : "var(--ink)";
 
   return (
     <motion.div
       variants={fadeUp}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      animate={
-        reduce
-          ? undefined
-          : { y: hovered ? -6 : 0 }
-      }
+      animate={reduce ? undefined : { y: hovered ? -6 : 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 26 }}
-      className="service-card"
-      style={{
-        gridColumn: `span ${service.span}`,
-      }}
+      className="capability-card"
+      style={
+        {
+          "--accent": capability.accent,
+          "--soft": capability.soft,
+        } as CSSProperties
+      }
     >
-    <Link
-      href={`/services/${service.slug}`}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "36px 32px",
-        borderRadius: 20,
-        textDecoration: "none",
-        background: dark ? "var(--ink)" : "rgba(255,255,255,0.72)",
-        border: dark
-          ? "1px solid var(--ink)"
-          : `1px solid ${hovered ? "var(--teak-light)" : "var(--ink-hairline)"}`,
-        boxShadow: hovered
-          ? "0 24px 48px -20px rgba(21,19,17,0.18)"
-          : "0 4px 16px -10px rgba(21,19,17,0.08)",
-        transition: "border-color 0.35s ease, box-shadow 0.35s ease",
-        color: textColor,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {dark && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: -80,
-            right: -80,
-            width: 220,
-            height: 220,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(196,168,130,0.28) 0%, rgba(196,168,130,0) 70%)",
-            pointerEvents: "none",
-          }}
-        />
-      )}
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          marginBottom: 28,
-        }}
-      >
-        <motion.span
-          animate={reduce ? undefined : { scale: hovered ? 1.1 : 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 22 }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 52,
-            height: 52,
-            borderRadius: 14,
-            background: dark ? "rgba(196,168,130,0.16)" : "var(--teak-pale)",
-            color: dark ? "var(--teak-light)" : "var(--teak)",
-            transformOrigin: "center",
-          }}
-        >
-          {service.icon}
-        </motion.span>
-        <span
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: 14,
-            letterSpacing: "0.1em",
-            color: dark ? "rgba(250,248,245,0.4)" : "var(--ink-muted)",
-          }}
-        >
-          {service.number}
-        </span>
-      </div>
-
-      <h3
-        style={{
-          fontFamily: "var(--font-serif)",
-          fontSize: "clamp(24px, 2.4vw, 30px)",
-          fontWeight: 400,
-          lineHeight: 1.15,
-          letterSpacing: "-0.01em",
-          marginBottom: 6,
-        }}
-      >
-        {service.title}
-      </h3>
-      <p
-        style={{
-          fontFamily: "var(--font-serif)",
-          fontStyle: "italic",
-          fontSize: 15.5,
-          color: dark ? "var(--teak-light)" : "var(--teak)",
-          marginBottom: 16,
-          letterSpacing: "0.01em",
-        }}
-      >
-        {service.plain}
-      </p>
-      <p
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: 14.5,
-          lineHeight: 1.7,
-          color: textColor,
-          opacity: dark ? 0.68 : 0.62,
-          marginBottom: 24,
-        }}
-      >
-        {service.description}
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 8,
-          marginTop: "auto",
-        }}
-      >
-        {service.tags.map((tag) => (
-          <span
-            key={tag}
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 11.5,
-              fontWeight: 500,
-              letterSpacing: "0.03em",
-              padding: "5px 12px",
-              borderRadius: 999,
-              border: dark
-                ? "1px solid rgba(250,248,245,0.18)"
-                : "1px solid var(--ink-subtle)",
-              color: textColor,
-              opacity: dark ? 0.75 : 0.72,
-              background: !dark && hovered ? "var(--teak-pale)" : "transparent",
-              borderColor:
-                !dark && hovered
-                  ? "transparent"
-                  : dark
-                    ? "rgba(250,248,245,0.18)"
-                    : "var(--ink-subtle)",
-              transition: "border-color 0.3s, background 0.3s",
-            }}
+      <Link href={capability.href} className="capability-link">
+        <span className="capability-rule" aria-hidden="true" />
+        <div className="capability-topline">
+          <motion.span
+            animate={reduce ? undefined : { scale: hovered ? 1.08 : 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22 }}
+            className="capability-icon"
           >
-            {tag}
-          </span>
-        ))}
-      </div>
+            {capability.icon}
+          </motion.span>
+          <span className="capability-kicker">{capability.kicker}</span>
+        </div>
 
-      <span
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          marginTop: 24,
-          fontFamily: "var(--font-sans)",
-          fontSize: 13,
-          fontWeight: 600,
-          letterSpacing: "0.02em",
-          color: dark ? "var(--teak-light)" : "var(--teak)",
-        }}
-      >
-        Learn more
-        <motion.svg
-          width="15"
-          height="15"
-          viewBox="0 0 16 16"
-          fill="none"
-          animate={reduce ? undefined : { x: hovered ? 4 : 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          aria-hidden="true"
-        >
-          <path
-            d="M3 8h10M9 4l4 4-4 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </motion.svg>
-      </span>
-    </Link>
+        <h3>{capability.title}</h3>
+        <p className="capability-body">{capability.body}</p>
+
+        <div className="capability-tags">
+          {capability.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </div>
+
+        <div className="capability-actions">
+          <span>
+            Explore
+            <motion.svg
+              width="15"
+              height="15"
+              viewBox="0 0 16 16"
+              fill="none"
+              animate={reduce ? undefined : { x: hovered ? 4 : 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </motion.svg>
+          </span>
+        </div>
+      </Link>
     </motion.div>
   );
 }
@@ -337,9 +274,9 @@ export default function Services() {
               maxWidth: 640,
             }}
           >
-            Craft at every{" "}
+            Everything we build is a blend of{" "}
             <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
-              layer of the stack.
+              three crafts.
             </span>
           </p>
         </Reveal>
@@ -349,39 +286,282 @@ export default function Services() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="services-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: 20,
-            marginBottom: 0,
-          }}
+          className="capability-grid"
         >
-          {services.map((service) => (
-            <ServiceCard key={service.number} service={service} />
+          {capabilities.map((capability) => (
+            <CapabilityCard key={capability.title} capability={capability} />
           ))}
         </motion.div>
+
+        <Reveal style={{ marginTop: 22 }}>
+          <div className="overlap-band">
+            <div className="overlap-copy">
+              <span>Where needs overlap</span>
+              <p>
+                You can start with one capability, or combine them into the
+                product your customers actually need.
+              </p>
+            </div>
+            <div className="overlap-grid">
+              {overlaps.map((overlap) => (
+                <div key={overlap.title} className="overlap-chip">
+                  <strong>{overlap.title}</strong>
+                  <span>{overlap.body}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
 
         <HireUsBand />
 
         <style>{`
-          @media (max-width: 1024px) {
-            .services-grid {
-              grid-template-columns: repeat(2, 1fr) !important;
+          .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+          }
+
+          .capability-card {
+            position: relative;
+            min-height: 360px;
+          }
+
+          .capability-link {
+            position: relative;
+            display: flex;
+            min-height: 100%;
+            height: 100%;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--ink-hairline);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--ink);
+            text-decoration: none;
+            box-shadow: 0 4px 16px -10px rgba(21, 19, 17, 0.08);
+            transition:
+              border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background 0.35s ease;
+          }
+
+          .capability-link:hover {
+            border-color: color-mix(in srgb, var(--accent) 42%, transparent);
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 24px 48px -22px rgba(21, 19, 17, 0.18);
+          }
+
+          .capability-rule {
+            position: absolute;
+            inset: 0 0 auto;
+            height: 4px;
+            background: var(--accent);
+          }
+
+          .capability-topline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 34px;
+          }
+
+          .capability-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            flex: 0 0 54px;
+            border-radius: 12px;
+            background: var(--soft);
+            color: var(--accent);
+            transform-origin: center;
+          }
+
+          .capability-kicker {
+            max-width: 136px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: 0.12em;
+            text-align: right;
+            text-transform: uppercase;
+            color: color-mix(in srgb, var(--accent) 78%, var(--ink));
+          }
+
+          .capability-card h3 {
+            margin-bottom: 12px;
+            font-family: var(--font-serif);
+            font-size: clamp(26px, 2.4vw, 34px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: 0;
+          }
+
+          .capability-body {
+            max-width: 31ch;
+            margin-bottom: 24px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            line-height: 1.68;
+            color: var(--ink-muted);
+          }
+
+          .capability-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+          }
+
+          .capability-tags span {
+            padding: 6px 11px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+            background: var(--soft);
+            color: color-mix(in srgb, var(--accent) 72%, var(--ink));
+            font-family: var(--font-sans);
+            font-size: 11.5px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: 0.03em;
+          }
+
+          .capability-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 28px;
+          }
+
+          .capability-actions span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+          }
+
+          .overlap-band {
+            display: grid;
+            grid-template-columns: minmax(220px, 0.55fr) minmax(0, 1.45fr);
+            gap: 24px;
+            align-items: stretch;
+            padding: 28px 0;
+            border-top: 1px solid var(--ink-hairline);
+            border-bottom: 1px solid var(--ink-hairline);
+          }
+
+          .overlap-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .overlap-copy span {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--teak);
+          }
+
+          .overlap-copy p {
+            max-width: 310px;
+            font-family: var(--font-serif);
+            font-size: clamp(18px, 1.7vw, 23px);
+            font-weight: 400;
+            line-height: 1.25;
+            letter-spacing: 0;
+            color: var(--ink);
+          }
+
+          .overlap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+          }
+
+          .overlap-chip {
+            display: flex;
+            min-height: 136px;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--ink-hairline);
+            background:
+              linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.42));
+          }
+
+          .overlap-chip strong {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: 0;
+          }
+
+          .overlap-chip span {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--ink-muted);
+          }
+
+          @media (max-width: 1040px) {
+            .capability-grid {
+              grid-template-columns: 1fr;
             }
-            .services-grid .service-card {
-              grid-column: span 1 !important;
+
+            .capability-card {
+              min-height: 0;
             }
-            .services-grid .service-card:last-child {
-              grid-column: span 2 !important;
+
+            .capability-body {
+              max-width: 56ch;
+            }
+
+            .overlap-band {
+              grid-template-columns: 1fr;
+            }
+
+            .overlap-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
             }
           }
+
           @media (max-width: 640px) {
-            .services-grid {
-              grid-template-columns: 1fr !important;
+            .capability-link {
+              padding: 26px 22px;
             }
-            .services-grid .service-card:last-child {
-              grid-column: span 1 !important;
+
+            .capability-topline {
+              margin-bottom: 28px;
+            }
+
+            .capability-kicker {
+              max-width: 120px;
+              font-size: 10.5px;
+            }
+
+            .overlap-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .overlap-chip {
+              min-height: 0;
             }
           }
         `}</style>
