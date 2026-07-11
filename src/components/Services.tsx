@@ -18,7 +18,7 @@ function getService(slug: string) {
 
 const webService = getService("web-applications");
 const mobileService = getService("mobile-apps");
-const aiService = getService("ai-applications");
+const aiService = getService("ai-systems");
 
 type Capability = {
   title: string;

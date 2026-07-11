@@ -84,14 +84,6 @@ export default function ServiceDetail({ service }: { service: Service }) {
             </Link>
           </motion.div>
 
-          <motion.span
-            variants={fadeUp}
-            className="eyebrow"
-            style={{ display: "block", marginBottom: 26 }}
-          >
-            {service.eyebrow}
-          </motion.span>
-
           <motion.h1
             variants={reduce ? fadeUp : blurUp}
             style={{

@@ -431,9 +431,9 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: "ai-applications",
+    slug: "ai-systems",
     number: "04",
-    title: "AI Applications",
+    title: "AI Systems",
     plain: "Products with intelligence built in",
     description:
       "Chat assistants, copilots, search that actually understands — AI-native products built on the latest models, tuned to your data.",
@@ -449,7 +449,7 @@ export const services: Service[] = [
     seoTitle: "AI Application Development — Teak Software Studio",
     seoDescription:
       "AI-native products built on the latest models and tuned to your data — chat assistants, copilots, and search that actually understands.",
-    eyebrow: "Service 04 — AI Applications",
+    eyebrow: "Service 04 — AI Systems",
     headlineLead: "Products with",
     headlineAccent: "intelligence",
     headlineTail: " built in.",
