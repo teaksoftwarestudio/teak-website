@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, blurUp, fadeUp, stagger } from "./motion";
-import AboutCta from "./AboutCta";
+import ServiceWizard from "./ServiceWizard";
 import type { Service } from "@/data/services";
 
 export default function ServiceDetail({ service }: { service: Service }) {
@@ -123,6 +123,39 @@ export default function ServiceDetail({ service }: { service: Service }) {
           >
             {service.deck}
           </motion.p>
+
+          <motion.div variants={fadeUp} style={{ marginTop: 36 }}>
+            <a
+              href="#start"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                color: "var(--cream)",
+                background: "var(--ink)",
+                padding: "16px 32px",
+                borderRadius: 10,
+                textDecoration: "none",
+                boxShadow: "0 14px 32px -16px rgba(21,19,17,0.5)",
+              }}
+            >
+              Scope your project
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* Stats bar */}
@@ -613,7 +646,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
         </div>
       </section>
 
-      <AboutCta />
+      <ServiceWizard service={service} />
 
       <style>{`
         @media (min-width: 901px) {

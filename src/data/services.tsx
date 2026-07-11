@@ -26,6 +26,13 @@ export type Deliverable = {
   detail: string;
 };
 
+export type WizardQuestion = {
+  key: string;
+  label: string;
+  kicker: string;
+  options: string[];
+};
+
 export type Service = {
   slug: string;
   number: string;
@@ -53,6 +60,10 @@ export type Service = {
   techStack: string[];
   caseStudy?: CaseStudy;
   faqs: Faq[];
+  // Per-service intake wizard
+  wizardHeadlineLead: string;
+  wizardHeadlineAccent: string;
+  wizard: WizardQuestion[];
 };
 
 const iconProps = {
@@ -160,6 +171,34 @@ export const services: Service[] = [
           "We stay on for iteration and support. Most clients keep us as their ongoing product team, but we're happy to hand off a clean, documented codebase too.",
       },
     ],
+    wizardHeadlineLead: "Let's scope your",
+    wizardHeadlineAccent: "SaaS product",
+    wizard: [
+      {
+        key: "stage",
+        kicker: "Your product",
+        label: "Where are you today?",
+        options: ["Just an idea", "Validated concept", "Have designs", "Live product to grow", "Rescue / rebuild"],
+      },
+      {
+        key: "audience",
+        kicker: "Your customers",
+        label: "Who will pay for it?",
+        options: ["Businesses (B2B)", "Consumers (B2C)", "Both", "Not sure yet"],
+      },
+      {
+        key: "billing",
+        kicker: "Revenue model",
+        label: "How do you plan to charge?",
+        options: ["Monthly subscription", "Usage-based", "One-time + upsells", "Still deciding"],
+      },
+      {
+        key: "timeline",
+        kicker: "Timing",
+        label: "When do you want to launch?",
+        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
+      },
+    ],
   },
   {
     slug: "web-applications",
@@ -247,6 +286,34 @@ export const services: Service[] = [
           "We measure real performance from the start — bundle size, query times, render cost — and use caching, pagination, and edge rendering where they matter.",
       },
     ],
+    wizardHeadlineLead: "Let's scope your",
+    wizardHeadlineAccent: "web application",
+    wizard: [
+      {
+        key: "kind",
+        kicker: "Your app",
+        label: "What kind of web app is it?",
+        options: ["Dashboard / analytics", "Customer portal", "Marketplace", "Internal tool", "Something else"],
+      },
+      {
+        key: "starting",
+        kicker: "Starting point",
+        label: "What are you starting from?",
+        options: ["Blank slate", "Have designs", "Existing app to extend", "Rebuild / migration"],
+      },
+      {
+        key: "backend",
+        kicker: "Data & backend",
+        label: "Is there a backend already?",
+        options: ["Build it fresh", "Existing API to connect", "Existing DB, no API", "Not sure"],
+      },
+      {
+        key: "timeline",
+        kicker: "Timing",
+        label: "When do you want to start?",
+        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
+      },
+    ],
   },
   {
     slug: "mobile-apps",
@@ -332,6 +399,34 @@ export const services: Service[] = [
         question: "Do you handle App Store submission?",
         answer:
           "We do — provisioning, store listings, review, and release. We can publish under your developer account or guide you through setting one up.",
+      },
+    ],
+    wizardHeadlineLead: "Let's scope your",
+    wizardHeadlineAccent: "mobile app",
+    wizard: [
+      {
+        key: "platforms",
+        kicker: "Platforms",
+        label: "Which platforms do you need?",
+        options: ["iOS & Android", "iOS first", "Android first", "Not sure yet"],
+      },
+      {
+        key: "stage",
+        kicker: "Your app",
+        label: "Where are you today?",
+        options: ["Just an idea", "Have designs", "Existing app to improve", "Web app to bring to mobile"],
+      },
+      {
+        key: "features",
+        kicker: "Key needs",
+        label: "Anything essential to get right?",
+        options: ["Offline mode", "Push notifications", "Payments", "Real-time / chat", "Not sure yet"],
+      },
+      {
+        key: "timeline",
+        kicker: "Timing",
+        label: "When do you want to start?",
+        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
       },
     ],
   },
@@ -422,6 +517,34 @@ export const services: Service[] = [
           "We pick the best model for the job — usually the latest Claude models — and design so you can swap or upgrade as the landscape changes.",
       },
     ],
+    wizardHeadlineLead: "Let's scope your",
+    wizardHeadlineAccent: "AI product",
+    wizard: [
+      {
+        key: "kind",
+        kicker: "Your product",
+        label: "What are you looking to build?",
+        options: ["Chat assistant", "Copilot in your app", "Smart search", "Document AI", "Not sure yet"],
+      },
+      {
+        key: "data",
+        kicker: "Your data",
+        label: "Should it know your content?",
+        options: ["Yes — our docs & data", "Public knowledge is fine", "A mix of both", "Not sure"],
+      },
+      {
+        key: "surface",
+        kicker: "Where it lives",
+        label: "Where will it run?",
+        options: ["New standalone product", "Inside our existing app", "Internal tool", "Still deciding"],
+      },
+      {
+        key: "timeline",
+        kicker: "Timing",
+        label: "When do you want to start?",
+        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
+      },
+    ],
   },
   {
     slug: "ai-automation",
@@ -507,6 +630,34 @@ export const services: Service[] = [
         question: "Can it work with our current tools?",
         answer:
           "Yes. We integrate with the CRMs, help desks, and internal systems you already run, rather than asking you to switch platforms.",
+      },
+    ],
+    wizardHeadlineLead: "Let's scope your",
+    wizardHeadlineAccent: "automation",
+    wizard: [
+      {
+        key: "area",
+        kicker: "The work",
+        label: "What would you automate first?",
+        options: ["Customer support", "Document processing", "Data entry / sync", "Internal workflows", "Something else"],
+      },
+      {
+        key: "volume",
+        kicker: "Scale",
+        label: "How much of it is there?",
+        options: ["A steady trickle", "Hundreds a week", "Thousands a week", "Not sure"],
+      },
+      {
+        key: "tools",
+        kicker: "Your stack",
+        label: "What should it plug into?",
+        options: ["CRM (e.g. HubSpot)", "Help desk", "Email / Slack", "Spreadsheets / DB", "A mix"],
+      },
+      {
+        key: "timeline",
+        kicker: "Timing",
+        label: "When do you want to start?",
+        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
       },
     ],
   },
