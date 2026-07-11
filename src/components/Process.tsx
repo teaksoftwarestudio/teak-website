@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { EASE, Reveal, fadeUp, stagger } from "./motion";
 
 const steps = [
   {
@@ -30,85 +31,83 @@ const steps = [
 ];
 
 export default function Process() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   return (
     <section
       style={{
-        background: "var(--teak-pale, #EFE5D6)",
-        padding: "120px 0",
-        borderTop: "1px solid rgba(17,17,17,0.06)",
+        background: "var(--teak-pale)",
+        padding: "128px 0",
+        borderTop: "1px solid rgba(21,19,17,0.06)",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-          <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 12,
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--teak)",
-            }}
-          >
-            How We Work
-          </span>
-        </div>
+        <Reveal>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+            <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
+            <span className="eyebrow">How We Work</span>
+          </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            marginBottom: 72,
-            flexWrap: "wrap",
-            gap: 24,
-          }}
-        >
-          <h2
+          <div
             style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(36px, 5vw, 64px)",
-              fontWeight: 400,
-              lineHeight: 1.1,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              marginBottom: 72,
+              flexWrap: "wrap",
+              gap: 24,
             }}
           >
-            From idea to
-            <br />
-            <span style={{ fontStyle: "italic" }}>production.</span>
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 15,
-              lineHeight: 1.7,
-              opacity: 0.6,
-              maxWidth: 360,
-            }}
-          >
-            Our process is designed to minimise surprises and maximise the quality
-            of what ships. Here&apos;s what working with us looks like.
-          </p>
-        </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(36px, 5vw, 66px)",
+                fontWeight: 400,
+                lineHeight: 1.08,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              From idea to
+              <br />
+              <span style={{ fontStyle: "italic", color: "var(--teak)" }}>production.</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 15,
+                lineHeight: 1.7,
+                opacity: 0.6,
+                maxWidth: 360,
+              }}
+            >
+              Our process is designed to minimise surprises and maximise the quality
+              of what ships. Here&apos;s what working with us looks like.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Timeline */}
         <div style={{ position: "relative" }}>
-          {/* Line */}
-          <div
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 1.2, ease: EASE }}
             style={{
               position: "absolute",
               top: 24,
               left: 0,
               right: 0,
               height: 1,
-              background: "rgba(17,17,17,0.15)",
+              background: "rgba(21,19,17,0.15)",
+              transformOrigin: "left",
             }}
             className="process-line"
           />
 
-          <div
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
@@ -118,9 +117,74 @@ export default function Process() {
             className="process-grid"
           >
             {steps.map((s, i) => (
-              <StepCard key={s.step} step={s} index={i} />
+              <motion.div key={s.step} variants={fadeUp}>
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 10,
+                    background: "var(--teak)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 28,
+                    flexShrink: 0,
+                    boxShadow: "0 10px 24px -12px rgba(139,111,71,0.7)",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "white",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    0{i + 1}
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--teak)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {s.duration}
+                </div>
+
+                <h3
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: 23,
+                    fontWeight: 400,
+                    marginBottom: 12,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {s.step}
+                </h3>
+
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    lineHeight: 1.75,
+                    opacity: 0.62,
+                  }}
+                >
+                  {s.description}
+                </p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -134,98 +198,5 @@ export default function Process() {
         }
       `}</style>
     </section>
-  );
-}
-
-function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            el.style.transition = "opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)";
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }, index * 120);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [index]);
-
-  return (
-    <div ref={ref} style={{ paddingTop: 0 }}>
-      {/* Dot */}
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          background: "var(--teak)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: 28,
-          flexShrink: 0,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: 12,
-            fontWeight: 600,
-            color: "white",
-            letterSpacing: "0.05em",
-          }}
-        >
-          0{index + 1}
-        </span>
-      </div>
-
-      <div
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: 11,
-          fontWeight: 600,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          color: "var(--teak)",
-          marginBottom: 8,
-        }}
-      >
-        {step.duration}
-      </div>
-
-      <h3
-        style={{
-          fontFamily: "var(--font-serif)",
-          fontSize: 22,
-          fontWeight: 400,
-          marginBottom: 12,
-          lineHeight: 1.2,
-        }}
-      >
-        {step.step}
-      </h3>
-
-      <p
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: 14,
-          lineHeight: 1.75,
-          opacity: 0.6,
-        }}
-      >
-        {step.description}
-      </p>
-    </div>
   );
 }

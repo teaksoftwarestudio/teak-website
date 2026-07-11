@@ -1,36 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { EASE, Reveal, fadeUp, stagger } from "./motion";
 
 export default function Contact() {
-  const ref = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "", budget: "" });
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(24px)";
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const reduce = useReducedMotion();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
-    // Simulate send
     setTimeout(() => setStatus("sent"), 1800);
   }
 
@@ -42,10 +23,10 @@ export default function Contact() {
     color: "var(--ink)",
     background: "transparent",
     border: "none",
-    borderBottom: "1px solid rgba(17,17,17,0.2)",
+    borderBottom: "1px solid var(--ink-subtle)",
     padding: "14px 0",
     outline: "none",
-    transition: "border-color 0.2s",
+    transition: "border-color 0.3s",
   };
 
   const labelStyle: React.CSSProperties = {
@@ -59,13 +40,18 @@ export default function Contact() {
     marginBottom: 4,
   };
 
+  const focusOn = (e: React.FocusEvent<HTMLElement>) =>
+    ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)");
+  const focusOff = (e: React.FocusEvent<HTMLElement>) =>
+    ((e.target as HTMLElement).style.borderBottomColor = "var(--ink-subtle)");
+
   return (
     <section
       id="contact"
       style={{
         background: "var(--cream)",
-        padding: "120px 0",
-        borderTop: "1px solid rgba(17,17,17,0.08)",
+        padding: "128px 0",
+        borderTop: "1px solid var(--ink-hairline)",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
@@ -79,29 +65,19 @@ export default function Contact() {
           className="contact-grid"
         >
           {/* Left */}
-          <div ref={ref}>
+          <Reveal>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
               <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--teak)",
-                }}
-              >
-                Get in Touch
-              </span>
+              <span className="eyebrow">Get in Touch</span>
             </div>
 
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(36px, 5vw, 60px)",
+                fontSize: "clamp(36px, 5vw, 62px)",
                 fontWeight: 400,
-                lineHeight: 1.1,
+                lineHeight: 1.08,
+                letterSpacing: "-0.02em",
                 marginBottom: 28,
               }}
             >
@@ -117,13 +93,13 @@ export default function Contact() {
                 fontFamily: "var(--font-sans)",
                 fontSize: 15,
                 lineHeight: 1.8,
-                opacity: 0.6,
+                opacity: 0.62,
                 marginBottom: 52,
                 maxWidth: 380,
               }}
             >
-              Tell us about your project. We typically respond within one business day and
-              offer a free 30-minute discovery call to explore fit.
+              Tell us about your project. We typically respond within one business day
+              and offer a free 30-minute discovery call to explore fit.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -146,164 +122,211 @@ export default function Contact() {
                   >
                     {item.label}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 15,
-                      opacity: 0.75,
-                    }}
-                  >
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: 15, opacity: 0.78 }}>
                     {item.value}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* Right — Form */}
           <div>
-            {status === "sent" ? (
-              <div
-                style={{
-                  padding: "60px 0",
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    width: 56,
-                    height: 56,
-                    border: "1.5px solid var(--teak)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto 24px",
-                  }}
+            <AnimatePresence mode="wait">
+              {status === "sent" ? (
+                <motion.div
+                  key="sent"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                  style={{ padding: "60px 0", textAlign: "center" }}
                 >
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                    <path d="M4 11l5 5 9-9" stroke="var(--teak)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: 28,
-                    fontWeight: 400,
-                    marginBottom: 12,
-                  }}
+                  <motion.div
+                    initial={reduce ? false : { scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: "50%",
+                      border: "1.5px solid var(--teak)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 24px",
+                    }}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 22 22" fill="none">
+                      <motion.path
+                        d="M4 11l5 5 9-9"
+                        stroke="var(--teak)"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={reduce ? false : { pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.5, ease: EASE, delay: 0.3 }}
+                      />
+                    </svg>
+                  </motion.div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: 30,
+                      fontWeight: 400,
+                      marginBottom: 12,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    Message received.
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-sans)", fontSize: 15, opacity: 0.6 }}>
+                    We&apos;ll be in touch within one business day.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  variants={stagger}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.2 }}
+                  exit={{ opacity: 0 }}
+                  style={{ display: "flex", flexDirection: "column", gap: 32 }}
                 >
-                  Message received.
-                </h3>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: 15, opacity: 0.6 }}>
-                  We&apos;ll be in touch within one business day.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }} className="form-row">
-                  <div>
-                    <label style={labelStyle}>Your Name</label>
-                    <input
+                  <motion.div
+                    variants={fadeUp}
+                    style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}
+                    className="form-row"
+                  >
+                    <div>
+                      <label style={labelStyle} htmlFor="c-name">
+                        Your Name <span style={{ color: "var(--teak)" }}>*</span>
+                      </label>
+                      <input
+                        id="c-name"
+                        required
+                        type="text"
+                        placeholder="Jane Smith"
+                        autoComplete="name"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        style={inputStyle}
+                        onFocus={focusOn}
+                        onBlur={focusOff}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle} htmlFor="c-email">
+                        Email <span style={{ color: "var(--teak)" }}>*</span>
+                      </label>
+                      <input
+                        id="c-email"
+                        required
+                        type="email"
+                        placeholder="jane@company.com"
+                        autoComplete="email"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        style={inputStyle}
+                        onFocus={focusOn}
+                        onBlur={focusOff}
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    variants={fadeUp}
+                    style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}
+                    className="form-row"
+                  >
+                    <div>
+                      <label style={labelStyle} htmlFor="c-company">Company</label>
+                      <input
+                        id="c-company"
+                        type="text"
+                        placeholder="Acme Inc."
+                        autoComplete="organization"
+                        value={form.company}
+                        onChange={(e) => setForm({ ...form, company: e.target.value })}
+                        style={inputStyle}
+                        onFocus={focusOn}
+                        onBlur={focusOff}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle} htmlFor="c-budget">Budget Range</label>
+                      <select
+                        id="c-budget"
+                        value={form.budget}
+                        onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                        style={{ ...inputStyle, cursor: "pointer", appearance: "none" }}
+                        onFocus={focusOn}
+                        onBlur={focusOff}
+                      >
+                        <option value="">Select a range</option>
+                        <option value="<25k">Under $25k</option>
+                        <option value="25k-75k">$25k – $75k</option>
+                        <option value="75k-150k">$75k – $150k</option>
+                        <option value="150k+">$150k+</option>
+                      </select>
+                    </div>
+                  </motion.div>
+
+                  <motion.div variants={fadeUp}>
+                    <label style={labelStyle} htmlFor="c-message">
+                      Tell us about your project <span style={{ color: "var(--teak)" }}>*</span>
+                    </label>
+                    <textarea
+                      id="c-message"
                       required
-                      type="text"
-                      placeholder="Jane Smith"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "rgba(17,17,17,0.2)")}
+                      rows={4}
+                      placeholder="What are you building? What problem does it solve?"
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      style={{ ...inputStyle, resize: "vertical", fontFamily: "var(--font-sans)" }}
+                      onFocus={focusOn}
+                      onBlur={focusOff}
                     />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Email</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="jane@company.com"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "rgba(17,17,17,0.2)")}
-                    />
-                  </div>
-                </div>
+                  </motion.div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }} className="form-row">
-                  <div>
-                    <label style={labelStyle}>Company</label>
-                    <input
-                      type="text"
-                      placeholder="Acme Inc."
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "rgba(17,17,17,0.2)")}
-                    />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Budget Range</label>
-                    <select
-                      value={form.budget}
-                      onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      style={{ ...inputStyle, cursor: "pointer", appearance: "none" }}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "rgba(17,17,17,0.2)")}
-                    >
-                      <option value="">Select a range</option>
-                      <option value="<25k">Under $25k</option>
-                      <option value="25k-75k">$25k – $75k</option>
-                      <option value="75k-150k">$75k – $150k</option>
-                      <option value="150k+">$150k+</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label style={labelStyle}>Tell us about your project</label>
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="What are you building? What problem does it solve?"
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    style={{ ...inputStyle, resize: "vertical", fontFamily: "var(--font-sans)" }}
-                    onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--teak)")}
-                    onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "rgba(17,17,17,0.2)")}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  style={{
-                    alignSelf: "flex-start",
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    color: "var(--cream)",
-                    background: status === "sending" ? "var(--teak)" : "var(--ink)",
-                    border: "none",
-                    padding: "16px 40px",
-                    cursor: status === "sending" ? "not-allowed" : "pointer",
-                    transition: "background 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (status !== "sending")
-                      (e.currentTarget as HTMLElement).style.background = "var(--teak)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (status !== "sending")
-                      (e.currentTarget as HTMLElement).style.background = "var(--ink)";
-                  }}
-                >
-                  {status === "sending" ? "Sending…" : "Send Message"}
-                </button>
-              </form>
-            )}
+                  <motion.button
+                    variants={fadeUp}
+                    type="submit"
+                    disabled={status === "sending"}
+                    whileHover={reduce || status === "sending" ? undefined : { scale: 1.03 }}
+                    whileTap={reduce || status === "sending" ? undefined : { scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    style={{
+                      alignSelf: "flex-start",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      color: "var(--cream)",
+                      background: status === "sending" ? "var(--teak)" : "var(--ink)",
+                      border: "none",
+                      padding: "17px 42px",
+                      cursor: status === "sending" ? "not-allowed" : "pointer",
+                      boxShadow: "0 12px 30px -14px rgba(21,19,17,0.5)",
+                      transition: "background 0.3s",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (status !== "sending")
+                        (e.currentTarget as HTMLElement).style.background = "var(--teak)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (status !== "sending")
+                        (e.currentTarget as HTMLElement).style.background = "var(--ink)";
+                    }}
+                  >
+                    {status === "sending" ? "Sending…" : "Send Message"}
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

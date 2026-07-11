@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { EASE, Reveal, fadeUp, stagger } from "./motion";
 
 const services = [
   {
@@ -33,78 +35,83 @@ const services = [
   },
 ];
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(24px)";
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            el.style.transition = "opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)";
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }, index * 100);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [index]);
+function ServiceRow({ service }: { service: (typeof services)[0] }) {
+  const [hovered, setHovered] = useState(false);
+  const reduce = useReducedMotion();
 
   return (
-    <div
-      ref={ref}
+    <motion.div
+      variants={fadeUp}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        borderTop: "1px solid rgba(17,17,17,0.12)",
-        padding: "40px 0",
+        borderTop: "1px solid var(--ink-hairline)",
+        padding: "40px 24px",
+        marginLeft: -24,
+        marginRight: -24,
         display: "grid",
         gridTemplateColumns: "80px 1fr 1fr",
         gap: "0 48px",
         cursor: "default",
+        borderRadius: 4,
+        background: hovered && !reduce ? "rgba(255,255,255,0.6)" : "transparent",
+        transition: "background 0.4s ease",
+        position: "relative",
       }}
       className="service-row"
     >
-      <span
+      <motion.span
+        animate={reduce ? undefined : { color: hovered ? "var(--teak-deep)" : "var(--teak)" }}
         style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: 12,
-          fontWeight: 500,
-          letterSpacing: "0.08em",
+          fontFamily: "var(--font-serif)",
+          fontSize: 20,
+          fontWeight: 400,
+          letterSpacing: "0.02em",
           color: "var(--teak)",
-          paddingTop: 4,
+          paddingTop: 2,
         }}
       >
         {service.number}
-      </span>
+      </motion.span>
 
       <div>
-        <h3
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: "clamp(26px, 3vw, 36px)",
-            fontWeight: 400,
-            lineHeight: 1.15,
-            marginBottom: 16,
-          }}
-        >
-          {service.title}
-        </h3>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+          <h3
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(26px, 3vw, 38px)",
+              fontWeight: 400,
+              lineHeight: 1.12,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {service.title}
+          </h3>
+          <motion.svg
+            width="20"
+            height="20"
+            viewBox="0 0 16 16"
+            fill="none"
+            animate={reduce ? undefined : { x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.35 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            <path
+              d="M3 8h10M9 4l4 4-4 4"
+              stroke="var(--teak)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
+        </div>
         <p
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: 15,
             lineHeight: 1.75,
             color: "var(--ink)",
-            opacity: 0.6,
-            maxWidth: 420,
+            opacity: 0.62,
+            maxWidth: 440,
           }}
         >
           {service.description}
@@ -127,11 +134,15 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
               fontFamily: "var(--font-sans)",
               fontSize: 12,
               fontWeight: 500,
-              letterSpacing: "0.04em",
+              letterSpacing: "0.03em",
               padding: "6px 14px",
-              border: "1px solid rgba(17,17,17,0.15)",
+              borderRadius: 999,
+              border: "1px solid var(--ink-subtle)",
               color: "var(--ink)",
-              opacity: 0.7,
+              opacity: 0.72,
+              transition: "border-color 0.3s, background 0.3s",
+              background: hovered ? "var(--teak-pale)" : "transparent",
+              borderColor: hovered ? "transparent" : "var(--ink-subtle)",
             }}
           >
             {tag}
@@ -147,73 +158,48 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Services() {
-  const headRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = headRef.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(20px)";
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.transition = "opacity 0.7s ease, transform 0.7s ease";
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="services" style={{ background: "var(--cream)", padding: "120px 0" }}>
+    <section id="services" style={{ background: "var(--cream)", padding: "128px 0" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
-        <div ref={headRef} style={{ marginBottom: 72 }}>
+        <Reveal style={{ marginBottom: 72 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 12,
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--teak)",
-              }}
-            >
-              What We Do
-            </span>
+            <span className="eyebrow">What We Do</span>
           </div>
           <h2
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(36px, 5vw, 64px)",
+              fontSize: "clamp(36px, 5vw, 66px)",
               fontWeight: 400,
-              lineHeight: 1.1,
+              lineHeight: 1.08,
+              letterSpacing: "-0.02em",
               maxWidth: 600,
             }}
           >
             Craft at every
             <br />
-            <span style={{ fontStyle: "italic" }}>layer of the stack.</span>
+            <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
+              layer of the stack.
+            </span>
           </h2>
-        </div>
+        </Reveal>
 
-        <div>
-          {services.map((service, i) => (
-            <ServiceCard key={service.number} service={service} index={i} />
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {services.map((service) => (
+            <ServiceRow key={service.number} service={service} />
           ))}
-          <div style={{ borderTop: "1px solid rgba(17,17,17,0.12)" }} />
-        </div>
+          <div style={{ borderTop: "1px solid var(--ink-hairline)" }} />
+        </motion.div>
       </div>
     </section>
   );

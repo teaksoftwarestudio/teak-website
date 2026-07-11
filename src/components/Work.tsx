@@ -1,51 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
-
-function useReveal(delay = 0) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(28px)";
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            el.style.transition =
-              "opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1)";
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }, delay);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.08 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay]);
-  return ref;
-}
+import { motion, useReducedMotion } from "framer-motion";
+import { EASE, Reveal, fadeUp, stagger } from "./motion";
 
 export default function Work() {
-  const headRef = useReveal(0);
-
   return (
     <section
       id="work"
       style={{
         background: "var(--cream)",
-        padding: "120px 0",
-        borderTop: "1px solid rgba(17,17,17,0.08)",
+        padding: "128px 0",
+        borderTop: "1px solid var(--ink-hairline)",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
         {/* Header */}
-        <div
-          ref={headRef}
+        <Reveal
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -58,30 +29,20 @@ export default function Work() {
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
               <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--teak)",
-                }}
-              >
-                Our Products
-              </span>
+              <span className="eyebrow">Our Products</span>
             </div>
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(36px, 5vw, 64px)",
+                fontSize: "clamp(36px, 5vw, 66px)",
                 fontWeight: 400,
-                lineHeight: 1.1,
+                lineHeight: 1.08,
+                letterSpacing: "-0.02em",
               }}
             >
               Products we&apos;ve
               <br />
-              <span style={{ fontStyle: "italic" }}>shipped.</span>
+              <span style={{ fontStyle: "italic", color: "var(--teak)" }}>shipped.</span>
             </h2>
           </div>
           <p
@@ -89,19 +50,16 @@ export default function Work() {
               fontFamily: "var(--font-sans)",
               fontSize: 15,
               lineHeight: 1.7,
-              opacity: 0.55,
+              opacity: 0.58,
               maxWidth: 340,
             }}
           >
             We don&apos;t just build for clients — we build our own products too.
             Here&apos;s what we&apos;ve shipped.
           </p>
-        </div>
+        </Reveal>
 
-        {/* SaveFirst — Featured card */}
         <SaveFirstCard />
-
-        {/* Coming soon row */}
         <ComingSoonRow />
       </div>
     </section>
@@ -109,19 +67,26 @@ export default function Work() {
 }
 
 function SaveFirstCard() {
-  const ref = useReveal(0);
+  const reduce = useReducedMotion();
 
   return (
-    <div
-      ref={ref}
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.9, ease: EASE }}
+      whileHover={reduce ? undefined : { y: -6 }}
       style={{
         background: "var(--white)",
-        border: "1px solid rgba(17,17,17,0.08)",
+        border: "1px solid var(--ink-hairline)",
         marginBottom: 24,
         overflow: "hidden",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         minHeight: 480,
+        borderRadius: 8,
+        boxShadow: "0 40px 80px -60px rgba(21,19,17,0.4)",
+        transition: "box-shadow 0.5s ease",
       }}
       className="savefirst-card"
     >
@@ -138,7 +103,6 @@ function SaveFirstCard() {
           position: "relative",
         }}
       >
-        {/* Glow */}
         <div
           aria-hidden
           style={{
@@ -146,19 +110,22 @@ function SaveFirstCard() {
             top: "30%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 300,
-            height: 300,
-            background: "radial-gradient(circle, rgba(19,146,236,0.15) 0%, transparent 70%)",
+            width: 320,
+            height: 320,
+            background: "radial-gradient(circle, rgba(19,146,236,0.16) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
         {/* Phone 1 — home */}
-        <div
+        <motion.div
+          animate={reduce ? undefined : { y: [0, -12, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            transform: "translateY(0) rotate(-3deg)",
+            transform: "rotate(-3deg)",
             zIndex: 1,
             flexShrink: 0,
-            filter: "drop-shadow(0 24px 40px rgba(19,146,236,0.18)) drop-shadow(0 6px 12px rgba(0,0,0,0.1))",
+            filter:
+              "drop-shadow(0 24px 40px rgba(19,146,236,0.18)) drop-shadow(0 6px 12px rgba(0,0,0,0.1))",
           }}
         >
           <PhoneShell>
@@ -170,14 +137,17 @@ function SaveFirstCard() {
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
             />
           </PhoneShell>
-        </div>
+        </motion.div>
         {/* Phone 2 — transaction */}
-        <div
+        <motion.div
+          animate={reduce ? undefined : { y: [-20, -32, -20] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
           style={{
-            transform: "translateY(-20px) rotate(2.5deg)",
+            transform: "rotate(2.5deg)",
             zIndex: 2,
             flexShrink: 0,
-            filter: "drop-shadow(0 28px 48px rgba(19,146,236,0.22)) drop-shadow(0 8px 16px rgba(0,0,0,0.12))",
+            filter:
+              "drop-shadow(0 28px 48px rgba(19,146,236,0.22)) drop-shadow(0 8px 16px rgba(0,0,0,0.12))",
           }}
         >
           <PhoneShell>
@@ -189,11 +159,15 @@ function SaveFirstCard() {
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
             />
           </PhoneShell>
-        </div>
+        </motion.div>
       </div>
 
       {/* Right — content */}
-      <div
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
         style={{
           padding: "52px 48px",
           display: "flex",
@@ -201,8 +175,10 @@ function SaveFirstCard() {
           justifyContent: "center",
         }}
       >
-        {/* Category pill */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
+        <motion.div
+          variants={fadeUp}
+          style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}
+        >
           <span
             style={{
               fontFamily: "var(--font-sans)",
@@ -213,6 +189,7 @@ function SaveFirstCard() {
               color: "#1392EC",
               background: "#EEF7FF",
               padding: "5px 12px",
+              borderRadius: 999,
             }}
           >
             iOS App · FinTech
@@ -227,42 +204,48 @@ function SaveFirstCard() {
               color: "var(--teak)",
               background: "var(--teak-pale)",
               padding: "5px 12px",
+              borderRadius: 999,
             }}
           >
             AI-Powered
           </span>
-        </div>
+        </motion.div>
 
-        <h3
+        <motion.h3
+          variants={fadeUp}
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: "clamp(32px, 3.5vw, 48px)",
+            fontSize: "clamp(32px, 3.5vw, 50px)",
             fontWeight: 400,
-            lineHeight: 1.1,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
             marginBottom: 20,
           }}
         >
           SaveFirst
-        </h3>
+        </motion.h3>
 
-        <p
+        <motion.p
+          variants={fadeUp}
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: 15,
             lineHeight: 1.8,
-            opacity: 0.62,
+            opacity: 0.64,
             marginBottom: 32,
             maxWidth: 400,
           }}
         >
           A personal finance tracker for iOS that automatically categorises every
-          transaction — expenses, income, and investments. Integrated with AI to surface
-          spending insights, heads-up alerts, and visualise trends before you even
-          think to look.
-        </p>
+          transaction — expenses, income, and investments. Integrated with AI to
+          surface spending insights, heads-up alerts, and visualise trends before you
+          even think to look.
+        </motion.p>
 
-        {/* Feature chips */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 36 }}>
+        <motion.div
+          variants={fadeUp}
+          style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 36 }}
+        >
           {[
             "Expense Tracking",
             "Income & Investments",
@@ -279,22 +262,28 @@ function SaveFirstCard() {
                 fontWeight: 500,
                 letterSpacing: "0.03em",
                 padding: "6px 14px",
-                border: "1px solid rgba(17,17,17,0.13)",
+                borderRadius: 999,
+                border: "1px solid var(--ink-subtle)",
                 color: "var(--ink)",
-                opacity: 0.7,
+                opacity: 0.72,
               }}
             >
               {tag}
             </span>
           ))}
-        </div>
+        </motion.div>
 
-        {/* CTA */}
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <a
+        <motion.div
+          variants={fadeUp}
+          style={{ display: "flex", alignItems: "center", gap: 24 }}
+        >
+          <motion.a
             href="https://savefirst.app"
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={reduce ? undefined : { scale: 1.04 }}
+            whileTap={reduce ? undefined : { scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 13,
@@ -303,9 +292,11 @@ function SaveFirstCard() {
               textTransform: "uppercase",
               color: "var(--cream)",
               background: "#1392EC",
-              padding: "13px 28px",
+              padding: "14px 28px",
               textDecoration: "none",
               display: "inline-block",
+              borderRadius: 4,
+              boxShadow: "0 12px 28px -12px rgba(19,146,236,0.6)",
               transition: "background 0.2s",
             }}
             onMouseEnter={(e) =>
@@ -316,28 +307,26 @@ function SaveFirstCard() {
             }
           >
             View App
-          </a>
+          </motion.a>
           <span
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 13,
-              opacity: 0.4,
+              opacity: 0.42,
               fontStyle: "italic",
             }}
           >
             Available on the App Store
           </span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <style>{`
         @media (max-width: 900px) {
-          .savefirst-card {
-            grid-template-columns: 1fr !important;
-          }
+          .savefirst-card { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
 
@@ -355,7 +344,6 @@ function PhoneShell({ children }: { children: React.ReactNode }) {
         boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.07)",
       }}
     >
-      {/* Dynamic island notch */}
       <div
         style={{
           position: "absolute",
@@ -375,11 +363,14 @@ function PhoneShell({ children }: { children: React.ReactNode }) {
 }
 
 function ComingSoonRow() {
-  const ref = useReveal(100);
+  const reduce = useReducedMotion();
 
   return (
-    <div
-      ref={ref}
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
@@ -387,11 +378,14 @@ function ComingSoonRow() {
       }}
       className="coming-grid"
     >
-      {["SaaS Platform", "Web App", "Mobile App"].map((label, i) => (
-        <div
-          key={i}
+      {["SaaS Platform", "Web App", "Mobile App"].map((label) => (
+        <motion.div
+          key={label}
+          variants={fadeUp}
+          whileHover={reduce ? undefined : { y: -4, borderColor: "var(--teak-light)" }}
           style={{
-            border: "1px dashed rgba(17,17,17,0.15)",
+            border: "1px dashed var(--ink-subtle)",
+            borderRadius: 8,
             padding: "48px 32px",
             display: "flex",
             flexDirection: "column",
@@ -405,7 +399,8 @@ function ComingSoonRow() {
             style={{
               width: 40,
               height: 40,
-              border: "1px solid rgba(17,17,17,0.12)",
+              border: "1px solid var(--ink-subtle)",
+              borderRadius: 6,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -413,7 +408,13 @@ function ComingSoonRow() {
             }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.3" />
+              <path
+                d="M8 3v10M3 8h10"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                opacity="0.3"
+              />
             </svg>
           </div>
           <span
@@ -423,7 +424,7 @@ function ComingSoonRow() {
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              opacity: 0.3,
+              opacity: 0.34,
             }}
           >
             {label}
@@ -432,19 +433,19 @@ function ComingSoonRow() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 12,
-              opacity: 0.25,
+              opacity: 0.28,
               fontStyle: "italic",
             }}
           >
             Coming soon
           </span>
-        </div>
+        </motion.div>
       ))}
       <style>{`
         @media (max-width: 768px) {
           .coming-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
