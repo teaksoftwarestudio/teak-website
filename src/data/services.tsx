@@ -79,130 +79,8 @@ const iconProps = {
 
 export const services: Service[] = [
   {
-    slug: "saas-products",
-    number: "01",
-    title: "SaaS Products",
-    plain: "Software people subscribe to",
-    description:
-      "We take your idea from a sketch to a product with paying customers — design, engineering, billing, and launch, handled end to end.",
-    tags: ["Product Strategy", "Full-Stack Dev", "Auth & Billing", "Launch"],
-    span: 3,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <rect x="3" y="4" width="18" height="14" rx="2" />
-        <path d="M3 9h18M7 6.5h.01M10 6.5h.01" />
-        <path d="M9 21h6" />
-      </svg>
-    ),
-    seoTitle: "SaaS Product Development — Teak Software Studio",
-    seoDescription:
-      "We design, build, and launch subscription software end to end — product strategy, full-stack engineering, auth, billing, and go-to-market.",
-    eyebrow: "Service 01 — SaaS Products",
-    headlineLead: "Software people",
-    headlineAccent: "subscribe to",
-    headlineTail: ", built end to end.",
-    deck: "From a sketch to a product with paying customers — one team owning design, engineering, billing, and launch.",
-    stats: [
-      { value: "8 wks", label: "Idea to first paying users" },
-      { value: "1", label: "Team, from strategy to launch" },
-      { value: "100%", label: "Ownership of your codebase" },
-    ],
-    overview: [
-      "A SaaS product is never just an app. It's onboarding that converts, billing that never drops a charge, retention that compounds, and support that scales — all working as one system. We build every layer so your customers can sign up, pay, and get value without you ever touching the plumbing.",
-      "Whether you're a founder validating a first idea or an established company launching a new line, we step in as your product team. Strategy in the first week. A working prototype in the first month. Paying customers before we're done.",
-    ],
-    overviewPull:
-      "We don't hand you a demo and walk away. We hand you a business that runs.",
-    deliverables: [
-      {
-        title: "A product, not a prototype",
-        detail:
-          "Auth, subscriptions, dashboards, and admin — the whole surface your customers and your team actually touch.",
-      },
-      {
-        title: "Revenue that works on day one",
-        detail:
-          "Plans, trials, upgrades, invoices, and dunning wired in from the start, not bolted on before launch.",
-      },
-      {
-        title: "A codebase you own",
-        detail:
-          "Clean, documented, and typed — so whether we stay on or you take it in-house, nothing is a black box.",
-      },
-    ],
-    process: [
-      {
-        title: "Discovery & strategy",
-        detail:
-          "We pin down the core job your product does, who pays for it, and the smallest version worth shipping.",
-      },
-      {
-        title: "Design & prototype",
-        detail:
-          "Clickable flows and a real design system before a line of production code — so you see it before you buy it.",
-      },
-      {
-        title: "Build & integrate",
-        detail:
-          "Full-stack engineering with auth, subscriptions, and billing wired in from day one, not bolted on later.",
-      },
-      {
-        title: "Launch & iterate",
-        detail:
-          "We ship to real users, watch what they do, and tune onboarding and pricing until the numbers move.",
-      },
-    ],
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Stripe", "Auth", "Vercel"],
-    caseStudy: {
-      client: "Early-stage founder",
-      summary:
-        "Took a spreadsheet-based workflow and turned it into a subscription product with self-serve signup and billing.",
-      result: "First paying customers within 8 weeks of kickoff.",
-    },
-    faqs: [
-      {
-        question: "Can you handle billing and subscriptions?",
-        answer:
-          "Yes. We set up Stripe (or your provider of choice) end to end — plans, trials, upgrades, dunning, and invoices — so revenue works from launch day.",
-      },
-      {
-        question: "Do you help after launch?",
-        answer:
-          "We stay on for iteration and support. Most clients keep us as their ongoing product team, but we're happy to hand off a clean, documented codebase too.",
-      },
-    ],
-    wizardHeadlineLead: "Let's scope your",
-    wizardHeadlineAccent: "SaaS product",
-    wizard: [
-      {
-        key: "stage",
-        kicker: "Your product",
-        label: "Where are you today?",
-        options: ["Just an idea", "Validated concept", "Have designs", "Live product to grow", "Rescue / rebuild"],
-      },
-      {
-        key: "audience",
-        kicker: "Your customers",
-        label: "Who will pay for it?",
-        options: ["Businesses (B2B)", "Consumers (B2C)", "Both", "Not sure yet"],
-      },
-      {
-        key: "billing",
-        kicker: "Revenue model",
-        label: "How do you plan to charge?",
-        options: ["Monthly subscription", "Usage-based", "One-time + upsells", "Still deciding"],
-      },
-      {
-        key: "timeline",
-        kicker: "Timing",
-        label: "When do you want to launch?",
-        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
-      },
-    ],
-  },
-  {
     slug: "web-applications",
-    number: "02",
+    number: "01",
     title: "Web Applications",
     plain: "Powerful tools that run in the browser",
     description:
@@ -218,7 +96,7 @@ export const services: Service[] = [
     seoTitle: "Web Application Development — Teak Software Studio",
     seoDescription:
       "Custom web applications — dashboards, portals, and marketplaces — engineered with Next.js and React to feel fast and simple at any scale.",
-    eyebrow: "Service 02 — Web Applications",
+    eyebrow: "Service 01 — Web Applications",
     headlineLead: "Powerful tools that run",
     headlineAccent: "in the browser",
     headlineTail: ".",
@@ -317,7 +195,7 @@ export const services: Service[] = [
   },
   {
     slug: "mobile-apps",
-    number: "03",
+    number: "02",
     title: "Mobile Apps",
     plain: "iOS & Android, one codebase",
     description:
@@ -333,7 +211,7 @@ export const services: Service[] = [
     seoTitle: "Mobile App Development — iOS & Android — Teak Software Studio",
     seoDescription:
       "Native-quality iOS and Android apps from a single codebase — clean UX, smooth animations, push notifications, and offline support.",
-    eyebrow: "Service 03 — Mobile Apps",
+    eyebrow: "Service 02 — Mobile Apps",
     headlineLead: "iOS and Android,",
     headlineAccent: "one codebase",
     headlineTail: ".",
@@ -432,7 +310,7 @@ export const services: Service[] = [
   },
   {
     slug: "ai-systems",
-    number: "04",
+    number: "03",
     title: "AI Systems",
     plain: "Products with intelligence built in",
     description:
@@ -449,7 +327,7 @@ export const services: Service[] = [
     seoTitle: "AI Application Development — Teak Software Studio",
     seoDescription:
       "AI-native products built on the latest models and tuned to your data — chat assistants, copilots, and search that actually understands.",
-    eyebrow: "Service 04 — AI Systems",
+    eyebrow: "Service 03 — AI Systems",
     headlineLead: "Products with",
     headlineAccent: "intelligence",
     headlineTail: " built in.",
@@ -537,121 +415,6 @@ export const services: Service[] = [
         kicker: "Where it lives",
         label: "Where will it run?",
         options: ["New standalone product", "Inside our existing app", "Internal tool", "Still deciding"],
-      },
-      {
-        key: "timeline",
-        kicker: "Timing",
-        label: "When do you want to start?",
-        options: ["ASAP", "This quarter", "Next 6 months", "Just exploring"],
-      },
-    ],
-  },
-  {
-    slug: "ai-automation",
-    number: "05",
-    title: "AI Automation",
-    plain: "Your busywork, done by machines",
-    description:
-      "We wire AI into your operations — automating support, documents, and workflows so your team spends time where it matters.",
-    tags: ["AI Agents", "Workflows", "Integrations"],
-    span: 2,
-    icon: (
-      <svg {...iconProps} aria-hidden="true">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" />
-      </svg>
-    ),
-    seoTitle: "AI Automation & Agents — Teak Software Studio",
-    seoDescription:
-      "We wire AI into your operations — automating support, document processing, and internal workflows with agents that integrate with your tools.",
-    eyebrow: "Service 05 — AI Automation",
-    headlineLead: "Your busywork,",
-    headlineAccent: "done by machines",
-    headlineTail: ".",
-    deck: "We wire AI into your operations — automating support, documents, and workflows so your team spends its time where it actually matters.",
-    stats: [
-      { value: "24/7", label: "Runs while your team sleeps" },
-      { value: "Human", label: "In the loop where it counts" },
-      { value: "Yours", label: "Integrated with your tools" },
-    ],
-    overview: [
-      "Every team carries busywork that shouldn't need a human — triaging support tickets, extracting data from documents, moving information between systems that don't talk to each other. We automate it with AI so your people spend their hours on the work only people can do.",
-      "We build agents and workflows that plug into the software you already run, execute reliably, and stay firmly under your control — with a human in the loop wherever judgment matters and a full audit trail of everything they touch.",
-    ],
-    overviewPull:
-      "Automation shouldn't mean losing control. It should mean earning back your time.",
-    deliverables: [
-      {
-        title: "Agents that fit your stack",
-        detail:
-          "They connect to your CRM, help desk, email, and spreadsheets — no rip-and-replace, no new platform to learn.",
-      },
-      {
-        title: "Human-in-the-loop by default",
-        detail:
-          "Routine cases handled automatically; anything uncertain routed to your team with the context to act.",
-      },
-      {
-        title: "Fully accountable",
-        detail:
-          "Dashboards and logs of every action, so you can see exactly what ran, when, and why.",
-      },
-    ],
-    process: [
-      {
-        title: "Map the workflow",
-        detail:
-          "We trace the manual process step by step to find exactly where automation pays off.",
-      },
-      {
-        title: "Design the automation",
-        detail:
-          "We design agents and rules that handle the routine cases and escalate the edge cases to a human.",
-      },
-      {
-        title: "Integrate",
-        detail:
-          "We connect to your existing tools — CRM, help desk, email, spreadsheets — so it fits your stack.",
-      },
-      {
-        title: "Monitor & refine",
-        detail:
-          "Live with dashboards and logs so you can see what it's doing and trust it over time.",
-      },
-    ],
-    techStack: ["AI Agents", "Claude", "Webhooks", "APIs", "Queues", "Zapier / n8n"],
-    faqs: [
-      {
-        question: "Will we lose control of the process?",
-        answer:
-          "No — we design human-in-the-loop by default. The automation handles routine work and routes anything uncertain to your team, with full logs of every action.",
-      },
-      {
-        question: "Can it work with our current tools?",
-        answer:
-          "Yes. We integrate with the CRMs, help desks, and internal systems you already run, rather than asking you to switch platforms.",
-      },
-    ],
-    wizardHeadlineLead: "Let's scope your",
-    wizardHeadlineAccent: "automation",
-    wizard: [
-      {
-        key: "area",
-        kicker: "The work",
-        label: "What would you automate first?",
-        options: ["Customer support", "Document processing", "Data entry / sync", "Internal workflows", "Something else"],
-      },
-      {
-        key: "volume",
-        kicker: "Scale",
-        label: "How much of it is there?",
-        options: ["A steady trickle", "Hundreds a week", "Thousands a week", "Not sure"],
-      },
-      {
-        key: "tools",
-        kicker: "Your stack",
-        label: "What should it plug into?",
-        options: ["CRM (e.g. HubSpot)", "Help desk", "Email / Slack", "Spreadsheets / DB", "A mix"],
       },
       {
         key: "timeline",
