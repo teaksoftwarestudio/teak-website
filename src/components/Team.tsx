@@ -16,56 +16,56 @@ type Member = {
   image?: string;
 };
 
-// Placeholder team — replace names, roles, bios, and focus tags with real details.
 const team: Member[] = [
   {
-    name: "Team Member One",
-    role: "Founder & Principal Engineer",
-    bio: "Sets the technical direction and owns architecture end to end. Has spent a decade turning ambitious product ideas into resilient, production-grade systems — and knows exactly which corners are safe to cut and which aren’t.",
-    shortBio: "Sets technical direction and owns architecture end to end.",
-    initials: "T1",
-    focus: ["Architecture", "Backend", "DevOps", "Strategy"],
-    // image: "/team/member-one.jpg", // homepage photo — drop a headshot in /public/team and uncomment
+    name: "Murshed Al Amin",
+    role: "CEO",
+    bio: "Sets the vision and steers the company's direction, from client relationships to long-term strategy. Focused on building a studio that clients trust with their most ambitious ideas.",
+    shortBio: "Sets the vision and steers the company's direction.",
+    initials: "MA",
+    focus: ["Strategy", "Leadership", "Client Relations", "Growth"],
+    // image: "/team/murshed.jpg", // homepage photo — drop a headshot in /public/team and uncomment
   },
   {
-    name: "Team Member Two",
-    role: "Product Designer & Frontend",
-    bio: "Owns the craft of every interface, from the first wireframe to the last pixel. Designs in Figma and builds in React, so nothing gets lost in translation — the thing you see is the thing that ships.",
-    shortBio: "Designs and builds the interface, wireframe to last pixel.",
-    initials: "T2",
-    focus: ["UI/UX", "Design Systems", "React", "Motion"],
+    name: "Amit Aditaya",
+    role: "CTO",
+    bio: "Owns the technical direction and architecture across every product the studio ships. Turns ambitious ideas into resilient, production-grade systems, and knows exactly which corners are safe to cut and which aren't.",
+    shortBio: "Owns the technical direction and architecture end to end.",
+    initials: "AA",
+    focus: ["Architecture", "Backend", "DevOps", "Engineering"],
   },
   {
-    name: "Team Member Three",
-    role: "Full-Stack Engineer",
-    bio: "Ships across the stack and keeps the whole thing fast. Connects polished front-ends to dependable back-ends, wires up integrations, and sweats the performance details most people never notice.",
-    shortBio: "Ships across the stack and keeps the whole thing fast.",
-    initials: "T3",
-    focus: ["Full-Stack", "APIs", "Mobile", "Performance"],
+    name: "Ifaz Alam",
+    role: "COO",
+    bio: "Runs the day-to-day operations that keep projects on track and teams aligned. Bridges strategy and execution, making sure the work gets delivered smoothly from kickoff to launch.",
+    shortBio: "Runs day-to-day operations and keeps delivery on track.",
+    initials: "IA",
+    focus: ["Operations", "Delivery", "Process", "Team Ops"],
   },
 ];
 
 type TeamProps = {
-  /** "full" — detailed cream section for the About page.
-   *  "compact" — short, dark variant that aligns with the homepage About section. */
+  /** "full" — detailed section for the About page.
+   *  "compact" — shorter bios for the homepage, its own cream section. */
   variant?: "full" | "compact";
 };
 
 export default function Team({ variant = "full" }: TeamProps) {
-  const dark = variant === "compact";
+  const compact = variant === "compact";
 
-  const ink = dark ? "var(--cream)" : "var(--ink)";
-  const muted = dark ? "rgba(250,248,245,0.6)" : "var(--ink-muted)";
-  const accent = dark ? "var(--teak-light)" : "var(--teak)";
-  const cardBg = dark ? "rgba(250,248,245,0.03)" : "var(--white)";
-  const cardBorder = dark ? "1px solid rgba(250,248,245,0.12)" : "1px solid var(--ink-hairline)";
+  const ink = "var(--ink)";
+  const muted = "var(--ink-muted)";
+  const accent = "var(--teak)";
+  const cardBg = "var(--white)";
+  const cardBorder = "1px solid var(--ink-hairline)";
 
   return (
     <section
       style={{
-        background: dark ? "var(--ink)" : "var(--cream)",
+        background: "var(--cream)",
         color: ink,
-        padding: dark ? "0 0 96px" : "96px 0",
+        padding: compact ? "88px 0" : "96px 0",
+        borderTop: compact ? "1px solid var(--ink-hairline)" : undefined,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
@@ -92,7 +92,7 @@ export default function Team({ variant = "full" }: TeamProps) {
               letterSpacing: "-0.01em",
               color: muted,
               maxWidth: 640,
-              marginBottom: dark ? 48 : 28,
+              marginBottom: 28,
             }}
           >
             Three people.{" "}
@@ -100,22 +100,20 @@ export default function Team({ variant = "full" }: TeamProps) {
               One high bar.
             </span>
           </p>
-          {!dark && (
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 16,
-                lineHeight: 1.75,
-                color: muted,
-                maxWidth: 560,
-                marginBottom: 64,
-              }}
-            >
-              We&rsquo;re deliberately small. You work directly with the people
-              building your product — no hand-offs, no account managers, no
-              diluted ownership.
-            </p>
-          )}
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 16,
+              lineHeight: 1.75,
+              color: muted,
+              maxWidth: 560,
+              marginBottom: 64,
+            }}
+          >
+            We&rsquo;re deliberately small. You work directly with the people
+            building your product — no hand-offs, no account managers, no
+            diluted ownership.
+          </p>
         </Reveal>
 
         <motion.div
@@ -126,7 +124,7 @@ export default function Team({ variant = "full" }: TeamProps) {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: dark ? 24 : 28,
+            gap: 28,
           }}
           className="team-grid"
         >
@@ -138,20 +136,18 @@ export default function Team({ variant = "full" }: TeamProps) {
                 background: cardBg,
                 border: cardBorder,
                 borderRadius: 4,
-                padding: dark ? "30px 28px" : "36px 32px 40px",
+                padding: "36px 32px 40px",
                 display: "flex",
-                flexDirection: dark ? "row" : "column",
-                alignItems: dark ? "center" : "stretch",
-                gap: dark ? 18 : 0,
+                flexDirection: "column",
+                alignItems: "stretch",
               }}
             >
-              {/* Avatar — photo (compact/homepage only) if provided, otherwise initials */}
               <div
-                aria-hidden={!(dark && m.image)}
+                aria-hidden={!m.image}
                 style={{
                   position: "relative",
-                  width: dark ? 56 : 72,
-                  height: dark ? 56 : 72,
+                  width: 72,
+                  height: 72,
                   flexShrink: 0,
                   borderRadius: "50%",
                   overflow: "hidden",
@@ -161,17 +157,17 @@ export default function Team({ variant = "full" }: TeamProps) {
                   alignItems: "center",
                   justifyContent: "center",
                   fontFamily: "var(--font-serif)",
-                  fontSize: dark ? 20 : 26,
+                  fontSize: 26,
                   color: "var(--teak-deep)",
-                  marginBottom: dark ? 0 : 24,
+                  marginBottom: 24,
                 }}
               >
-                {dark && m.image ? (
+                {m.image ? (
                   <Image
                     src={m.image}
                     alt={m.name}
                     fill
-                    sizes="56px"
+                    sizes="72px"
                     style={{ objectFit: "cover" }}
                   />
                 ) : (
@@ -183,7 +179,7 @@ export default function Team({ variant = "full" }: TeamProps) {
                 <h3
                   style={{
                     fontFamily: "var(--font-serif)",
-                    fontSize: dark ? 20 : 24,
+                    fontSize: 24,
                     fontWeight: 400,
                     letterSpacing: "-0.01em",
                     color: ink,
@@ -195,12 +191,12 @@ export default function Team({ variant = "full" }: TeamProps) {
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: dark ? 12 : 13,
+                    fontSize: 13,
                     fontWeight: 600,
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     color: accent,
-                    marginBottom: dark ? 8 : 18,
+                    marginBottom: 18,
                   }}
                 >
                   {m.role}
@@ -211,34 +207,32 @@ export default function Team({ variant = "full" }: TeamProps) {
                     fontSize: 14.5,
                     lineHeight: 1.7,
                     color: muted,
-                    marginBottom: dark ? 0 : 24,
-                    flex: dark ? "none" : 1,
+                    marginBottom: 24,
+                    flex: 1,
                   }}
                 >
-                  {dark ? m.shortBio : m.bio}
+                  {compact ? m.shortBio : m.bio}
                 </p>
 
-                {!dark && (
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {m.focus.map((f) => (
-                      <span
-                        key={f}
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: 11.5,
-                          fontWeight: 500,
-                          letterSpacing: "0.02em",
-                          color: "var(--teak-deep)",
-                          background: "var(--teak-pale)",
-                          borderRadius: 999,
-                          padding: "4px 11px",
-                        }}
-                      >
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {m.focus.map((f) => (
+                    <span
+                      key={f}
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: 11.5,
+                        fontWeight: 500,
+                        letterSpacing: "0.02em",
+                        color: "var(--teak-deep)",
+                        background: "var(--teak-pale)",
+                        borderRadius: 999,
+                        padding: "4px 11px",
+                      }}
+                    >
+                      {f}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.article>
           ))}

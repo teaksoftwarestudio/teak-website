@@ -5,7 +5,6 @@ import Work from "@/components/Work";
 import TrustBar from "@/components/TrustBar";
 import About from "@/components/About";
 import Team from "@/components/Team";
-import Process from "@/components/Process";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -18,7 +17,6 @@ export default function Home() {
         <Services />
         <Work />
         <TrustBar />
-        <Process />
         <About />
         <Team variant="compact" />
         <Contact />
