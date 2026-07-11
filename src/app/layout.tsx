@@ -19,15 +19,23 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Teak Software Studio — SaaS, Web & Mobile Products",
+  metadataBase: new URL("https://www.teaksoftware.studio"),
+  title: "Teak Software Studio — Web, Mobile & AI Products",
   description:
-    "Teak Software Studio builds polished SaaS products, web applications, and mobile apps for US and European clients. Thoughtful software, beautifully delivered.",
-  keywords: ["SaaS development", "web app development", "mobile app development", "software studio", "product development"],
+    "Teak Software Studio builds polished web applications, mobile apps, and AI systems for US and European clients. Thoughtful software, beautifully delivered.",
+  keywords: ["web app development", "mobile app development", "AI systems", "software studio", "product development"],
   authors: [{ name: "Teak Software Studio" }],
   openGraph: {
     title: "Teak Software Studio",
-    description: "We build SaaS products, web apps, and mobile apps for clients who care about quality.",
+    description: "We build web apps, mobile apps, and AI systems for clients who care about quality.",
     type: "website",
+    siteName: "Teak Software Studio",
+    url: "https://www.teaksoftware.studio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Teak Software Studio",
+    description: "We build web apps, mobile apps, and AI systems for clients who care about quality.",
   },
   icons: {
     icon: [
