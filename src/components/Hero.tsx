@@ -105,13 +105,13 @@ export default function Hero() {
           }}
         >
           <motion.span variants={blurUp} style={{ display: "block" }}>
-            We build products
+            We build products for
           </motion.span>
           <motion.span
             variants={blurUp}
             style={{ display: "block", fontStyle: "italic", color: "var(--teak)" }}
           >
-            that&nbsp;last.
+            people and&nbsp;agents.
           </motion.span>
         </h1>
 
@@ -129,9 +129,8 @@ export default function Hero() {
             marginBottom: 52,
           }}
         >
-          Teak Software Studio designs and engineers SaaS platforms, web
-          applications, and mobile products for founders and teams across the US
-          and Europe.
+          We&rsquo;re a small studio creating our own digital products and
+          collaborating with businesses on theirs.
         </motion.p>
 
         {/* CTA row */}
