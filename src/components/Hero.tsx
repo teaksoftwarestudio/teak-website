@@ -23,22 +23,6 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Subtle background grid */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "linear-gradient(rgba(21,19,17,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(21,19,17,0.035) 1px, transparent 1px)",
-          backgroundSize: "84px 84px",
-          maskImage:
-            "radial-gradient(ellipse 80% 80% at 50% 45%, black 15%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 80% 80% at 50% 45%, black 15%, transparent 100%)",
-        }}
-      />
-
       {/* Teak accent blobs — slow drift */}
       <motion.div
         aria-hidden
@@ -208,48 +192,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        style={{
-          position: "absolute",
-          bottom: 48,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-        }}
-        className="scroll-cue"
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: 10,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-          }}
-        >
-          Scroll
-        </span>
-        <div
-          style={{
-            width: 1,
-            height: 44,
-            background: "var(--ink)",
-            animation: "scrollPulse 2s ease-in-out infinite",
-          }}
-        />
-      </motion.div>
-
-      <style>{`
-        @media (max-width: 640px) {
-          .scroll-cue { display: none !important; }
-        }
-      `}</style>
     </section>
   );
 }
