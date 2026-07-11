@@ -16,32 +16,31 @@ type Member = {
   image?: string;
 };
 
-// Placeholder team — replace names, roles, bios, and focus tags with real details.
 const team: Member[] = [
   {
-    name: "Team Member One",
-    role: "Founder & Principal Engineer",
-    bio: "Sets the technical direction and owns architecture end to end. Has spent a decade turning ambitious product ideas into resilient, production-grade systems — and knows exactly which corners are safe to cut and which aren’t.",
-    shortBio: "Sets technical direction and owns architecture end to end.",
-    initials: "T1",
-    focus: ["Architecture", "Backend", "DevOps", "Strategy"],
-    // image: "/team/member-one.jpg", // homepage photo — drop a headshot in /public/team and uncomment
+    name: "Murshed Al Amin",
+    role: "CEO",
+    bio: "Sets the vision and steers the company's direction, from client relationships to long-term strategy. Focused on building a studio that clients trust with their most ambitious ideas.",
+    shortBio: "Sets the vision and steers the company's direction.",
+    initials: "MA",
+    focus: ["Strategy", "Leadership", "Client Relations", "Growth"],
+    // image: "/team/murshed.jpg", // homepage photo — drop a headshot in /public/team and uncomment
   },
   {
-    name: "Team Member Two",
-    role: "Product Designer & Frontend",
-    bio: "Owns the craft of every interface, from the first wireframe to the last pixel. Designs in Figma and builds in React, so nothing gets lost in translation — the thing you see is the thing that ships.",
-    shortBio: "Designs and builds the interface, wireframe to last pixel.",
-    initials: "T2",
-    focus: ["UI/UX", "Design Systems", "React", "Motion"],
+    name: "Amit Aditaya",
+    role: "CTO",
+    bio: "Owns the technical direction and architecture across every product the studio ships. Turns ambitious ideas into resilient, production-grade systems, and knows exactly which corners are safe to cut and which aren't.",
+    shortBio: "Owns the technical direction and architecture end to end.",
+    initials: "AA",
+    focus: ["Architecture", "Backend", "DevOps", "Engineering"],
   },
   {
-    name: "Team Member Three",
-    role: "Full-Stack Engineer",
-    bio: "Ships across the stack and keeps the whole thing fast. Connects polished front-ends to dependable back-ends, wires up integrations, and sweats the performance details most people never notice.",
-    shortBio: "Ships across the stack and keeps the whole thing fast.",
-    initials: "T3",
-    focus: ["Full-Stack", "APIs", "Mobile", "Performance"],
+    name: "Ifaz Alam",
+    role: "COO",
+    bio: "Runs the day-to-day operations that keep projects on track and teams aligned. Bridges strategy and execution, making sure the work gets delivered smoothly from kickoff to launch.",
+    shortBio: "Runs day-to-day operations and keeps delivery on track.",
+    initials: "IA",
+    focus: ["Operations", "Delivery", "Process", "Team Ops"],
   },
 ];
 
