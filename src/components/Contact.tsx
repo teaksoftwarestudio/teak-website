@@ -152,7 +152,7 @@ export default function Contact() {
             display: "grid",
             gridTemplateColumns: "0.85fr 1.15fr",
             gap: 96,
-            alignItems: "start",
+            alignItems: "center",
           }}
           className="contact-grid"
         >
@@ -201,32 +201,6 @@ export default function Contact() {
               and we&apos;ll take it from there — usually within one business day.
             </p>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {[
-                { label: "Email", value: "hello@teaksoftware.studio" },
-                { label: "Based in", value: "Remote — serving US & Europe" },
-                { label: "Response time", value: "Within 1 business day" },
-              ].map((item) => (
-                <div key={item.label}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 11,
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--teak)",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {item.label}
-                  </div>
-                  <div style={{ fontFamily: "var(--font-sans)", fontSize: 15, opacity: 0.78 }}>
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </div>
           </Reveal>
 
           {/* Right — wizard */}
@@ -478,7 +452,7 @@ export default function Contact() {
                       </label>
                       <textarea
                         id="c-message"
-                        rows={intent === "general" ? 4 : 3}
+                        rows={intent === "general" ? 4 : 2}
                         placeholder={
                           intent === "general"
                             ? "Tell us what's on your mind…"
@@ -499,94 +473,99 @@ export default function Contact() {
                           padding: "12px 14px",
                           outline: "none",
                           resize: "vertical",
-                          marginBottom: 24,
+                          marginBottom: 22,
                           transition: "border-color 0.3s",
                         }}
                         onFocus={(e) => (e.target.style.borderColor = "var(--teak)")}
                         onBlur={(e) => (e.target.style.borderColor = "var(--ink-subtle)")}
                       />
 
-                      <label
-                        htmlFor="c-name"
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: 11,
-                          fontWeight: 600,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "var(--teak)",
-                          display: "block",
-                          marginBottom: 6,
-                        }}
-                      >
-                        Your name
-                      </label>
-                      <input
-                        id="c-name"
-                        required
-                        type="text"
-                        autoFocus
-                        placeholder="Your name"
-                        autoComplete="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        style={{
-                          width: "100%",
-                          fontFamily: "var(--font-sans)",
-                          fontSize: 16,
-                          fontWeight: 300,
-                          color: "var(--ink)",
-                          background: "transparent",
-                          border: "none",
-                          borderBottom: "1px solid var(--ink-subtle)",
-                          padding: "12px 0",
-                          outline: "none",
-                          marginBottom: 24,
-                          transition: "border-color 0.3s",
-                        }}
-                        onFocus={(e) => (e.target.style.borderBottomColor = "var(--teak)")}
-                        onBlur={(e) => (e.target.style.borderBottomColor = "var(--ink-subtle)")}
-                      />
+                      <div className="identity-grid">
+                        <div>
+                          <label
+                            htmlFor="c-name"
+                            style={{
+                              fontFamily: "var(--font-sans)",
+                              fontSize: 11,
+                              fontWeight: 600,
+                              letterSpacing: "0.1em",
+                              textTransform: "uppercase",
+                              color: "var(--teak)",
+                              display: "block",
+                              marginBottom: 6,
+                            }}
+                          >
+                            Your name
+                          </label>
+                          <input
+                            id="c-name"
+                            required
+                            type="text"
+                            autoFocus
+                            placeholder="Your name"
+                            autoComplete="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            style={{
+                              width: "100%",
+                              fontFamily: "var(--font-sans)",
+                              fontSize: 16,
+                              fontWeight: 300,
+                              color: "var(--ink)",
+                              background: "transparent",
+                              border: "none",
+                              borderBottom: "1px solid var(--ink-subtle)",
+                              padding: "12px 0",
+                              outline: "none",
+                              transition: "border-color 0.3s",
+                            }}
+                            onFocus={(e) => (e.target.style.borderBottomColor = "var(--teak)")}
+                            onBlur={(e) => (e.target.style.borderBottomColor = "var(--ink-subtle)")}
+                          />
+                        </div>
 
-                      <label
-                        htmlFor="c-email"
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: 11,
-                          fontWeight: 600,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "var(--teak)",
-                          display: "block",
-                          marginBottom: 6,
-                        }}
-                      >
-                        Your email
-                      </label>
-                      <input
-                        id="c-email"
-                        required
-                        type="email"
-                        placeholder="you@company.com"
-                        autoComplete="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{
-                          width: "100%",
-                          fontFamily: "var(--font-sans)",
-                          fontSize: 16,
-                          fontWeight: 300,
-                          color: "var(--ink)",
-                          background: "transparent",
-                          border: "none",
-                          borderBottom: "1px solid var(--ink-subtle)",
-                          padding: "12px 0",
-                          outline: "none",
-                          transition: "border-color 0.3s",
-                        }}
-                        onFocus={(e) => (e.target.style.borderBottomColor = "var(--teak)")}
-                        onBlur={(e) => (e.target.style.borderBottomColor = "var(--ink-subtle)")}
-                      />
+                        <div>
+                          <label
+                            htmlFor="c-email"
+                            style={{
+                              fontFamily: "var(--font-sans)",
+                              fontSize: 11,
+                              fontWeight: 600,
+                              letterSpacing: "0.1em",
+                              textTransform: "uppercase",
+                              color: "var(--teak)",
+                              display: "block",
+                              marginBottom: 6,
+                            }}
+                          >
+                            Your email
+                          </label>
+                          <input
+                            id="c-email"
+                            required
+                            type="email"
+                            placeholder="you@company.com"
+                            autoComplete="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            style={{
+                              width: "100%",
+                              fontFamily: "var(--font-sans)",
+                              fontSize: 16,
+                              fontWeight: 300,
+                              color: "var(--ink)",
+                              background: "transparent",
+                              border: "none",
+                              borderBottom: "1px solid var(--ink-subtle)",
+                              padding: "12px 0",
+                              outline: "none",
+                              transition: "border-color 0.3s",
+                            }}
+                            onFocus={(e) => (e.target.style.borderBottomColor = "var(--teak)")}
+                            onBlur={(e) => (e.target.style.borderBottomColor = "var(--ink-subtle)")}
+                          />
+                        </div>
+                      </div>
 
                       <motion.button
                         type="submit"
@@ -595,7 +574,7 @@ export default function Contact() {
                         whileTap={reduce || status === "sending" ? undefined : { scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
                         style={{
-                          marginTop: 28,
+                          marginTop: 26,
                           width: "100%",
                           fontFamily: "var(--font-sans)",
                           fontSize: 13,
@@ -686,12 +665,18 @@ export default function Contact() {
           box-shadow: 0 20px 40px -28px rgba(21,19,17,0.45);
         }
         .chip:hover { border-color: var(--teak) !important; }
+        .identity-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
+        }
         @media (max-width: 900px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           .wizard-card { padding: 30px 24px 28px !important; min-height: 0 !important; }
         }
         @media (max-width: 460px) {
           .intent-grid { grid-template-columns: 1fr !important; }
+          .identity-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
         }
       `}</style>
     </section>
