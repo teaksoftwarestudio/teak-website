@@ -10,7 +10,7 @@ export default function Work() {
       id="work"
       style={{
         background: "var(--cream)",
-        padding: "128px 0",
+        padding: "88px 0",
         borderTop: "1px solid var(--ink-hairline)",
       }}
     >

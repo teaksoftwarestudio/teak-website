@@ -35,7 +35,7 @@ export default function Process() {
     <section
       style={{
         background: "var(--teak-pale)",
-        padding: "128px 0",
+        padding: "88px 0",
         borderTop: "1px solid rgba(21,19,17,0.06)",
       }}
     >

@@ -18,7 +18,7 @@ export default function TrustBar() {
         background: "var(--teak-pale)",
         borderTop: "1px solid rgba(21,19,17,0.06)",
         borderBottom: "1px solid rgba(21,19,17,0.06)",
-        padding: "96px 0",
+        padding: "72px 0",
         overflow: "hidden",
         position: "relative",
       }}

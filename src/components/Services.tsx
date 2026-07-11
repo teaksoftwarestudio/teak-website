@@ -164,7 +164,7 @@ function ServiceRow({ service }: { service: (typeof services)[0] }) {
 
 export default function Services() {
   return (
-    <section id="services" style={{ background: "var(--cream)", padding: "128px 0" }}>
+    <section id="services" style={{ background: "var(--cream)", padding: "88px 0" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
         <Reveal style={{ marginBottom: 72 }}>
           <h2

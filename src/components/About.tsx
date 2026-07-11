@@ -32,7 +32,7 @@ export default function About() {
       style={{
         background: "var(--ink)",
         color: "var(--cream)",
-        padding: "128px 0",
+        padding: "88px 0",
         position: "relative",
         overflow: "hidden",
       }}
