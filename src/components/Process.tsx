@@ -41,10 +41,18 @@ export default function Process() {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
         <Reveal>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-            <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-            <span className="eyebrow">How We Work</span>
-          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(36px, 5vw, 66px)",
+              fontWeight: 400,
+              lineHeight: 1.08,
+              letterSpacing: "-0.02em",
+              marginBottom: 18,
+            }}
+          >
+            How We Work
+          </h2>
 
           <div
             style={{
@@ -56,19 +64,19 @@ export default function Process() {
               gap: 24,
             }}
           >
-            <h2
+            <p
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(36px, 5vw, 66px)",
+                fontSize: "clamp(19px, 2vw, 24px)",
                 fontWeight: 400,
-                lineHeight: 1.08,
-                letterSpacing: "-0.02em",
+                lineHeight: 1.3,
+                letterSpacing: "-0.01em",
+                color: "var(--ink-muted)",
               }}
             >
-              From idea to
-              <br />
+              From idea to{" "}
               <span style={{ fontStyle: "italic", color: "var(--teak)" }}>production.</span>
-            </h2>
+            </p>
             <p
               style={{
                 fontFamily: "var(--font-sans)",

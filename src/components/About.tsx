@@ -118,22 +118,6 @@ export default function About() {
           className="about-grid"
         >
           <Reveal>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-              <div style={{ width: 32, height: 1, background: "var(--teak-light)" }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "var(--teak-light)",
-                }}
-              >
-                About Us
-              </span>
-            </div>
-
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
@@ -142,15 +126,28 @@ export default function About() {
                 lineHeight: 1.12,
                 letterSpacing: "-0.02em",
                 color: "var(--cream)",
+                marginBottom: 18,
+              }}
+            >
+              About Us
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(19px, 2vw, 24px)",
+                fontWeight: 400,
+                lineHeight: 1.3,
+                letterSpacing: "-0.01em",
+                color: "rgba(250,248,245,0.6)",
                 marginBottom: 28,
               }}
             >
-              A small studio with
-              <br />
+              A small studio with{" "}
               <span style={{ fontStyle: "italic", color: "var(--teak-light)" }}>
                 big ambitions.
               </span>
-            </h2>
+            </p>
 
             <p
               style={{

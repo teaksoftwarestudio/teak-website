@@ -27,10 +27,6 @@ export default function Work() {
           }}
         >
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-              <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-              <span className="eyebrow">Our Products</span>
-            </div>
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
@@ -38,12 +34,24 @@ export default function Work() {
                 fontWeight: 400,
                 lineHeight: 1.08,
                 letterSpacing: "-0.02em",
+                marginBottom: 18,
               }}
             >
-              Products we&apos;ve
-              <br />
-              <span style={{ fontStyle: "italic", color: "var(--teak)" }}>shipped.</span>
+              Our Products
             </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(19px, 2vw, 24px)",
+                fontWeight: 400,
+                lineHeight: 1.3,
+                letterSpacing: "-0.01em",
+                color: "var(--ink-muted)",
+              }}
+            >
+              Products we&apos;ve{" "}
+              <span style={{ fontStyle: "italic", color: "var(--teak)" }}>shipped.</span>
+            </p>
           </div>
           <p
             style={{

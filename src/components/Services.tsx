@@ -167,10 +167,6 @@ export default function Services() {
     <section id="services" style={{ background: "var(--cream)", padding: "128px 0" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
         <Reveal style={{ marginBottom: 72 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-            <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-            <span className="eyebrow">What We Do</span>
-          </div>
           <h2
             style={{
               fontFamily: "var(--font-serif)",
@@ -178,15 +174,27 @@ export default function Services() {
               fontWeight: 400,
               lineHeight: 1.08,
               letterSpacing: "-0.02em",
+              marginBottom: 18,
+            }}
+          >
+            What We Do
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(19px, 2vw, 24px)",
+              fontWeight: 400,
+              lineHeight: 1.3,
+              letterSpacing: "-0.01em",
+              color: "var(--ink-muted)",
               maxWidth: 600,
             }}
           >
-            Craft at every
-            <br />
+            Craft at every{" "}
             <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
               layer of the stack.
             </span>
-          </h2>
+          </p>
         </Reveal>
 
         <motion.div

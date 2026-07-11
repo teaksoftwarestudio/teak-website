@@ -66,11 +66,6 @@ export default function Contact() {
         >
           {/* Left */}
           <Reveal>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-              <div style={{ width: 32, height: 1, background: "var(--teak)" }} />
-              <span className="eyebrow">Get in Touch</span>
-            </div>
-
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
@@ -78,15 +73,28 @@ export default function Contact() {
                 fontWeight: 400,
                 lineHeight: 1.08,
                 letterSpacing: "-0.02em",
+                marginBottom: 18,
+              }}
+            >
+              Get in Touch
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(19px, 2vw, 24px)",
+                fontWeight: 400,
+                lineHeight: 1.3,
+                letterSpacing: "-0.01em",
+                color: "var(--ink-muted)",
                 marginBottom: 28,
               }}
             >
-              Let&apos;s build
-              <br />
+              Let&apos;s build{" "}
               <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
                 something great.
               </span>
-            </h2>
+            </p>
 
             <p
               style={{
