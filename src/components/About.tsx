@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { Reveal, fadeUp, stagger } from "./motion";
 
 const stats = [
-  { value: "50+", label: "Products Shipped" },
-  { value: "8yr", label: "In Business" },
-  { value: "US/EU", label: "Client Focus" },
-  { value: "100%", label: "Remote-Native" },
+  { value: "2", label: "Products Shipped" },
+  { value: "2yr", label: "In Business" },
+  { value: "100%", label: "Client Retention" },
+  { value: "24/7", label: "Support & Delivery" },
 ];
 
 const values = [
@@ -25,45 +26,39 @@ const values = [
 ];
 
 export default function About() {
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    [leftRef, rightRef].forEach((ref, i) => {
-      const el = ref.current;
-      if (!el) return;
-      el.style.opacity = "0";
-      el.style.transform = "translateY(24px)";
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              el.style.transition = "opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)";
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, i * 150);
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
-    });
-  }, []);
-
   return (
     <section
       id="about"
       style={{
         background: "var(--ink)",
         color: "var(--cream)",
-        padding: "120px 0",
+        padding: "88px 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
+      {/* Warm ambient glow */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "10%",
+          right: "-10%",
+          width: 560,
+          height: 560,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(196,168,130,0.1) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px", position: "relative" }}>
         {/* Stats row */}
-        <div
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
@@ -75,10 +70,10 @@ export default function About() {
           className="stats-grid"
         >
           {stats.map((stat, i) => (
-            <div
+            <motion.div
               key={stat.label}
+              variants={fadeUp}
               style={{
-                padding: "0 0 0 0",
                 borderLeft: i > 0 ? "1px solid rgba(250,248,245,0.12)" : "none",
                 paddingLeft: i > 0 ? 40 : 0,
               }}
@@ -86,11 +81,12 @@ export default function About() {
               <div
                 style={{
                   fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(36px, 4vw, 56px)",
+                  fontSize: "clamp(38px, 4.4vw, 60px)",
                   fontWeight: 400,
-                  color: "var(--teak-light, #C4A882)",
+                  color: "var(--teak-light)",
                   lineHeight: 1,
                   marginBottom: 8,
+                  letterSpacing: "-0.02em",
                 }}
               >
                 {stat.value}
@@ -107,9 +103,9 @@ export default function About() {
               >
                 {stat.label}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Two-column */}
         <div
@@ -121,68 +117,73 @@ export default function About() {
           }}
           className="about-grid"
         >
-          <div ref={leftRef}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-              <div style={{ width: 32, height: 1, background: "#C4A882" }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#C4A882",
-                }}
-              >
-                About Us
-              </span>
-            </div>
-
+          <Reveal>
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(34px, 4vw, 52px)",
+                fontSize: "clamp(34px, 4vw, 54px)",
                 fontWeight: 400,
-                lineHeight: 1.15,
+                lineHeight: 1.12,
+                letterSpacing: "-0.02em",
                 color: "var(--cream)",
-                marginBottom: 28,
+                marginBottom: 18,
               }}
             >
-              A small studio with
-              <br />
-              <span style={{ fontStyle: "italic", color: "#C4A882" }}>big ambitions.</span>
+              About Us
             </h2>
 
             <p
               style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(19px, 2vw, 24px)",
+                fontWeight: 400,
+                lineHeight: 1.3,
+                letterSpacing: "-0.01em",
+                color: "rgba(250,248,245,0.6)",
+                marginBottom: 28,
+              }}
+            >
+              A small studio with{" "}
+              <span style={{ fontStyle: "italic", color: "var(--teak-light)" }}>
+                big ambitions.
+              </span>
+            </p>
+
+            <p
+              style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: 15,
                 lineHeight: 1.8,
-                opacity: 0.6,
+                opacity: 0.62,
                 color: "var(--cream)",
                 marginBottom: 20,
               }}
             >
-              Teak Software Studio is a boutique product engineering team. We work closely with
-              founders, product managers, and engineering leads to turn ideas into production-ready
-              software.
+              Teak Software Studio is a boutique product engineering team. We work
+              closely with founders, product managers, and engineering leads to turn
+              ideas into production-ready software.
             </p>
             <p
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: 15,
                 lineHeight: 1.8,
-                opacity: 0.6,
+                opacity: 0.62,
                 color: "var(--cream)",
               }}
             >
-              We specialise in the full product lifecycle — discovery, architecture, design, development,
-              and post-launch growth. Our team is senior-heavy and remote-native, working across US and
-              European time zones with ease.
+              We specialise in the full product lifecycle — discovery, architecture,
+              design, development, and post-launch growth. Our team is senior-heavy and
+              remote-native, working across US and European time zones with ease.
             </p>
-          </div>
+          </Reveal>
 
-          <div ref={rightRef}>
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <div style={{ marginBottom: 16, opacity: 0.4 }}>
               <span
                 style={{
@@ -198,21 +199,24 @@ export default function About() {
               </span>
             </div>
             {values.map((v, i) => (
-              <div
+              <motion.div
                 key={v.title}
+                variants={fadeUp}
                 style={{
                   borderTop: "1px solid rgba(250,248,245,0.1)",
                   padding: "28px 0",
-                  borderBottom: i === values.length - 1 ? "1px solid rgba(250,248,245,0.1)" : "none",
+                  borderBottom:
+                    i === values.length - 1 ? "1px solid rgba(250,248,245,0.1)" : "none",
                 }}
               >
                 <h4
                   style={{
                     fontFamily: "var(--font-serif)",
-                    fontSize: 22,
+                    fontSize: 23,
                     fontWeight: 400,
                     color: "var(--cream)",
                     marginBottom: 10,
+                    letterSpacing: "-0.01em",
                   }}
                 >
                   {v.title}
@@ -228,9 +232,9 @@ export default function About() {
                 >
                   {v.body}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 

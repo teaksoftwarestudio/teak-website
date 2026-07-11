@@ -2,13 +2,20 @@
 
 :root {
   --cream: #FAF8F5;
-  --ink: #111111;
-  --ink-muted: rgba(17,17,17,0.55);
-  --ink-subtle: rgba(17,17,17,0.18);
+  --cream-deep: #F3EEE6;
+  --ink: #151311;
+  --ink-muted: rgba(21,19,17,0.55);
+  --ink-subtle: rgba(21,19,17,0.14);
+  --ink-hairline: rgba(21,19,17,0.09);
   --teak: #8B6F47;
+  --teak-deep: #6E5537;
   --teak-light: #C4A882;
   --teak-pale: #EFE5D6;
   --white: #FFFFFF;
+
+  /* Type scale — fluid, editorial */
+  --tracking-tight: -0.025em;
+  --tracking-eyebrow: 0.14em;
 }
 
 * {
@@ -19,37 +26,87 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background-color: var(--cream);
   color: var(--ink);
   font-family: var(--font-sans), 'DM Sans', system-ui, sans-serif;
+  font-feature-settings: "kern", "liga", "calt";
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Serif display gets optical refinement */
+.font-serif,
+h1, h2, h3 {
+  font-feature-settings: "kern", "liga", "dlig", "swsh";
 }
 
 ::selection {
-  background: var(--teak-pale);
-  color: var(--ink);
+  background: var(--teak);
+  color: var(--cream);
 }
 
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--teak-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb {
+  background: var(--teak-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--teak); }
+
+/* Eyebrow label — reusable premium micro-heading */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--teak);
+}
+
+/* Underline sweep for text links */
+.link-sweep {
+  position: relative;
+  text-decoration: none;
+}
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.link-sweep:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.25); }
 }
 
-@keyframes slideRight {
-  from { transform: scaleX(0); transform-origin: left; }
-  to   { transform: scaleX(1); transform-origin: left; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
