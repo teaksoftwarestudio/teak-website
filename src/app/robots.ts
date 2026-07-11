@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://teaksoftware.studio/sitemap.xml",
+    sitemap: "https://www.teaksoftware.studio/sitemap.xml",
   };
 }

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/data/services";
 
-const BASE_URL = "https://teaksoftware.studio";
+const BASE_URL = "https://www.teaksoftware.studio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
