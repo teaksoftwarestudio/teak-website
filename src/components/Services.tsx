@@ -298,8 +298,8 @@ export default function Services() {
             <div className="overlap-copy">
               <span>Where needs overlap</span>
               <p>
-                You can start with one capability, or combine them into the
-                product your customers actually need.
+                Start with one, or combine them into the product your business
+                needs.
               </p>
             </div>
             <div className="overlap-grid">
