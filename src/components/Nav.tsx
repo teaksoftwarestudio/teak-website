@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -22,7 +23,10 @@ export default function Nav() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       style={{
         position: "fixed",
         top: 0,
@@ -30,9 +34,9 @@ export default function Nav() {
         right: 0,
         zIndex: 100,
         transition: "background 0.3s ease, border-color 0.3s ease",
-        background: scrolled ? "rgba(250,248,245,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(17,17,17,0.08)" : "1px solid transparent",
+        background: scrolled ? "rgba(255,255,255,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(10,10,10,0.08)" : "1px solid transparent",
       }}
     >
       <nav
@@ -47,7 +51,7 @@ export default function Nav() {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
           <Image
             src="/teak-logo-primary.svg"
             alt="Teak Software Studio"
@@ -71,150 +75,70 @@ export default function Nav() {
           </span>
         </Link>
 
-        {/* Desktop links */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 40,
-          }}
-          className="nav-links"
-        >
-          {navLinks.map((link) => (
-            <a
+        <div style={{ display: "flex", alignItems: "center", gap: 36 }} className="nav-links">
+          {navLinks.map((link, i) => (
+            <motion.a
               key={link.label}
               href={link.href}
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 14,
-                fontWeight: 500,
-                color: "var(--ink)",
-                textDecoration: "none",
-                letterSpacing: "0.02em",
-                opacity: 0.7,
-                transition: "opacity 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.opacity = "1")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.opacity = "0.7")}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 0.55, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.07, ease: "easeOut" }}
+              whileHover={{ opacity: 1 }}
+              style={{ fontFamily: "var(--font-sans)", fontSize: 14, fontWeight: 400, color: "#0a0a0a", textDecoration: "none" }}
             >
               {link.label}
-            </a>
+            </motion.a>
           ))}
-          <a
+          <motion.a
             href="#contact"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-              color: "var(--cream)",
-              background: "var(--ink)",
-              padding: "10px 22px",
-              textDecoration: "none",
-              transition: "background 0.2s, color 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "var(--teak)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "var(--ink)";
-            }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
+            whileHover={{ opacity: 0.75 }}
+            style={{ fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: "#ffffff", background: "#0a0a0a", padding: "10px 22px", textDecoration: "none" }}
           >
-            Start a Project
-          </a>
+            Hire Us
+          </motion.a>
         </div>
 
-        {/* Mobile burger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: "none",
-            flexDirection: "column",
-            gap: 5,
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 4,
-          }}
+          style={{ display: "none", flexDirection: "column", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 4 }}
           className="burger-btn"
           aria-label="Toggle menu"
         >
           {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              style={{
-                display: "block",
-                width: 22,
-                height: 1.5,
-                background: "var(--ink)",
-                transition: "transform 0.2s, opacity 0.2s",
-                transformOrigin: "center",
-                transform:
-                  menuOpen && i === 0
-                    ? "rotate(45deg) translate(4px, 4px)"
-                    : menuOpen && i === 2
-                    ? "rotate(-45deg) translate(4px, -4px)"
-                    : menuOpen && i === 1
-                    ? "scaleX(0)"
-                    : "none",
-                opacity: menuOpen && i === 1 ? 0 : 1,
-              }}
-            />
+            <span key={i} style={{ display: "block", width: 22, height: 1.5, background: "#0a0a0a", transition: "transform 0.2s, opacity 0.2s", transformOrigin: "center",
+              transform: menuOpen && i === 0 ? "rotate(45deg) translate(4px, 4px)" : menuOpen && i === 2 ? "rotate(-45deg) translate(4px, -4px)" : "none",
+              opacity: menuOpen && i === 1 ? 0 : 1 }} />
           ))}
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div
-          style={{
-            background: "var(--cream)",
-            borderTop: "1px solid var(--ink-subtle)",
-            padding: "24px 32px 32px",
-          }}
-          className="mobile-menu"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                fontFamily: "var(--font-sans)",
-                fontSize: 20,
-                fontWeight: 400,
-                color: "var(--ink)",
-                textDecoration: "none",
-                padding: "12px 0",
-                borderBottom: "1px solid rgba(17,17,17,0.08)",
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              display: "inline-block",
-              marginTop: 24,
-              fontFamily: "var(--font-sans)",
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-              color: "var(--cream)",
-              background: "var(--ink)",
-              padding: "12px 24px",
-              textDecoration: "none",
-            }}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ background: "#ffffff", borderTop: "1px solid rgba(10,10,10,0.08)", overflow: "hidden" }}
           >
-            Start a Project
-          </a>
-        </div>
-      )}
+            <div style={{ padding: "24px 32px 32px" }}>
+              {navLinks.map((link) => (
+                <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)}
+                  style={{ display: "block", fontFamily: "var(--font-sans)", fontSize: 20, fontWeight: 400, color: "#0a0a0a", textDecoration: "none", padding: "12px 0", borderBottom: "1px solid rgba(10,10,10,0.08)" }}>
+                  {link.label}
+                </a>
+              ))}
+              <a href="#contact" onClick={() => setMenuOpen(false)}
+                style={{ display: "inline-block", marginTop: 24, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: "#ffffff", background: "#0a0a0a", padding: "12px 24px", textDecoration: "none" }}>
+                Hire Us
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (max-width: 768px) {
@@ -225,6 +149,6 @@ export default function Nav() {
           .brand-name { display: none !important; }
         }
       `}</style>
-    </header>
+    </motion.header>
   );
 }

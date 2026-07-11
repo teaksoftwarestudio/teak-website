@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #FAF8F5;
-  --ink: #111111;
-  --ink-muted: rgba(17,17,17,0.55);
-  --ink-subtle: rgba(17,17,17,0.18);
-  --teak: #8B6F47;
-  --teak-light: #C4A882;
-  --teak-pale: #EFE5D6;
-  --white: #FFFFFF;
+  --bg: #ffffff;
+  --bg-off: #f7f7f7;
+  --bg-dark: #0a0a0a;
+  --ink: #0a0a0a;
+  --ink-mid: rgba(10,10,10,0.55);
+  --ink-subtle: rgba(10,10,10,0.1);
+  --white: #ffffff;
+  --cream: #ffffff;
 }
 
 * {
@@ -22,25 +22,31 @@ html {
 }
 
 body {
-  background-color: var(--cream);
-  color: var(--ink);
+  background-color: #ffffff;
+  color: #0a0a0a;
   font-family: var(--font-sans), 'DM Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Prevent layout shift from scrollbar */
+  scrollbar-gutter: stable;
 }
 
 ::selection {
-  background: var(--teak-pale);
-  color: var(--ink);
+  background: #0a0a0a;
+  color: #ffffff;
 }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--teak-light); border-radius: 3px; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #ffffff; }
+::-webkit-scrollbar-thumb { background: rgba(10,10,10,0.2); border-radius: 2px; }
+
+/* Remove default button/input styles */
+button { font-family: inherit; }
+input, textarea, select { font-family: inherit; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -49,7 +55,12 @@ body {
   to   { opacity: 1; }
 }
 
-@keyframes slideRight {
-  from { transform: scaleX(0); transform-origin: left; }
-  to   { transform: scaleX(1); transform-origin: left; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50%       { opacity: 0.6; transform: scaleY(1.3); }
 }
