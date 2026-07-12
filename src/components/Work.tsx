@@ -19,7 +19,7 @@ type Product = {
   tags: string[];
   cta: { label: string; href: string } | null;
   sub: string;
-  status: "live" | "dev";
+  status: "live" | "soon" | "dev";
   hasPhones: boolean;
   accent: string;
   dark: boolean;
@@ -33,10 +33,10 @@ const products: Product[] = [
     title: "SaveFirst",
     description:
       "A personal finance tracker for iOS that automatically categorises every transaction — expenses, income, and investments — with AI-powered spending insights and heads-up alerts.",
-    tags: ["Expense Tracking", "Income & Investments", "AI Insights", "React Native"],
+    tags: ["Expense Tracking", "Income & Investments", "Financial Growth"],
     cta: { label: "View App", href: "https://savefirst.app" },
-    sub: "Live on the App Store",
-    status: "live",
+    sub: "Launching soon",
+    status: "soon",
     hasPhones: true,
     accent: "#1392EC",
     dark: false,
@@ -317,9 +317,9 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
         style={{
           background: panelBg,
           display: "flex",
-          alignItems: product.hasPhones ? "flex-end" : "center",
+          alignItems: "center",
           justifyContent: "center",
-          padding: product.hasPhones ? "52px 40px 0" : "40px",
+          padding: "40px",
           overflow: "hidden",
           position: "relative",
           borderRight: `1px solid ${subtleBorder}`,
@@ -357,52 +357,6 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
                 background: "radial-gradient(circle, rgba(139,111,71,0.18) 0%, transparent 70%)",
               }}
             />
-            {/* Floating insight chip */}
-            <motion.div
-              animate={{ y: isActive ? [0, -8, 0] : 0 }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: "absolute",
-                top: 40,
-                right: 34,
-                zIndex: 3,
-                background: "rgba(255,255,255,0.82)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                border: "1px solid rgba(255,255,255,0.9)",
-                borderRadius: 14,
-                padding: "11px 15px",
-                boxShadow: "0 16px 40px -18px rgba(139,111,71,0.45)",
-                display: "flex",
-                alignItems: "center",
-                gap: 11,
-              }}
-            >
-              <span
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 9,
-                  background: "var(--teak)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 15l5-5 4 4 7-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <div>
-                <div style={{ fontFamily: "var(--font-sans)", fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--teak)" }}>
-                  This month
-                </div>
-                <div style={{ fontFamily: "var(--font-serif)", fontSize: 16, fontWeight: 500, color: "var(--teak-deep)", lineHeight: 1.1 }}>
-                  &minus;18% spend
-                </div>
-              </div>
-            </motion.div>
-
             <div style={{ display: "flex", gap: 16, alignItems: "flex-end", position: "relative", zIndex: 2 }}>
               <motion.div
                 animate={{ y: isActive ? 0 : 16 }}
@@ -507,8 +461,9 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
   );
 }
 
-function StatusPill({ status, dark }: { status: "live" | "dev"; dark: boolean }) {
+function StatusPill({ status, dark }: { status: Product["status"]; dark: boolean }) {
   const live = status === "live";
+  const soon = status === "soon";
   const color = live ? "#1E9E5A" : "var(--teak)";
   const dot = live ? "#22B463" : "var(--teak-light)";
   return (
@@ -530,7 +485,7 @@ function StatusPill({ status, dark }: { status: "live" | "dev"; dark: boolean })
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         style={{ width: 7, height: 7, borderRadius: 999, background: dot }}
       />
-      {live ? "Live" : "In Development"}
+      {live ? "Live" : soon ? "Launching Soon" : "In Development"}
     </span>
   );
 }
