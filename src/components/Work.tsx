@@ -9,7 +9,7 @@ export default function Work() {
     <section
       id="work"
       style={{
-        background: "var(--cream)",
+        background: "var(--white)",
         padding: "88px 0",
         borderTop: "1px solid var(--ink-hairline)",
       }}

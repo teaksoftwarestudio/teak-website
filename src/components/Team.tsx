@@ -62,7 +62,7 @@ export default function Team({ variant = "full" }: TeamProps) {
   return (
     <section
       style={{
-        background: "var(--cream)",
+        background: "var(--teak-pale)",
         color: ink,
         padding: compact ? "88px 0" : "96px 0",
         borderTop: compact ? "1px solid var(--ink-hairline)" : undefined,

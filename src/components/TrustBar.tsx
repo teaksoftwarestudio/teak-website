@@ -16,7 +16,6 @@ export default function TrustBar() {
     <section
       style={{
         background: "var(--teak-pale)",
-        borderTop: "1px solid rgba(21,19,17,0.06)",
         borderBottom: "1px solid rgba(21,19,17,0.06)",
         padding: "72px 0",
         overflow: "hidden",
