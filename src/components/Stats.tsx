@@ -4,10 +4,9 @@ import { motion } from "framer-motion";
 import { fadeUp, stagger } from "./motion";
 
 const stats = [
-  { value: "2", label: "Products Shipped" },
+  { value: "3", label: "Products Shipped" },
   { value: "2yr", label: "In Business" },
-  { value: "100%", label: "Client Retention" },
-  { value: "24/7", label: "Support & Delivery" },
+  { value: "100k+", label: "Users Reached" },
 ];
 
 export default function Stats() {
@@ -27,8 +26,10 @@ export default function Stats() {
           viewport={{ once: true, amount: 0.3 }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))`,
             gap: 0,
+            maxWidth: 900,
+            margin: "0 auto",
           }}
           className="stats-grid"
         >
@@ -38,7 +39,8 @@ export default function Stats() {
               variants={fadeUp}
               style={{
                 borderLeft: i > 0 ? "1px solid rgba(21,19,17,0.12)" : "none",
-                paddingLeft: i > 0 ? 40 : 0,
+                padding: "0 40px",
+                textAlign: "center",
               }}
             >
               <div
@@ -73,10 +75,12 @@ export default function Stats() {
 
       <style>{`
         @media (max-width: 900px) {
-          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 32px !important; }
+          .stats-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 24px !important; }
+          .stats-grid > * { padding: 0 16px !important; }
         }
         @media (max-width: 480px) {
-          .stats-grid { grid-template-columns: 1fr 1fr !important; }
+          .stats-grid { grid-template-columns: 1fr !important; }
+          .stats-grid > * { border-left: none !important; padding: 0 !important; }
         }
       `}</style>
     </section>

@@ -11,8 +11,7 @@ type Member = {
   shortBio: string;
   initials: string;
   focus: string[];
-  /** Optional headshot in /public (e.g. "/team/jane.jpg"), shown on the homepage
-   *  compact variant only. The /about page always uses initials. Falls back to initials. */
+  /** Optional headshot in /public (e.g. "/team/jane.webp"). Falls back to initials. */
   image?: string;
 };
 
@@ -20,27 +19,29 @@ const team: Member[] = [
   {
     name: "Murshed Al Amin",
     role: "CEO",
-    bio: "Sets the vision and steers the company's direction, from client relationships to long-term strategy. Focused on building a studio that clients trust with their most ambitious ideas.",
-    shortBio: "Sets the vision and steers the company's direction.",
+    bio: "Focuses on turning complex technical ideas into clear product direction, shaped by 5+ years across infrastructure, AI systems, product, and research work.",
+    shortBio: "Turns complex technical ideas into clear product direction.",
     initials: "MA",
-    focus: ["Strategy", "Leadership", "Client Relations", "Growth"],
-    // image: "/team/murshed.jpg", // homepage photo — drop a headshot in /public/team and uncomment
+    focus: ["Strategy", "Leadership", "Growth", "AI & Research"],
+    image: "/team/murshed.webp",
   },
   {
     name: "Amit Aditaya",
     role: "CTO",
-    bio: "Owns the technical direction and architecture across every product the studio ships. Turns ambitious ideas into resilient, production-grade systems, and knows exactly which corners are safe to cut and which aren't.",
-    shortBio: "Owns the technical direction and architecture end to end.",
+    bio: "Focuses on building mobile products that hold up as they grow, shaped by 5+ years creating and scaling apps for international organisations.",
+    shortBio: "Leads product architecture and builds systems designed to scale.",
     initials: "AA",
-    focus: ["Architecture", "Backend", "DevOps", "Engineering"],
+    focus: ["Architecture", "Backend", "Frontend", "Engineering"],
+    image: "/team/amit.webp",
   },
   {
     name: "Ifaz Alam",
     role: "COO",
-    bio: "Runs the day-to-day operations that keep projects on track and teams aligned. Bridges strategy and execution, making sure the work gets delivered smoothly from kickoff to launch.",
-    shortBio: "Runs day-to-day operations and keeps delivery on track.",
+    bio: "Focuses on practical web and SaaS execution, shaped by 5+ years building products that have scaled to 100k users.",
+    shortBio: "Connects product execution, delivery, and growth for digital products.",
     initials: "IA",
-    focus: ["Operations", "Delivery", "Process", "Team Ops"],
+    focus: ["Operations", "Delivery", "Backend", "DevOps"],
+    image: "/team/ifaz-alam.webp",
   },
 ];
 
@@ -81,7 +82,7 @@ export default function Team({ variant = "full" }: TeamProps) {
               marginBottom: 18,
             }}
           >
-            The People
+            Who We Are
           </h2>
           <p
             style={{
@@ -92,27 +93,13 @@ export default function Team({ variant = "full" }: TeamProps) {
               letterSpacing: "-0.01em",
               color: muted,
               maxWidth: 640,
-              marginBottom: 28,
-            }}
-          >
-            Three people.{" "}
-            <span style={{ fontStyle: "italic", color: accent }}>
-              One high bar.
-            </span>
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: muted,
-              maxWidth: 560,
               marginBottom: 64,
             }}
           >
-            We&rsquo;re deliberately small. You work directly with the people
-            building your product — no hand-offs, no account managers, no
-            diluted ownership.
+            Built around craft, clarity, and{" "}
+            <span style={{ fontStyle: "italic", color: accent }}>
+              ownership.
+            </span>
           </p>
         </Reveal>
 
@@ -135,7 +122,7 @@ export default function Team({ variant = "full" }: TeamProps) {
               style={{
                 background: cardBg,
                 border: cardBorder,
-                borderRadius: 4,
+                borderRadius: 18,
                 padding: "36px 32px 40px",
                 display: "flex",
                 flexDirection: "column",

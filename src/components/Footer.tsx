@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 
 export default function Footer() {
@@ -43,7 +44,7 @@ export default function Footer() {
                 color: "var(--cream)",
               }}
             >
-              SaaS, web, and mobile products for founders and teams across the US and Europe.
+              SaaS, web, mobile, and AI products for businesses across North America and Europe.
             </p>
           </div>
 
@@ -69,17 +70,18 @@ export default function Footer() {
               {
                 heading: "Services",
                 links: [
-                  { label: "SaaS Products", href: "/#services" },
+                  { label: "SaaS Platforms", href: "/#services" },
                   { label: "Web Apps", href: "/#services" },
                   { label: "Mobile Apps", href: "/#services" },
-                  { label: "Design Systems", href: "/#services" },
+                  { label: "AI Systems", href: "/#services" },
                 ],
               },
               {
                 heading: "Contact",
                 links: [
                   { label: "hello@teaksoftware.studio", href: "mailto:hello@teaksoftware.studio" },
-                  { label: "Start a Project", href: "/#contact" },
+                  { label: "5900 Balcones Drive Ste 100", href: null },
+                  { label: "Austin, TX 78731, USA", href: null },
                 ],
               },
             ].map((col) => (
@@ -97,31 +99,39 @@ export default function Footer() {
                 >
                   {col.heading}
                 </div>
-                {col.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    style={{
-                      display: "block",
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 14,
-                      fontWeight: 300,
-                      color: "var(--cream)",
-                      textDecoration: "none",
-                      opacity: 0.5,
-                      marginBottom: 10,
-                      transition: "opacity 0.2s",
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.target as HTMLElement).style.opacity = "1")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.target as HTMLElement).style.opacity = "0.5")
-                    }
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {col.links.map((link) => {
+                  const linkStyle: CSSProperties = {
+                    display: "block",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    fontWeight: 300,
+                    color: "var(--cream)",
+                    textDecoration: "none",
+                    opacity: 0.5,
+                    marginBottom: 10,
+                    transition: "opacity 0.2s",
+                  };
+
+                  return link.href ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      style={linkStyle}
+                      onMouseEnter={(e) =>
+                        ((e.target as HTMLElement).style.opacity = "1")
+                      }
+                      onMouseLeave={(e) =>
+                        ((e.target as HTMLElement).style.opacity = "0.5")
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <span key={link.label} style={linkStyle}>
+                      {link.label}
+                    </span>
+                  );
+                })}
               </div>
             ))}
           </div>
