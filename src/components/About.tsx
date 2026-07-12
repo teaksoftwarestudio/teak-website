@@ -99,8 +99,8 @@ export default function About() {
               }}
             >
               Teak Software Studio is a boutique product engineering team. We work
-              closely with founders, product managers, and engineering leads to turn
-              ideas into production-ready software.
+              closely with businesses to turn ideas into production-ready software —
+              while also building and growing our own products.
             </p>
             <p
               style={{
@@ -112,8 +112,8 @@ export default function About() {
               }}
             >
               We specialise in the full product lifecycle — discovery, architecture,
-              design, development, and post-launch growth. Our team is senior-heavy and
-              remote-native, working across US and European time zones with ease.
+              design, development, and post-launch growth. Registered in Texas, US, Teak
+              partners with clients across North America and Europe.
             </p>
           </Reveal>
 
