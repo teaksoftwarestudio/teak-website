@@ -28,13 +28,29 @@ export default function Footer() {
         >
           {/* Logo + tagline */}
           <div style={{ maxWidth: 300 }}>
-            <Image
-              src="/teak-logo-white.svg"
-              alt="Teak Software Studio"
-              width={130}
-              height={34}
-              style={{ height: 30, width: "auto", marginBottom: 16 }}
-            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                marginBottom: 16,
+              }}
+            >
+              <Image
+                src="/teak-logo-white.svg"
+                alt="Teak Software Studio"
+                width={38}
+                height={38}
+                style={{ height: 34, width: "auto" }}
+              />
+              <Image
+                src="/teak-wordmark-white.svg"
+                alt=""
+                width={320}
+                height={26}
+                style={{ height: 23, width: "auto" }}
+              />
+            </div>
             <p
               style={{
                 fontFamily: "var(--font-sans)",

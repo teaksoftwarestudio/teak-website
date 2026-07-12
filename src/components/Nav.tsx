@@ -68,19 +68,15 @@ export default function Nav() {
             priority
             style={{ height: 38, width: "auto" }}
           />
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 17,
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
-              color: "var(--ink)",
-              whiteSpace: "nowrap",
-            }}
+          <Image
+            src="/teak-wordmark-primary.svg"
+            alt=""
+            width={320}
+            height={26}
+            priority
+            style={{ height: 24, width: "auto" }}
             className="brand-name"
-          >
-            Teak Software Studio
-          </span>
+          />
         </Link>
 
         {/* Desktop links */}
@@ -217,7 +213,7 @@ export default function Nav() {
                   {link.label}
                 </motion.a>
               ))}
-              <a
+              <Link
                 href="/#contact"
                 onClick={() => setMenuOpen(false)}
                 style={{
@@ -235,7 +231,7 @@ export default function Nav() {
                 }}
               >
                 Start a Project
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
