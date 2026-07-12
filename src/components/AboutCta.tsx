@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { Reveal } from "./motion";
 
 export default function AboutCta() {
@@ -84,11 +85,12 @@ export default function AboutCta() {
                 background: "var(--ink)",
                 padding: "15px 30px",
                 textDecoration: "none",
+                borderRadius: 6,
               }}
             >
               Start a Project
             </motion.a>
-            <a
+            <Link
               href="/#work"
               className="link-sweep"
               style={{
@@ -101,7 +103,7 @@ export default function AboutCta() {
               }}
             >
               See our work
-            </a>
+            </Link>
           </div>
         </Reveal>
       </div>

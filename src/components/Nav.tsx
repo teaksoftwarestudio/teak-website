@@ -119,6 +119,7 @@ export default function Nav() {
               background: "var(--ink)",
               padding: "11px 22px",
               textDecoration: "none",
+              borderRadius: 6,
               transition: "background 0.25s",
             }}
             onMouseEnter={(e) => {
@@ -228,6 +229,7 @@ export default function Nav() {
                   background: "var(--ink)",
                   padding: "13px 26px",
                   textDecoration: "none",
+                  borderRadius: 6,
                 }}
               >
                 Start a Project

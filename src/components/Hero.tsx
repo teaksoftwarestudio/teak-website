@@ -144,6 +144,7 @@ export default function Hero() {
               padding: "17px 38px",
               textDecoration: "none",
               display: "inline-block",
+              borderRadius: 6,
               boxShadow: "0 12px 30px -12px rgba(21,19,17,0.4)",
             }}
             onMouseEnter={(e) =>
