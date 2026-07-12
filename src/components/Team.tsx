@@ -6,6 +6,7 @@ import { Reveal, fadeUp, stagger } from "./motion";
 
 type Member = {
   name: string;
+  displayName: string;
   role: string;
   bio: string;
   shortBio: string;
@@ -18,30 +19,33 @@ type Member = {
 const team: Member[] = [
   {
     name: "Murshed Al Amin",
+    displayName: "Murshed\nAl Amin",
     role: "CEO",
     bio: "Focuses on turning complex technical ideas into clear product direction, shaped by 5+ years across infrastructure, AI systems, product, and research work.",
     shortBio: "Turns complex technical ideas into clear product direction.",
     initials: "MA",
     focus: ["Strategy", "Leadership", "Growth", "AI & Research"],
-    image: "/team/murshed.webp",
+    image: "/team/murshed-portrait.webp",
   },
   {
     name: "Amit Aditaya",
+    displayName: "Amit\nAditaya",
     role: "CTO",
     bio: "Focuses on building mobile products that hold up as they grow, shaped by 5+ years creating and scaling apps for international organisations.",
     shortBio: "Leads product architecture and builds systems designed to scale.",
     initials: "AA",
     focus: ["Architecture", "Backend", "Frontend", "Engineering"],
-    image: "/team/amit.webp",
+    image: "/team/amit-portrait.webp",
   },
   {
     name: "Ifaz Alam",
+    displayName: "Ifaz\nAlam",
     role: "COO",
     bio: "Focuses on practical web and SaaS execution, shaped by 5+ years building products that have scaled to 100k users.",
     shortBio: "Connects product execution, delivery, and growth for digital products.",
     initials: "IA",
     focus: ["Operations", "Delivery", "Backend", "DevOps"],
-    image: "/team/ifaz-alam.webp",
+    image: "/team/ifaz-portrait.webp",
   },
 ];
 
@@ -130,64 +134,77 @@ export default function Team({ variant = "full" }: TeamProps) {
               }}
             >
               <div
-                aria-hidden={!m.image}
                 style={{
-                  position: "relative",
-                  width: 72,
-                  height: 72,
-                  flexShrink: 0,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  background:
-                    "linear-gradient(140deg, var(--teak-pale) 0%, var(--teak-light) 100%)",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: "var(--font-serif)",
-                  fontSize: 26,
-                  color: "var(--teak-deep)",
-                  marginBottom: 24,
+                  gap: 20,
+                  marginBottom: 28,
                 }}
+                className="team-profile"
               >
-                {m.image ? (
-                  <Image
-                    src={m.image}
-                    alt={m.name}
-                    fill
-                    sizes="72px"
-                    style={{ objectFit: "cover" }}
-                  />
-                ) : (
-                  m.initials
-                )}
+                <div
+                  aria-hidden={!m.image}
+                  style={{
+                    position: "relative",
+                    width: 124,
+                    height: 124,
+                    flexShrink: 0,
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    background:
+                      "linear-gradient(140deg, var(--teak-pale) 0%, var(--teak-light) 100%)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-serif)",
+                    fontSize: 32,
+                    color: "var(--teak-deep)",
+                  }}
+                >
+                  {m.image ? (
+                    <Image
+                      src={m.image}
+                      alt={m.name}
+                      fill
+                      sizes="124px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  ) : (
+                    m.initials
+                  )}
+                </div>
+
+                <div style={{ minWidth: 0 }}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: 24,
+                      fontWeight: 400,
+                      lineHeight: 1.12,
+                      letterSpacing: "-0.01em",
+                      whiteSpace: "pre-line",
+                      color: ink,
+                      marginBottom: 7,
+                    }}
+                  >
+                    {m.displayName}
+                  </h3>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      letterSpacing: "0.04em",
+                      textTransform: "uppercase",
+                      color: accent,
+                    }}
+                  >
+                    {m.role}
+                  </div>
+                </div>
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: 24,
-                    fontWeight: 400,
-                    letterSpacing: "-0.01em",
-                    color: ink,
-                    marginBottom: 4,
-                  }}
-                >
-                  {m.name}
-                </h3>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase",
-                    color: accent,
-                    marginBottom: 18,
-                  }}
-                >
-                  {m.role}
-                </div>
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
@@ -229,6 +246,10 @@ export default function Team({ variant = "full" }: TeamProps) {
       <style>{`
         @media (max-width: 860px) {
           .team-grid { grid-template-columns: 1fr !important; gap: 20px !important; max-width: 480px; }
+        }
+        @media (max-width: 420px) {
+          .team-profile { align-items: flex-start !important; gap: 16px !important; }
+          .team-profile h3 { font-size: 22px !important; }
         }
       `}</style>
     </section>
