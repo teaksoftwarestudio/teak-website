@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: "Teak Software Studio — Web, Mobile & AI Products",
   description:
     "Teak Software Studio builds polished web applications, mobile apps, and AI systems for US and European clients. Thoughtful software, beautifully delivered.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: ["web app development", "mobile app development", "AI systems", "software studio", "product development"],
   authors: [{ name: "Teak Software Studio" }],
   openGraph: {

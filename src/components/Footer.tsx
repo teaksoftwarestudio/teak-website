@@ -1,7 +1,8 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -86,10 +87,10 @@ export default function Footer() {
               {
                 heading: "Services",
                 links: [
-                  { label: "SaaS Platforms", href: "/#services" },
-                  { label: "Web Apps", href: "/#services" },
-                  { label: "Mobile Apps", href: "/#services" },
-                  { label: "AI Systems", href: "/#services" },
+                  { label: "SaaS Platforms", href: "/services/web-applications" },
+                  { label: "Web Apps", href: "/services/web-applications" },
+                  { label: "Mobile Apps", href: "/services/mobile-apps" },
+                  { label: "AI Systems", href: "/services/ai-systems" },
                 ],
               },
               {
@@ -128,24 +129,41 @@ export default function Footer() {
                     transition: "opacity 0.2s",
                   };
 
-                  return link.href ? (
+                  if (!link.href) {
+                    return (
+                      <span key={link.label} style={linkStyle}>
+                        {link.label}
+                      </span>
+                    );
+                  }
+
+                  const hoverHandlers = {
+                    onMouseEnter: (e: MouseEvent<HTMLElement>) => {
+                      e.currentTarget.style.opacity = "1";
+                    },
+                    onMouseLeave: (e: MouseEvent<HTMLElement>) => {
+                      e.currentTarget.style.opacity = "0.5";
+                    },
+                  };
+
+                  return link.href.startsWith("/") ? (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      style={linkStyle}
+                      {...hoverHandlers}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
                     <a
                       key={link.label}
                       href={link.href}
                       style={linkStyle}
-                      onMouseEnter={(e) =>
-                        ((e.target as HTMLElement).style.opacity = "1")
-                      }
-                      onMouseLeave={(e) =>
-                        ((e.target as HTMLElement).style.opacity = "0.5")
-                      }
+                      {...hoverHandlers}
                     >
                       {link.label}
                     </a>
-                  ) : (
-                    <span key={link.label} style={linkStyle}>
-                      {link.label}
-                    </span>
                   );
                 })}
               </div>
