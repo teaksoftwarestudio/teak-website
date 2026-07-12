@@ -8,25 +8,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: "2026-07-12",
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${BASE_URL}/about`,
-      lastModified: new Date(),
+      lastModified: "2026-07-12",
       changeFrequency: "monthly",
       priority: 0.8,
     },
     ...services.map((service) => ({
       url: `${BASE_URL}/services/${service.slug}`,
-      lastModified: new Date(),
+      lastModified: "2026-07-12",
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
     ...products.map((product) => ({
       url: `${BASE_URL}/products/${product.slug}`,
-      lastModified: new Date(),
+      lastModified: "2026-07-12",
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
