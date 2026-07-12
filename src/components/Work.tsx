@@ -285,7 +285,7 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
   const panelBg = product.dark
     ? "linear-gradient(160deg, #1C1916 0%, #100E0C 100%)"
     : product.hasPhones
-      ? "radial-gradient(120% 120% at 30% 0%, #F4FAFF 0%, #E4F1FB 45%, #D2E7F5 100%)"
+      ? "radial-gradient(120% 120% at 30% 0%, #FBF8F3 0%, #F1E8D9 45%, #E4D3BA 100%)"
       : "linear-gradient(160deg, var(--cream) 0%, var(--cream-deep) 100%)";
   const subtleBorder = product.dark ? "rgba(255,255,255,0.07)" : "var(--ink-hairline)";
   const tagBorder = product.dark ? "rgba(255,255,255,0.14)" : "var(--ink-subtle)";
@@ -354,7 +354,7 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
                 transform: "translate(-50%,-50%)",
                 width: 340,
                 height: 340,
-                background: "radial-gradient(circle, rgba(19,146,236,0.18) 0%, transparent 70%)",
+                background: "radial-gradient(circle, rgba(139,111,71,0.18) 0%, transparent 70%)",
               }}
             />
             {/* Floating insight chip */}
@@ -372,7 +372,7 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
                 border: "1px solid rgba(255,255,255,0.9)",
                 borderRadius: 14,
                 padding: "11px 15px",
-                boxShadow: "0 16px 40px -18px rgba(19,146,236,0.45)",
+                boxShadow: "0 16px 40px -18px rgba(139,111,71,0.45)",
                 display: "flex",
                 alignItems: "center",
                 gap: 11,
@@ -383,7 +383,7 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
                   width: 32,
                   height: 32,
                   borderRadius: 9,
-                  background: "#1392EC",
+                  background: "var(--teak)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -394,10 +394,10 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
                 </svg>
               </span>
               <div>
-                <div style={{ fontFamily: "var(--font-sans)", fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#1392EC" }}>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--teak)" }}>
                   This month
                 </div>
-                <div style={{ fontFamily: "var(--font-serif)", fontSize: 16, fontWeight: 500, color: "#0F4C81", lineHeight: 1.1 }}>
+                <div style={{ fontFamily: "var(--font-serif)", fontSize: 16, fontWeight: 500, color: "var(--teak-deep)", lineHeight: 1.1 }}>
                   &minus;18% spend
                 </div>
               </div>
@@ -407,22 +407,18 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
               <motion.div
                 animate={{ y: isActive ? 0 : 16 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transform: "rotate(-3.5deg)", filter: "drop-shadow(0 24px 48px rgba(19,146,236,0.2)) drop-shadow(0 6px 12px rgba(0,0,0,0.1))" }}
+                style={{ transform: "rotate(-3.5deg)", filter: "drop-shadow(0 22px 44px rgba(139,111,71,0.18))" }}
               >
-                <PhoneShell>
-                  <Image src="/savefirst-home.png" alt="SaveFirst home" width={320} height={693}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-                </PhoneShell>
+                <Image src="/savefirst-home.png" alt="SaveFirst home screen" width={840} height={1740}
+                  style={{ width: 196, height: "auto", display: "block" }} />
               </motion.div>
               <motion.div
                 animate={{ y: isActive ? -24 : -8 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-                style={{ transform: "rotate(2.5deg)", filter: "drop-shadow(0 28px 56px rgba(19,146,236,0.22)) drop-shadow(0 8px 16px rgba(0,0,0,0.1))" }}
+                style={{ transform: "rotate(2.5deg)", filter: "drop-shadow(0 26px 52px rgba(139,111,71,0.2))" }}
               >
-                <PhoneShell>
-                  <Image src="/savefirst-transaction.png" alt="SaveFirst transaction" width={320} height={693}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-                </PhoneShell>
+                <Image src="/savefirst-transaction.png" alt="SaveFirst transactions screen" width={840} height={1740}
+                  style={{ width: 196, height: "auto", display: "block" }} />
               </motion.div>
             </div>
           </>
@@ -476,10 +472,10 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
               style={{
                 fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, letterSpacing: "0.06em",
-                textTransform: "uppercase", color: "#fff", background: "#1392EC",
+                textTransform: "uppercase", color: "var(--cream)", background: "var(--teak)",
                 padding: "13px 26px", textDecoration: "none", borderRadius: 6,
                 display: "inline-flex", alignItems: "center", gap: 9,
-                boxShadow: "0 14px 30px -14px rgba(19,146,236,0.6)",
+                boxShadow: "0 14px 30px -14px rgba(139,111,71,0.6)",
               }}
             >
               {product.cta.label}
@@ -600,23 +596,6 @@ function DevArt({ dark, isActive, fg }: { dark: boolean; isActive: boolean; fg: 
         Preview coming soon
       </span>
     </motion.div>
-  );
-}
-
-function PhoneShell({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{
-      width: 158, height: 342, borderRadius: 28,
-      border: "5px solid #1a1a1a", background: "#000",
-      overflow: "hidden", position: "relative",
-      boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
-    }}>
-      <div style={{
-        position: "absolute", top: 6, left: "50%", transform: "translateX(-50%)",
-        width: 50, height: 14, background: "#000", borderRadius: 7, zIndex: 10,
-      }} />
-      {children}
-    </div>
   );
 }
 
