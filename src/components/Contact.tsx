@@ -118,10 +118,21 @@ export default function Contact() {
     }
   }
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
-    setTimeout(() => setStatus("sent"), 1600);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ intent, answers, message, name, email }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setStatus("sent");
+    } catch {
+      setStatus("idle");
+      alert("Something went wrong sending your message. Please try again or email us directly.");
+    }
   }
 
   function reset() {
