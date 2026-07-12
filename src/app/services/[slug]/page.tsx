@@ -3,6 +3,11 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ServiceDetail from "@/components/ServiceDetail";
+import JsonLd, {
+  serviceSchema,
+  faqSchema,
+  serviceBreadcrumbSchema,
+} from "@/components/JsonLd";
 import { services, getService } from "@/data/services";
 
 export function generateStaticParams() {
@@ -42,6 +47,9 @@ export default async function ServicePage({
 
   return (
     <>
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd data={faqSchema(service)} />
+      <JsonLd data={serviceBreadcrumbSchema(service)} />
       <Nav />
       <main>
         <ServiceDetail service={service} />

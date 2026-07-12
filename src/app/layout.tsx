@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import JsonLd, { organizationSchema, websiteSchema } from "@/components/JsonLd";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -55,6 +56,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
+      <head>
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
+      </head>
       <body>{children}</body>
       <GoogleAnalytics gaId="G-BNRX10MGW0" />
     </html>
