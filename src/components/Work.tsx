@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   motion,
   useScroll,
@@ -18,6 +19,8 @@ type Product = {
   description: string;
   tags: string[];
   cta: { label: string; href: string } | null;
+  /** Internal Teak product page, if one exists */
+  detailHref?: string;
   sub: string;
   status: "live" | "soon" | "dev";
   hasPhones: boolean;
@@ -36,6 +39,7 @@ const products: Product[] = [
       "A personal finance tracker for iOS that automatically categorises every transaction — expenses, income, and investments — with AI-powered spending insights and heads-up alerts.",
     tags: ["Expense Tracking", "Income & Investments", "Financial Growth"],
     cta: { label: "View App", href: "https://savefirst.app" },
+    detailHref: "/products/savefirst",
     sub: "Launching soon",
     status: "soon",
     hasPhones: true,
@@ -51,6 +55,7 @@ const products: Product[] = [
       "A luxury event-planning website for a premier Dallas–Fort Worth planner. Elegant marketing site with service showcases, custom package requests, and online booking for weddings, corporate galas, and milestone celebrations.",
     tags: ["Marketing Site", "Online Booking", "Event Planning", "DFW"],
     cta: { label: "Visit Site", href: "https://sseventsdfw.com" },
+    detailHref: "/products/sns-events",
     sub: "Live",
     status: "live",
     hasPhones: false,
@@ -500,6 +505,28 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: fg, opacity: 0.32, fontStyle: "italic" }}>
             {product.sub}
           </span>
+          {product.detailHref && (
+            <Link
+              href={product.detailHref}
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                color: fg,
+                opacity: 0.55,
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 5,
+              }}
+            >
+              Details
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          )}
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { services } from "@/data/services";
+import { products } from "@/data/products";
 
 const BASE_URL = "https://www.teaksoftware.studio";
 
@@ -22,6 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...products.map((product) => ({
+      url: `${BASE_URL}/products/${product.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     })),
   ];
 }

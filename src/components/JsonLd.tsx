@@ -1,4 +1,5 @@
 import type { Service } from "@/data/services";
+import type { Product } from "@/data/products";
 
 const BASE_URL = "https://www.teaksoftware.studio";
 
@@ -87,6 +88,66 @@ export function faqSchema(service: Service) {
         text: faq.answer,
       },
     })),
+  };
+}
+
+/** A product/work item. SoftwareApplication for apps, WebSite for sites. */
+export function productSchema(product: Product) {
+  const url = `${BASE_URL}/products/${product.slug}`;
+  const image = `${BASE_URL}${product.screenshots[0]?.src ?? "/apple-touch-icon.png"}`;
+
+  const base: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": product.schemaType,
+    "@id": `${url}/#product`,
+    name: product.name,
+    description: product.seoDescription,
+    url,
+    image,
+    creator: { "@id": `${BASE_URL}/#organization` },
+  };
+
+  if (product.schemaType === "SoftwareApplication") {
+    base.applicationCategory = product.applicationCategory;
+    base.operatingSystem = product.operatingSystem;
+    // Free-to-list offer keeps the SoftwareApplication schema valid without inventing a price.
+    base.offers = {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    };
+  }
+
+  return base;
+}
+
+/** FAQ rich-result markup, built from a product's FAQ data. */
+export function productFaqSchema(product: Product) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+}
+
+/** Breadcrumb trail: Home → Products → this product. */
+export function productBreadcrumbSchema(product: Product) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: product.name,
+        item: `${BASE_URL}/products/${product.slug}`,
+      },
+    ],
   };
 }
 
