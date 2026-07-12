@@ -21,6 +21,7 @@ type Product = {
   sub: string;
   status: "live" | "soon" | "dev";
   hasPhones: boolean;
+  siteImages?: { src: string; alt: string }[];
   accent: string;
   dark: boolean;
 };
@@ -42,8 +43,27 @@ const products: Product[] = [
     dark: false,
   },
   {
-    id: "saas",
+    id: "sns-events",
     index: "02",
+    eyebrow: "Web App · Event Planning · DFW",
+    title: "SNS Events",
+    description:
+      "A luxury event-planning website for a premier Dallas–Fort Worth planner. Elegant marketing site with service showcases, custom package requests, and online booking for weddings, corporate galas, and milestone celebrations.",
+    tags: ["Marketing Site", "Online Booking", "Event Planning", "DFW"],
+    cta: { label: "Visit Site", href: "https://sseventsdfw.com" },
+    sub: "Live",
+    status: "live",
+    hasPhones: false,
+    siteImages: [
+      { src: "/sns-events.png", alt: "SNS Events website homepage" },
+      { src: "/sns-events-2.png", alt: "SNS Events weddings & engagement page" },
+    ],
+    accent: "var(--teak)",
+    dark: false,
+  },
+  {
+    id: "saas",
+    index: "03",
     eyebrow: "SaaS Platform · In Development",
     title: "Untitled SaaS",
     description:
@@ -58,7 +78,7 @@ const products: Product[] = [
   },
   {
     id: "mobileapp",
-    index: "03",
+    index: "04",
     eyebrow: "Mobile App · In Development",
     title: "Untitled Mobile",
     description:
@@ -286,7 +306,9 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
     ? "linear-gradient(160deg, #1C1916 0%, #100E0C 100%)"
     : product.hasPhones
       ? "radial-gradient(120% 120% at 30% 0%, #FBF8F3 0%, #F1E8D9 45%, #E4D3BA 100%)"
-      : "linear-gradient(160deg, var(--cream) 0%, var(--cream-deep) 100%)";
+      : product.siteImages
+        ? "linear-gradient(160deg, #F1E8D9 0%, #E4D3BA 100%)"
+        : "linear-gradient(160deg, var(--cream) 0%, var(--cream-deep) 100%)";
   const subtleBorder = product.dark ? "rgba(255,255,255,0.07)" : "var(--ink-hairline)";
   const tagBorder = product.dark ? "rgba(255,255,255,0.14)" : "var(--ink-subtle)";
   const mutedFg = product.dark ? "rgba(245,241,234,0.5)" : "var(--ink-muted)";
@@ -319,7 +341,7 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "40px",
+          padding: product.siteImages ? "28px" : "40px",
           overflow: "hidden",
           position: "relative",
           borderRight: `1px solid ${subtleBorder}`,
@@ -376,6 +398,35 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
               </motion.div>
             </div>
           </>
+        ) : product.siteImages ? (
+          <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {/* Top mockup */}
+            <motion.div
+              animate={{ y: isActive ? -118 : -104, x: isActive ? 32 : 24, opacity: isActive ? 1 : 0.5 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+              style={{
+                position: "absolute",
+                width: "82%",
+                transform: "rotate(2.5deg)",
+                zIndex: 2,
+              }}
+            >
+              <BrowserFrame image={product.siteImages[0]} />
+            </motion.div>
+            {/* Bottom mockup */}
+            <motion.div
+              animate={{ y: isActive ? 104 : 92, x: isActive ? -32 : -24, opacity: isActive ? 1 : 0.5 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: "absolute",
+                width: "82%",
+                transform: "rotate(-2.5deg)",
+                zIndex: 1,
+              }}
+            >
+              <BrowserFrame image={product.siteImages[1]} />
+            </motion.div>
+          </div>
         ) : (
           <DevArt dark={product.dark} isActive={isActive} fg={fg} />
         )}
@@ -458,6 +509,43 @@ function ProductCard({ product, isActive }: { product: Product; isActive: boolea
         }
       `}</style>
     </motion.div>
+  );
+}
+
+function BrowserFrame({ image }: { image: { src: string; alt: string } }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        borderRadius: 11,
+        overflow: "hidden",
+        border: "1px solid rgba(21,19,17,0.1)",
+        background: "#fff",
+        boxShadow: "0 30px 60px -30px rgba(21,19,17,0.45), 0 8px 20px -12px rgba(21,19,17,0.22)",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 5,
+          padding: "8px 11px",
+          background: "#F5F1EA",
+          borderBottom: "1px solid rgba(21,19,17,0.08)",
+        }}
+      >
+        {["#E4655A", "#E9B24C", "#5DBF6B"].map((c) => (
+          <span key={c} style={{ width: 8, height: 8, borderRadius: 999, background: c }} />
+        ))}
+      </div>
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={1876}
+        height={942}
+        style={{ width: "100%", height: "auto", display: "block" }}
+      />
+    </div>
   );
 }
 
