@@ -499,8 +499,8 @@ export const services: Service[] = [
     title: "AI Systems",
     plain: "Products with intelligence built in",
     description:
-      "Chat assistants, copilots, search that actually understands — AI-native products built on the latest models, tuned to your data.",
-    tags: ["LLM Integration", "Copilots", "RAG / Your Data"],
+      "AI assistants, copilots, document workflows, and search experiences grounded in your data and built for real product use.",
+    tags: ["AI Products", "Copilots", "RAG / Your Data"],
     span: 2,
     dark: true,
     icon: (
@@ -511,28 +511,62 @@ export const services: Service[] = [
     ),
     seoTitle: "AI Application Development — Teak Software Studio",
     seoDescription:
-      "AI-native products built on the latest models and tuned to your data — chat assistants, copilots, and search that actually understands.",
+      "AI application development for assistants, copilots, document workflows, and search experiences grounded in your data with retrieval, evals, and guardrails.",
     eyebrow: "Service 03 — AI Systems",
     headlineLead: "Products with",
     headlineAccent: "intelligence",
     headlineTail: " built in.",
-    deck: "Chat assistants, copilots, and search that actually understands — AI-native products built on the latest models and tuned to your data.",
+    deck: "We build AI features that answer from your data, fit into your product, and hold up when real users start asking messy questions.",
     stats: [
-      { value: "Latest", label: "Claude models, chosen per job" },
-      { value: "Cited", label: "Answers grounded in your data" },
-      { value: "Evals", label: "Quality measured, not guessed" },
+      { value: "Production", label: "Built beyond the demo stage" },
+      { value: "Grounded", label: "Answers tied to your data" },
+      { value: "Measured", label: "Quality tested with evals" },
     ],
     overview: [
-      "We build products with intelligence at their core — not a chatbot bolted onto a contact form, but assistants, copilots, and search that genuinely understand your domain, your data, and your users.",
-      "Using the latest models and techniques like retrieval-augmented generation, we ground AI in your own content so answers are accurate, cited, and actually useful. Then we wrap it in the evals and guardrails that turn an impressive demo into something you can trust in production.",
+      "Useful AI is not a chatbot bolted onto a page. It has to understand the task, respect the workflow, answer from the right knowledge, and fail gracefully when it does not know enough.",
+      "We design and build AI systems around real product behavior: retrieval over your documents and data, model selection for the job, evals that measure quality, and guardrails that make the experience reliable enough to ship.",
     ],
     overviewPull:
       "The gap between a demo and a product is trust. We engineer for the product.",
+    useCases: [
+      {
+        title: "Knowledge copilots",
+        detail:
+          "Internal assistants that help teams search policies, docs, project history, support notes, or operational knowledge with cited answers.",
+      },
+      {
+        title: "Customer support AI",
+        detail:
+          "Support assistants that answer common questions, surface source material, draft replies, and hand off cleanly when a human is needed.",
+      },
+      {
+        title: "Document workflows",
+        detail:
+          "Systems that read, classify, summarize, extract fields, and route documents across finance, legal, operations, or admin workflows.",
+      },
+      {
+        title: "AI search",
+        detail:
+          "Search experiences that understand meaning, not just keywords, with retrieval tuned around your content and user intent.",
+      },
+      {
+        title: "Product copilots",
+        detail:
+          "AI features inside SaaS or internal tools that help users write, analyze, decide, and move through complex workflows faster.",
+      },
+      {
+        title: "Workflow automation",
+        detail:
+          "AI-assisted processes that turn messy inputs into structured actions, approvals, drafts, summaries, or next-step recommendations.",
+      },
+    ],
+    useCasesIntro:
+      "AI systems for real workflows, not just impressive demos.",
     deliverables: [
       {
         title: "Grounded in your knowledge",
         detail:
-          "Retrieval over your documents and data, with citations — so the model answers from truth, not guesses.",
+          "Retrieval over your documents, database records, and product context, with citations where the user needs to trust the answer.",
       },
       {
         title: "Measured, not vibes",
@@ -542,42 +576,113 @@ export const services: Service[] = [
       {
         title: "Safe in the wild",
         detail:
-          "Guardrails, cost controls, and monitoring so it behaves — and you know instantly when it doesn't.",
+          "Guardrails, cost controls, monitoring, and fallback paths so the system behaves and you know when it needs attention.",
       },
     ],
+    deliverablesIntro:
+      "The parts that make an AI feature useful, reliable, and safe enough to put in front of real users.",
     process: [
       {
         title: "Use-case shaping",
         detail:
-          "We find where AI actually earns its place in your product — and, just as important, where it doesn't.",
+          "We find where AI actually earns its place in your product, what success should look like, and where simpler software is the better choice.",
       },
       {
         title: "Data & retrieval",
         detail:
-          "We connect your documents and data so the model answers from your knowledge, not guesses.",
+          "We connect your documents, data, and product context so the model can answer from your knowledge instead of guessing.",
       },
       {
         title: "Build & evaluate",
         detail:
-          "We build the experience and measure quality with real evals, tuning prompts and retrieval until it holds up.",
+          "We build the user experience, prompts, retrieval, and eval suites together, then tune against evidence instead of opinions.",
       },
       {
         title: "Ship with guardrails",
         detail:
-          "Launched with monitoring, cost controls, and safety guardrails so it behaves in the real world.",
+          "We launch with monitoring, cost controls, fallback behavior, and safety guardrails so the system can improve without becoming risky.",
       },
     ],
-    techStack: ["Claude", "RAG", "Vector DB", "TypeScript", "Next.js", "Evals"],
+    techStack: ["Language models", "RAG", "Vector DBs", "LangGraph", "Evals", "Guardrails"],
+    stackGroups: [
+      {
+        title: "Models",
+        items: [
+          "Language models",
+          "Reasoning models",
+          "Long-context models",
+          "Fast task models",
+        ],
+      },
+      {
+        title: "Data & Context",
+        items: [
+          "RAG",
+          "Embeddings",
+          "Hybrid search",
+          "Knowledge graphs",
+        ],
+      },
+      {
+        title: "Vector DBs",
+        items: ["Qdrant", "Pinecone", "pgvector"],
+      },
+      {
+        title: "AI Workflows",
+        items: [
+          "LangChain",
+          "LangGraph",
+          "Tool calling",
+          "Function calling",
+          "Agents",
+          "Structured outputs",
+          "Document extraction",
+        ],
+      },
+      {
+        title: "Quality & safety",
+        items: [
+          "Evals",
+          "Guardrails",
+          "Cost controls",
+          "Monitoring",
+          "Tracing",
+          "Explainability",
+          "Interpretability",
+          "Observability",
+        ],
+      },
+    ],
     faqs: [
       {
         question: "Will it hallucinate?",
         answer:
-          "We ground responses in your data with retrieval and citations, and add evals and guardrails — dramatically reducing wrong answers and making the ones that do occur easy to catch.",
+          "No AI system can promise zero wrong answers, but we reduce risk by grounding responses in your data, showing citations where useful, testing quality with evals, and adding fallback behavior when confidence is low.",
       },
       {
         question: "Which models do you use?",
         answer:
-          "We pick the best model for the job — usually the latest Claude models — and design so you can swap or upgrade as the landscape changes.",
+          "We choose the right model for the job based on quality, speed, cost, context length, and safety needs, then design the system so models can be swapped or upgraded as the landscape changes.",
+      },
+      {
+        question: "Can it connect to our existing docs or database?",
+        answer:
+          "Yes. We can connect to documents, help centers, internal wikis, databases, APIs, and product data, then shape retrieval around the questions users actually ask.",
+      },
+      {
+        question: "Do we need clean data before starting?",
+        answer:
+          "Not perfectly clean. We usually start by auditing the sources you already have, identifying gaps, and deciding what needs cleanup before it becomes part of the AI system.",
+      },
+      {
+        question: "How do you control cost?",
+        answer:
+          "We control cost with model selection, caching, retrieval limits, prompt design, usage caps, monitoring, and routing simpler tasks to cheaper models where quality allows.",
+      },
+      {
+        question: "Can this live inside our existing app?",
+        answer:
+          "Yes. We can add AI features inside an existing product, build a standalone internal tool, or create a new AI-native product from scratch.",
       },
     ],
     wizardHeadlineLead: "Let's scope your",
