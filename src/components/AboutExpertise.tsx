@@ -17,7 +17,7 @@ const areas = [
   {
     title: "Mobile Apps",
     body: "Cross-platform apps that feel native. One codebase, iOS and Android, tuned for smooth interaction and offline resilience.",
-    tags: ["React Native", "Expo", "Swift", "Kotlin"],
+    tags: ["Flutter", "Dart", "Firebase", "iOS & Android"],
   },
   {
     title: "Design & Systems",

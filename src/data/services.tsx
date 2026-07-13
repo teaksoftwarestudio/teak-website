@@ -14,6 +14,10 @@ export type CaseStudy = {
   client: string;
   summary: string;
   result: string;
+  quote?: string;
+  quoteAuthor?: string;
+  quoteRole?: string;
+  quoteLocation?: string;
 };
 
 export type Stat = {
@@ -24,6 +28,11 @@ export type Stat = {
 export type Deliverable = {
   title: string;
   detail: string;
+};
+
+export type StackGroup = {
+  title: string;
+  items: string[];
 };
 
 export type WizardQuestion = {
@@ -55,9 +64,13 @@ export type Service = {
   stats: Stat[];
   overview: string[];
   overviewPull: string;
+  useCases?: Deliverable[];
+  useCasesIntro?: string;
   deliverables: Deliverable[];
+  deliverablesIntro?: string;
   process: ProcessStep[];
   techStack: string[];
+  stackGroups?: StackGroup[];
   caseStudy?: CaseStudy;
   faqs: Faq[];
   // Per-service intake wizard
@@ -82,9 +95,9 @@ export const services: Service[] = [
     slug: "web-applications",
     number: "01",
     title: "Web Applications",
-    plain: "Powerful tools that run in the browser",
+    plain: "Custom web apps for real workflows",
     description:
-      "Dashboards, portals, marketplaces — complex web apps engineered to feel fast and simple, whether you serve ten users or ten million.",
+      "Dashboards, portals, SaaS platforms, and marketplaces engineered to feel fast, clear, and ready to grow.",
     tags: ["Next.js", "React", "APIs", "Performance"],
     span: 3,
     icon: (
@@ -95,63 +108,127 @@ export const services: Service[] = [
     ),
     seoTitle: "Web Application Development — Teak Software Studio",
     seoDescription:
-      "Custom web applications — dashboards, portals, and marketplaces — engineered with Next.js and React to feel fast and simple at any scale.",
+      "Custom web application development for SaaS platforms, dashboards, portals, marketplaces, and API-backed business tools. Built with Next.js, React, and TypeScript.",
     eyebrow: "Service 01 — Web Applications",
-    headlineLead: "Powerful tools that run",
-    headlineAccent: "in the browser",
+    headlineLead: "Custom web application",
+    headlineAccent: "development",
     headlineTail: ".",
-    deck: "Dashboards, portals, and marketplaces engineered to feel fast and simple — whether you serve ten users or ten million.",
+    deck: "We design and build dashboards, portals, SaaS platforms, marketplaces, and API-backed business tools that feel fast, clear, and ready to grow.",
     stats: [
-      { value: "<100ms", label: "Interaction targets, measured" },
-      { value: "10M+", label: "Users the architecture scales to" },
-      { value: "0", label: "Hand-offs between design and build" },
+      { value: "Ship", label: "Built to launch, learn, and improve with real users" },
+      { value: "Full-stack", label: "Product design, frontend, APIs, and data" },
+      { value: "1 team", label: "No hand-offs between design and build" },
     ],
     overview: [
-      "The browser is the most capable application platform ever built — and most teams barely use a fraction of it. We build web applications that handle genuine complexity: heavy data, live updates, granular roles and permissions, all while staying fast and effortless to use.",
-      "From internal dashboards to customer-facing portals and multi-sided marketplaces, we engineer for performance first. So the app that feels instant on day one still feels instant when your data and your user count have grown ten times over.",
+      "A serious web application is more than screens in a browser. It has roles, permissions, workflows, dashboards, search, payments, files, notifications, integrations, and data that has to stay reliable as the business grows.",
+      "We build that full product surface: calm frontends for complex work, structured application logic, API layers, database-backed features, and the measurement needed to keep the product fast after launch. We can start from a blank slate, extend an existing backend, or rebuild a slow product without losing what already works.",
     ],
     overviewPull:
-      "Complexity is the enemy of adoption. Our job is to make the complicated feel obvious.",
+      "Complexity is the enemy of adoption. Our job is to make business software feel obvious.",
+    useCases: [
+      {
+        title: "SaaS platforms",
+        detail:
+          "Multi-tenant products with accounts, roles, billing, onboarding, dashboards, and admin tools.",
+      },
+      {
+        title: "Internal dashboards",
+        detail:
+          "Operational views for teams that need to monitor data, approve work, and act quickly.",
+      },
+      {
+        title: "Customer portals",
+        detail:
+          "Secure self-service spaces for clients, members, vendors, or partners to manage their work with you.",
+      },
+      {
+        title: "Marketplaces",
+        detail:
+          "Two-sided products with listings, profiles, search, messaging, payments, and trust workflows.",
+      },
+      {
+        title: "Workflow systems",
+        detail:
+          "Booking, intake, approval, scheduling, reporting, and automation tools shaped around your process.",
+      },
+      {
+        title: "API-backed tools",
+        detail:
+          "Front ends for existing APIs, CRMs, databases, AI systems, payment providers, and third-party services.",
+      },
+    ],
+    useCasesIntro: "Web apps for real business workflows, not just polished screens.",
     deliverables: [
       {
         title: "Interfaces that stay calm under load",
         detail:
-          "Information-dense screens that stay legible and quick even with thousands of rows and real-time updates.",
+          "Information-dense screens that stay legible with large tables, filters, live states, permissions, and real operational pressure.",
       },
       {
-        title: "Architecture built to scale",
+        title: "Architecture you can keep building on",
         detail:
-          "A data model, API layer, and caching strategy designed for where you're going, not just where you are.",
+          "A data model, API layer, authentication setup, and deployment path designed for the next version, not just the first launch.",
       },
       {
         title: "Performance you can prove",
         detail:
-          "We measure bundle size, query time, and render cost throughout — and hold the line as the app grows.",
+          "We measure bundle size, query time, render cost, and key interactions throughout the build so speed stays visible.",
       },
     ],
+    deliverablesIntro:
+      "The parts that make a web app usable, maintainable, and ready for real customers.",
     process: [
       {
-        title: "Architecture",
+        title: "Scope and architecture",
         detail:
-          "We map the data model, the roles, and the flows so the foundation holds up as the app grows.",
+          "We map users, roles, workflows, data, integrations, and risks before design starts so the foundation matches the product you actually need.",
       },
       {
         title: "Interface design",
         detail:
-          "Clean, information-dense UI that makes complex tasks feel simple — designed with your real data.",
+          "We design the core screens with realistic data, edge cases, empty states, and mobile behavior so the app is usable before it is beautiful.",
       },
       {
         title: "Engineering",
         detail:
-          "React and Next.js front end wired to fast, well-structured APIs, with performance measured throughout.",
+          "We build the React and Next.js front end, connect APIs or create them, wire auth and data flows, and keep performance measured throughout.",
       },
       {
-        title: "Ship & scale",
+        title: "Launch and improve",
         detail:
-          "Deployed on infrastructure that scales, with monitoring so you know it's healthy in production.",
+          "We deploy, monitor, fix launch issues, and keep a clear path for the next features after real users start using the product.",
       },
     ],
-    techStack: ["Next.js", "React", "TypeScript", "REST / GraphQL", "PostgreSQL", "Edge"],
+    techStack: ["Next.js", "React", "TypeScript", "shadcn/ui", "REST / GraphQL", "PostgreSQL", "Auth", "Stripe", "Edge"],
+    stackGroups: [
+      {
+        title: "Frontend",
+        items: ["Next.js", "React", "TypeScript", "shadcn/ui", "Tailwind CSS", "Framer Motion"],
+      },
+      {
+        title: "Backend & APIs",
+        items: ["FastAPI", "Node.js", "REST", "GraphQL", "Webhooks"],
+      },
+      {
+        title: "Data & Auth",
+        items: ["PostgreSQL", "Redis", "Prisma", "Supabase Auth", "Clerk"],
+      },
+      {
+        title: "Payments & Deployment",
+        items: ["Stripe", "Vercel", "Docker", "AWS", "Sentry"],
+      },
+    ],
+    caseStudy: {
+      client: "SNS Events",
+      summary:
+        "We built a live web experience for a Dallas-Fort Worth event planner with service showcases, custom package requests, and online booking, turning a high-touch service into a clearer digital workflow.",
+      result: "Brand, booking, and client intake in one responsive web product",
+      quote:
+        "Teak made the booking experience feel clear and professional. The new site gives clients an easier way to understand our services, request packages, and start planning with confidence.",
+      quoteAuthor: "Zakaria Sakib",
+      quoteRole: "Founder, SNS Events",
+      quoteLocation: "Dallas-Fort Worth, TX",
+    },
     faqs: [
       {
         question: "Can you work with our existing backend?",
@@ -159,9 +236,39 @@ export const services: Service[] = [
           "Absolutely. We regularly build front ends against existing APIs and databases, and can extend or refactor your backend where it helps.",
       },
       {
+        question: "Can you build the full web application from scratch?",
+        answer:
+          "Yes. We can handle product scope, UX, interface design, frontend engineering, backend APIs, database design, authentication, deployment, and post-launch iteration.",
+      },
+      {
+        question: "Do you build SaaS products?",
+        answer:
+          "Yes. We build SaaS products with accounts, roles, onboarding, dashboards, subscription billing, admin tools, and the operational workflows around them.",
+      },
+      {
+        question: "How long does a web app project take?",
+        answer:
+          "A focused first version often takes 8 to 12 weeks. Larger platforms, complex integrations, or rebuilds can take longer, so we scope the smallest useful launch before estimating the full roadmap.",
+      },
+      {
+        question: "Can you improve an existing web app?",
+        answer:
+          "Yes. We can audit the current product, improve performance and UX, rebuild problem areas, add new features, or migrate the app gradually instead of starting over.",
+      },
+      {
         question: "How do you keep it fast at scale?",
         answer:
           "We measure real performance from the start — bundle size, query times, render cost — and use caching, pagination, and edge rendering where they matter.",
+      },
+      {
+        question: "Can you add AI features to a web app?",
+        answer:
+          "Yes. We can add copilots, smart search, document workflows, AI-powered automation, or model-backed features when they make the product genuinely more useful.",
+      },
+      {
+        question: "Who owns the code after launch?",
+        answer:
+          "You do. We build in your repository or transfer the codebase, documentation, and deployment access so your team can keep operating the product.",
       },
     ],
     wizardHeadlineLead: "Let's scope your",
@@ -197,10 +304,10 @@ export const services: Service[] = [
     slug: "mobile-apps",
     number: "02",
     title: "Mobile Apps",
-    plain: "iOS & Android, one codebase",
+    plain: "Mobile app development for iOS and Android",
     description:
-      "Native-quality apps for iPhone and Android — clean UX, smooth animations, push notifications to offline mode.",
-    tags: ["React Native", "iOS & Android", "App Store"],
+      "Flutter apps for iPhone and Android — clean UX, smooth performance, push notifications, offline support, and store-ready releases.",
+    tags: ["Flutter", "iOS & Android", "App Store"],
     span: 2,
     icon: (
       <svg {...iconProps} aria-hidden="true">
@@ -210,33 +317,66 @@ export const services: Service[] = [
     ),
     seoTitle: "Mobile App Development — iOS & Android — Teak Software Studio",
     seoDescription:
-      "Native-quality iOS and Android apps from a single codebase — clean UX, smooth animations, push notifications, and offline support.",
+      "Flutter mobile app development for iOS and Android — clean UX, smooth performance, push notifications, offline support, and App Store launch support.",
     eyebrow: "Service 02 — Mobile Apps",
-    headlineLead: "iOS and Android,",
-    headlineAccent: "one codebase",
+    headlineLead: "Mobile app development",
+    headlineAccent: "for iOS and Android",
     headlineTail: ".",
-    deck: "Native-quality apps for iPhone and Android — clean UX, fluid animations, push notifications, offline mode — from a single shared codebase.",
+    deck: "We design and build Flutter apps for iPhone and Android that feel polished, work reliably, and are ready for App Store and Play Store launch.",
     stats: [
-      { value: "2", label: "Platforms, one team" },
-      { value: "60fps", label: "Animation as the baseline" },
-      { value: "1", label: "Codebase to maintain" },
+      { value: "Store-ready", label: "Built for App Store and Play Store launch" },
+      { value: "Native", label: "Built to feel at home on each platform" },
+      { value: "Store", label: "Submission and launch support included" },
     ],
     overview: [
-      "We build mobile apps that feel genuinely native on both platforms from a single shared codebase — so you ship to iPhone and Android on the same day, without doubling the cost or splitting the team.",
-      "Fluid animations, push notifications, offline-first data, and full App Store and Play Store submission are all part of the work. Your users get an app that feels like it belongs on their phone; you get one team, one codebase, and one roadmap.",
+      "A good mobile app has to earn a place on someone's home screen. It needs to open quickly, feel natural in the hand, handle flaky connections, respect platform expectations, and make the core action obvious from the first session.",
+      "We build that full mobile product surface with Flutter: polished interfaces, reliable app architecture, API-backed features, offline data where needed, push notifications, analytics, crash reporting, and the release process required to get through the App Store and Play Store cleanly.",
     ],
     overviewPull:
       "Users never see your architecture. They feel it — in every tap, scroll, and transition.",
+    useCases: [
+      {
+        title: "Consumer apps",
+        detail:
+          "Phone-first products for habits, finance, communities, media, wellness, and everyday workflows.",
+      },
+      {
+        title: "SaaS companion apps",
+        detail:
+          "Mobile extensions of web platforms for customers, teams, operators, or field users.",
+      },
+      {
+        title: "Booking and marketplace apps",
+        detail:
+          "Discovery, profiles, scheduling, payments, messaging, and service workflows on mobile.",
+      },
+      {
+        title: "Internal field apps",
+        detail:
+          "Apps for teams that need forms, checklists, photos, offline data, or real-time updates away from a desk.",
+      },
+      {
+        title: "Finance and tracking apps",
+        detail:
+          "Secure mobile products for transactions, progress tracking, alerts, insights, and personal data.",
+      },
+      {
+        title: "AI-assisted apps",
+        detail:
+          "Mobile experiences with copilots, smart search, document workflows, voice, camera, or automation.",
+      },
+    ],
+    useCasesIntro: "Mobile apps for real-world usage, not just polished launch screens.",
     deliverables: [
       {
         title: "Native feel, both platforms",
         detail:
-          "Platform-native components and gestures, with native code where it counts — indistinguishable from fully native apps.",
+          "Flutter interfaces tuned for iOS and Android conventions, with native integrations where the product needs them.",
       },
       {
-        title: "Works without a signal",
+        title: "Reliable app behavior",
         detail:
-          "Offline-first data and sync so the app stays useful on a subway, a plane, or a bad connection.",
+          "Offline support, push notifications, deep links, analytics, crash reporting, and sync patterns shaped around real usage.",
       },
       {
         title: "Shipped to the stores",
@@ -244,21 +384,23 @@ export const services: Service[] = [
           "Provisioning, listings, review, and release handled — under your developer account or ours.",
       },
     ],
+    deliverablesIntro:
+      "The parts that make a mobile app reliable, store-ready, and useful after launch.",
     process: [
       {
         title: "Product & flows",
         detail:
-          "We define the core screens and journeys, tuned for how people actually use their phones.",
+          "We define the core screens, user journeys, and platform expectations before committing to the build.",
       },
       {
         title: "Design",
         detail:
-          "Native-feeling UI that respects each platform's conventions while staying true to your brand.",
+          "We design mobile-first flows with real states, gestures, permissions, empty screens, and store requirements in mind.",
       },
       {
         title: "Build",
         detail:
-          "One React Native codebase covering iOS and Android, with native modules where they're needed.",
+          "We build the Flutter app, connect APIs, wire native capabilities, and test the experience across devices.",
       },
       {
         title: "Submit & support",
@@ -266,17 +408,60 @@ export const services: Service[] = [
           "We handle App Store and Play Store submission, then support updates and new features over time.",
       },
     ],
-    techStack: ["React Native", "Expo", "TypeScript", "Push / FCM", "SQLite", "App Store"],
+    techStack: ["Flutter", "Dart", "Firebase", "Push / FCM", "SQLite", "App Store"],
+    stackGroups: [
+      {
+        title: "App",
+        items: ["Flutter", "Dart", "Material", "Cupertino", "Responsive layouts"],
+      },
+      {
+        title: "Native features",
+        items: ["Push notifications", "Deep links", "Camera / media", "Biometrics", "In-app purchases"],
+      },
+      {
+        title: "Data & APIs",
+        items: ["REST", "GraphQL", "Firebase", "SQLite", "Secure storage"],
+      },
+      {
+        title: "Release & Monitoring",
+        items: ["App Store Connect", "Play Console", "Firebase Crashlytics", "Sentry", "TestFlight"],
+      },
+    ],
     faqs: [
       {
-        question: "One codebase — does it really feel native?",
+        question: "Can Flutter apps really feel native?",
         answer:
-          "Yes. We use platform-native components and drop to native code where needed, so users can't tell the difference — but you maintain a single codebase.",
+          "Yes. Flutter gives us a shared codebase with polished native-feeling UI, and we use platform-specific integrations when the app needs deeper iOS or Android behavior.",
       },
       {
         question: "Do you handle App Store submission?",
         answer:
           "We do — provisioning, store listings, review, and release. We can publish under your developer account or guide you through setting one up.",
+      },
+      {
+        question: "How long does a mobile app take?",
+        answer:
+          "A focused first version often takes 8 to 12 weeks. Apps with complex backend logic, payments, offline sync, or native integrations can take longer, so we scope the first useful release before expanding the roadmap.",
+      },
+      {
+        question: "Can you build iOS first?",
+        answer:
+          "Yes. We can launch iOS first, Android first, or both together. Flutter keeps the shared foundation in place while still letting us tune platform-specific details.",
+      },
+      {
+        question: "Can you work from existing designs?",
+        answer:
+          "Yes. We can build from your Figma files, refine an existing design system, or design the mobile experience from scratch if the product is still early.",
+      },
+      {
+        question: "Can you turn our web app into a mobile app?",
+        answer:
+          "Yes. We can bring the right parts of an existing web product to mobile, connect to your current APIs, and reshape the experience around phone-first usage.",
+      },
+      {
+        question: "Do you support the app after launch?",
+        answer:
+          "Yes. We can monitor crashes, support store updates, add features, improve onboarding, and keep the app healthy as OS versions and user needs change.",
       },
     ],
     wizardHeadlineLead: "Let's scope your",

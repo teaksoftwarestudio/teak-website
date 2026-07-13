@@ -87,8 +87,8 @@ const products: Product[] = [
     eyebrow: "Mobile App · In Development",
     title: "Untitled Mobile",
     description:
-      "A consumer mobile app targeting the US market. React Native, offline-first architecture, push notifications, and a design system built from scratch.",
-    tags: ["React Native", "Offline-first", "iOS & Android", "Design System"],
+      "A consumer mobile app targeting the US market. Flutter, offline-first architecture, push notifications, and a design system built from scratch.",
+    tags: ["Flutter", "Offline-first", "iOS & Android", "Design System"],
     cta: null,
     sub: "Launching 2026",
     status: "dev",

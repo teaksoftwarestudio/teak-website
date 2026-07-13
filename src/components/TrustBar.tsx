@@ -5,10 +5,10 @@ import { EASE, fadeUp, stagger } from "./motion";
 
 const testimonial = {
   quote:
-    "Teak took our half-baked idea and turned it into a product our customers actually love. Their ability to balance speed with quality is rare.",
-  author: "Sarah K.",
-  role: "Founder, Finlo",
-  location: "San Francisco, CA",
+    "Teak made the booking experience feel clear and professional. The new site gives clients an easier way to understand our services, request packages, and start planning with confidence.",
+  author: "Zakaria Sakib",
+  role: "Founder, SNS Events",
+  location: "Dallas-Fort Worth, TX",
 };
 
 export default function TrustBar() {

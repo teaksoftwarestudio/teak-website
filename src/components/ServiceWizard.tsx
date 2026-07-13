@@ -50,7 +50,7 @@ export default function ServiceWizard({ service }: { service: Service }) {
     <section
       id="start"
       style={{
-        background: "var(--cream)",
+        background: "var(--teak-pale)",
         padding: "104px 0",
         borderTop: "1px solid var(--ink-hairline)",
       }}
@@ -64,12 +64,9 @@ export default function ServiceWizard({ service }: { service: Service }) {
             gap: 88,
             alignItems: "start",
           }}
-        >
+          >
           {/* Left — intro */}
           <Reveal>
-            <p className="eyebrow" style={{ marginBottom: 20 }}>
-              Start here
-            </p>
             <h2
               style={{
                 fontFamily: "var(--font-serif)",

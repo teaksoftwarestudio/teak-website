@@ -172,9 +172,8 @@ export default function ServiceDetail({ service }: { service: Service }) {
               key={stat.label}
               variants={fadeUp}
               style={{
-                padding: "38px 32px 40px 0",
+                padding: "38px 32px 40px",
                 borderLeft: i === 0 ? "none" : "1px solid var(--ink-hairline)",
-                paddingLeft: i === 0 ? 0 : 32,
               }}
             >
               <div
@@ -208,7 +207,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
       {/* ───────────────── Overview (asymmetric) ───────────────── */}
       <section
         style={{
-          background: "var(--cream)",
+          background: "var(--cream-deep)",
           padding: "104px 0",
           borderTop: "1px solid var(--ink-hairline)",
         }}
@@ -224,17 +223,26 @@ export default function ServiceDetail({ service }: { service: Service }) {
             }}
           >
             <Reveal>
-              <p className="eyebrow" style={{ marginBottom: 22 }}>
-                Overview
-              </p>
-              <p
+              <h2
                 style={{
                   fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(24px, 2.6vw, 34px)",
+                  fontSize: "clamp(30px, 3.6vw, 52px)",
                   fontWeight: 400,
-                  lineHeight: 1.25,
-                  letterSpacing: "-0.015em",
-                  color: "var(--ink)",
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.02em",
+                  marginBottom: 18,
+                }}
+              >
+                Overview
+              </h2>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "clamp(16px, 1.5vw, 18px)",
+                  fontWeight: 400,
+                  lineHeight: 1.75,
+                  color: "var(--ink-muted)",
+                  maxWidth: 380,
                 }}
               >
                 {service.overviewPull}
@@ -261,6 +269,99 @@ export default function ServiceDetail({ service }: { service: Service }) {
         </div>
       </section>
 
+      {/* ───────────────── Use cases ───────────────── */}
+      {service.useCases && (
+        <section
+          style={{
+            background: "var(--cream)",
+            padding: "104px 0",
+            borderTop: "1px solid var(--ink-hairline)",
+            borderBottom: "1px solid var(--ink-hairline)",
+          }}
+        >
+          <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
+            <Reveal style={{ marginBottom: 44 }}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(30px, 3.6vw, 52px)",
+                  fontWeight: 400,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.02em",
+                  marginBottom: 18,
+                }}
+              >
+                What we{" "}
+                <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
+                  build
+                </span>
+                .
+              </h2>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "clamp(16px, 1.5vw, 18px)",
+                  fontWeight: 400,
+                  lineHeight: 1.75,
+                  color: "var(--ink-muted)",
+                  maxWidth: 380,
+                }}
+              >
+                {service.useCasesIntro ??
+                  "Products for real workflows, not just polished screens."}
+              </p>
+            </Reveal>
+
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.15 }}
+              className="svc-use-cases"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                gap: 16,
+              }}
+            >
+              {service.useCases.map((item) => (
+                <motion.div
+                  key={item.title}
+                  variants={fadeUp}
+                  style={{
+                    borderTop: "1px solid var(--ink-hairline)",
+                    padding: "24px 22px 4px 0",
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: 22,
+                      fontWeight: 400,
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.01em",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 14.5,
+                      lineHeight: 1.72,
+                      color: "var(--ink-muted)",
+                    }}
+                  >
+                    {item.detail}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       {/* ───────────────── Deliverables ───────────────── */}
       <section
         style={{
@@ -272,9 +373,6 @@ export default function ServiceDetail({ service }: { service: Service }) {
       >
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
           <Reveal style={{ marginBottom: 56 }}>
-            <p className="eyebrow" style={{ marginBottom: 20 }}>
-              What you get
-            </p>
             <h2
               style={{
                 fontFamily: "var(--font-serif)",
@@ -291,6 +389,20 @@ export default function ServiceDetail({ service }: { service: Service }) {
               </span>
               .
             </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(16px, 1.5vw, 18px)",
+                fontWeight: 400,
+                lineHeight: 1.75,
+                color: "var(--ink-muted)",
+                maxWidth: 460,
+                marginTop: 18,
+              }}
+            >
+              {service.deliverablesIntro ??
+                "The parts that make the product usable, maintainable, and ready for real customers."}
+            </p>
           </Reveal>
 
           <motion.div
@@ -354,7 +466,12 @@ export default function ServiceDetail({ service }: { service: Service }) {
       </section>
 
       {/* ───────────────── Process (sticky two-col) ───────────────── */}
-      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: service.caseStudy ? "112px 0" : "112px 0 72px",
+        }}
+      >
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
           <div
             className="svc-process-grid"
@@ -367,9 +484,6 @@ export default function ServiceDetail({ service }: { service: Service }) {
           >
             <div className="svc-process-head">
               <Reveal>
-                <p className="eyebrow" style={{ marginBottom: 20 }}>
-                  How we work
-                </p>
                 <h2
                   style={{
                     fontFamily: "var(--font-serif)",
@@ -380,7 +494,11 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     marginBottom: 18,
                   }}
                 >
-                  Our process
+                  Our{" "}
+                  <span style={{ fontStyle: "italic", color: "var(--teak)" }}>
+                    process
+                  </span>
+                  .
                 </h2>
                 <p
                   style={{
@@ -495,12 +613,6 @@ export default function ServiceDetail({ service }: { service: Service }) {
             }}
           >
             <Reveal>
-              <p
-                className="eyebrow"
-                style={{ color: "var(--teak-light)", marginBottom: 28 }}
-              >
-                In practice
-              </p>
               <blockquote
                 style={{
                   fontFamily: "var(--font-serif)",
@@ -511,7 +623,9 @@ export default function ServiceDetail({ service }: { service: Service }) {
                   margin: 0,
                 }}
               >
-                {service.caseStudy.summary}
+                &ldquo;
+                {service.caseStudy.quote ?? service.caseStudy.summary}
+                &rdquo;
               </blockquote>
               <div
                 style={{
@@ -530,26 +644,13 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     color: "var(--teak-light)",
                   }}
                 >
-                  {service.caseStudy.result}
-                </span>
-                <span
-                  aria-hidden
-                  style={{
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
-                    background: "rgba(250,248,245,0.35)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13.5,
-                    letterSpacing: "0.02em",
-                    color: "rgba(250,248,245,0.6)",
-                  }}
-                >
-                  {service.caseStudy.client}
+                  {service.caseStudy.quoteAuthor && service.caseStudy.quoteRole
+                    ? `${service.caseStudy.quoteAuthor} - ${service.caseStudy.quoteRole}${
+                        service.caseStudy.quoteLocation
+                          ? ` · ${service.caseStudy.quoteLocation}`
+                          : ""
+                      }`
+                    : service.caseStudy.result}
                 </span>
               </div>
             </Reveal>
@@ -558,7 +659,12 @@ export default function ServiceDetail({ service }: { service: Service }) {
       )}
 
       {/* ───────────────── Tech + FAQ ───────────────── */}
-      <section style={{ background: "var(--cream)", padding: "104px 0" }}>
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: service.caseStudy ? "104px 0" : "72px 0 104px",
+        }}
+      >
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
           <div
             className="svc-faq-grid"
@@ -570,29 +676,76 @@ export default function ServiceDetail({ service }: { service: Service }) {
             }}
           >
             {/* Tech stack */}
-            <Reveal>
-              <p className="eyebrow" style={{ marginBottom: 22 }}>
-                Built with
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                {service.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 13.5,
-                      fontWeight: 500,
-                      padding: "9px 16px",
-                      borderRadius: 10,
-                      background: "var(--teak-pale)",
-                      color: "var(--ink)",
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
+            <div className="svc-stack-head">
+              <Reveal>
+                <p className="eyebrow" style={{ marginBottom: 22 }}>
+                  Our Stack
+                </p>
+                {service.stackGroups ? (
+                  <div style={{ display: "grid", gap: 24 }}>
+                    {service.stackGroups.map((group) => (
+                      <div
+                        key={group.title}
+                        style={{
+                          borderTop: "1px solid var(--ink-hairline)",
+                          paddingTop: 18,
+                        }}
+                      >
+                        <h3
+                          style={{
+                            fontFamily: "var(--font-serif)",
+                            fontSize: 21,
+                            fontWeight: 400,
+                            lineHeight: 1.2,
+                            letterSpacing: "-0.01em",
+                            marginBottom: 12,
+                          }}
+                        >
+                          {group.title}
+                        </h3>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 9 }}>
+                          {group.items.map((tech) => (
+                            <span
+                              key={tech}
+                              style={{
+                                fontFamily: "var(--font-sans)",
+                                fontSize: 13,
+                                fontWeight: 500,
+                                padding: "8px 13px",
+                                borderRadius: 10,
+                                background: "var(--teak-pale)",
+                                color: "var(--ink)",
+                              }}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                    {service.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: 13.5,
+                          fontWeight: 500,
+                          padding: "9px 16px",
+                          borderRadius: 10,
+                          background: "var(--teak-pale)",
+                          color: "var(--ink)",
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </Reveal>
+            </div>
 
             {/* FAQ */}
             <div>
@@ -643,14 +796,17 @@ export default function ServiceDetail({ service }: { service: Service }) {
       <style>{`
         @media (min-width: 901px) {
           .svc-process-head { position: sticky; top: 120px; }
+          .svc-stack-head { position: sticky; top: 120px; }
         }
         @media (max-width: 900px) {
           .svc-overview-grid,
           .svc-process-grid,
           .svc-faq-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
+          .svc-use-cases { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
           .svc-deliverables { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
+          .svc-use-cases { grid-template-columns: 1fr !important; }
           .svc-stats { grid-template-columns: 1fr !important; }
           .svc-stats > div { border-left: none !important; padding-left: 0 !important;
             border-top: 1px solid var(--ink-hairline); padding-top: 28px !important;
