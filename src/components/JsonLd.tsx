@@ -29,6 +29,14 @@ export function organizationSchema() {
     url: BASE_URL,
     logo: `${BASE_URL}/apple-touch-icon.png`,
     email: "hello@teaksoftware.studio",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "5900 Balcones Drive Ste 100",
+      addressLocality: "Austin",
+      addressRegion: "TX",
+      postalCode: "78731",
+      addressCountry: "US",
+    },
     description:
       "Teak Software Studio builds polished web applications, mobile apps, and AI systems for clients across North America and Europe.",
     areaServed: [
