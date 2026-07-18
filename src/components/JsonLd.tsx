@@ -1,5 +1,6 @@
 import type { Service } from "@/data/services";
 import type { Product } from "@/data/products";
+import type { BlogPost } from "@/data/blog";
 
 const BASE_URL = "https://www.teaksoftware.studio";
 
@@ -154,6 +155,58 @@ export function productBreadcrumbSchema(product: Product) {
         position: 2,
         name: product.name,
         item: `${BASE_URL}/products/${product.slug}`,
+      },
+    ],
+  };
+}
+
+/** Article rich-result markup for a blog post. */
+export function blogPostSchema(post: BlogPost) {
+  const url = `${BASE_URL}/blog/${post.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}/#article`,
+    headline: post.title,
+    description: post.seoDescription,
+    url,
+    mainEntityOfPage: url,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@id": `${BASE_URL}/#organization` },
+    publisher: { "@id": `${BASE_URL}/#organization` },
+    keywords: post.keywords.join(", "),
+    image: `${BASE_URL}/apple-touch-icon.png`,
+  };
+}
+
+/** FAQ rich-result markup, built from a blog post's FAQ data. */
+export function blogFaqSchema(post: BlogPost) {
+  if (!post.faqs || post.faqs.length === 0) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: post.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+}
+
+/** Breadcrumb trail: Home → Blog → this post. */
+export function blogBreadcrumbSchema(post: BlogPost) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blog` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${BASE_URL}/blog/${post.slug}`,
       },
     ],
   };

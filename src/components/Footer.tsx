@@ -80,6 +80,7 @@ export default function Footer() {
                 links: [
                   { label: "Our Work", href: "/#work" },
                   { label: "Services", href: "/#services" },
+                  { label: "Blog", href: "/blog" },
                   { label: "About", href: "/about" },
                   { label: "Contact", href: "/#contact" },
                 ],
