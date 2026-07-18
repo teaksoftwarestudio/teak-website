@@ -87,8 +87,7 @@ export default function Footer() {
               {
                 heading: "Services",
                 links: [
-                  { label: "SaaS Platforms", href: "/services/web-applications" },
-                  { label: "Web Apps", href: "/services/web-applications" },
+                  { label: "Web Applications", href: "/services/web-applications" },
                   { label: "Mobile Apps", href: "/services/mobile-apps" },
                   { label: "AI Systems", href: "/services/ai-systems" },
                 ],

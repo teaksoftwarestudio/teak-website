@@ -18,7 +18,13 @@ type ContactPayload = {
 };
 
 export async function POST(request: Request) {
-  const body: ContactPayload = await request.json();
+  let body: ContactPayload;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
+
   const { intent, answers, message, name, email } = body;
 
   if (!name || !email) {
@@ -29,33 +35,46 @@ export async function POST(request: Request) {
     .map(([key, value]) => `${key}: ${value}`)
     .join("\n");
 
-  await resend.emails.send({
-    from: NOTIFY_FROM,
-    to: NOTIFY_TO,
-    replyTo: email,
-    subject: `New ${intent === "project" ? "project" : "general"} inquiry — ${name}`,
-    text: [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Intent: ${intent}`,
-      summaryLines,
-      "",
-      "Message:",
-      message || "(none)",
-    ].join("\n"),
-    html: notificationEmailHtml({ name, email, intent, answers, message }),
-  });
+  // The notification to us is the email that matters — if it fails, the
+  // submission has effectively been lost, so surface that as an error.
+  try {
+    await resend.emails.send({
+      from: NOTIFY_FROM,
+      to: NOTIFY_TO,
+      replyTo: email,
+      subject: `New ${intent === "project" ? "project" : "general"} inquiry — ${name}`,
+      text: [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Intent: ${intent}`,
+        summaryLines,
+        "",
+        "Message:",
+        message || "(none)",
+      ].join("\n"),
+      html: notificationEmailHtml({ name, email, intent, answers, message }),
+    });
+  } catch (err) {
+    console.error("Failed to send notification email:", err);
+    return NextResponse.json({ error: "Failed to send message" }, { status: 502 });
+  }
 
-  const scheduledAt = new Date(Date.now() + FOLLOWUP_DELAY_MINUTES * 60 * 1000).toISOString();
+  // The follow-up is a nicety. If it fails, we've still captured the lead, so
+  // don't fail the whole request — just log it.
+  try {
+    const scheduledAt = new Date(Date.now() + FOLLOWUP_DELAY_MINUTES * 60 * 1000).toISOString();
 
-  await resend.emails.send({
-    from: FOLLOWUP_FROM,
-    to: email,
-    subject: "Following up on your message",
-    scheduledAt,
-    text: followupText(name),
-    html: followupEmailHtml({ name }),
-  });
+    await resend.emails.send({
+      from: FOLLOWUP_FROM,
+      to: email,
+      subject: "Following up on your message",
+      scheduledAt,
+      text: followupText(name),
+      html: followupEmailHtml({ name }),
+    });
+  } catch (err) {
+    console.error("Failed to schedule follow-up email:", err);
+  }
 
   return NextResponse.json({ ok: true });
 }
