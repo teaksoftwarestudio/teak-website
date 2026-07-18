@@ -188,6 +188,64 @@ function Section({ section }: { section: BlogSection }) {
           </p>
         </div>
       );
+    case "table":
+      return (
+        <div style={{ margin: "32px 0", overflowX: "auto" }}>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              minWidth: 480,
+            }}
+          >
+            <thead>
+              <tr>
+                {section.headers.map((h, i) => (
+                  <th
+                    key={i}
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 16px",
+                      background: "var(--cream)",
+                      borderBottom: "2px solid var(--teak)",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      color: "var(--teak)",
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {section.rows.map((row, ri) => (
+                <tr key={ri}>
+                  {row.map((cell, ci) => (
+                    <td
+                      key={ci}
+                      style={{
+                        padding: "14px 16px",
+                        borderBottom: "1px solid var(--ink-hairline)",
+                        lineHeight: 1.6,
+                        color: "var(--ink)",
+                        fontWeight: ci === 0 ? 600 : 400,
+                        verticalAlign: "top",
+                      }}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
   }
 }
 
@@ -209,9 +267,34 @@ export default function BlogPost({
             background: "var(--cream)",
             padding: "148px 0 56px",
             borderBottom: "1px solid var(--ink-hairline)",
+            position: "relative",
+            overflow: "hidden",
           }}
         >
-          <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 32px" }}>
+          {/* Ambient glow — matches the service/product hero treatment */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: "-40%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 900,
+              height: 900,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(196,168,130,0.16) 0%, transparent 68%)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              maxWidth: 760,
+              margin: "0 auto",
+              padding: "0 32px",
+              position: "relative",
+            }}
+          >
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -300,8 +383,56 @@ export default function BlogPost({
         </header>
 
         {/* ───────────── Body ───────────── */}
-        <div style={{ background: "var(--white)", padding: "64px 0 80px" }}>
+        <div style={{ background: "var(--white)", padding: "56px 0 80px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 32px" }}>
+            {/* Key takeaway — a strong answer up top, good for readers and featured snippets */}
+            <div
+              style={{
+                display: "flex",
+                gap: 18,
+                padding: "24px 28px",
+                background: "var(--teak-pale)",
+                borderRadius: 14,
+                marginBottom: 48,
+              }}
+            >
+              <div
+                aria-hidden
+                style={{
+                  flexShrink: 0,
+                  width: 4,
+                  borderRadius: 4,
+                  background: "var(--teak)",
+                }}
+              />
+              <div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--teak)",
+                    marginBottom: 8,
+                  }}
+                >
+                  The short answer
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 16.5,
+                    lineHeight: 1.65,
+                    color: "var(--ink)",
+                    margin: 0,
+                  }}
+                >
+                  {post.keyTakeaway}
+                </p>
+              </div>
+            </div>
+
             {post.body.map((section, i) => (
               <Section key={i} section={section} />
             ))}
