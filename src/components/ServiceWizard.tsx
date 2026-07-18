@@ -13,6 +13,7 @@ export default function ServiceWizard({ service }: { service: Service }) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const totalSteps = flow.length + 1; // questions + email
@@ -42,6 +43,7 @@ export default function ServiceWizard({ service }: { service: Service }) {
           message,
           name: email.split("@")[0],
           email,
+          company,
         }),
       });
       if (!res.ok) throw new Error("Request failed");
@@ -57,6 +59,7 @@ export default function ServiceWizard({ service }: { service: Service }) {
     setAnswers({});
     setMessage("");
     setEmail("");
+    setCompany("");
     setStatus("idle");
   }
 
@@ -322,6 +325,18 @@ export default function ServiceWizard({ service }: { service: Service }) {
                     <Summary service={service} answers={answers} />
 
                     <form onSubmit={submit} style={{ marginTop: "auto" }}>
+                      {/* Honeypot: hidden from users, tempting to bots. Not tabbable, not autofilled. */}
+                      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                        <label htmlFor="sw-company">Company</label>
+                        <input
+                          id="sw-company"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={company}
+                          onChange={(e) => setCompany(e.target.value)}
+                        />
+                      </div>
                       <label
                         htmlFor="sw-message"
                         style={labelStyle}
