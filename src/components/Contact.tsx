@@ -90,6 +90,7 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot — real users leave this empty
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const flow = intent ? questions[intent] : [];
@@ -125,7 +126,7 @@ export default function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ intent, answers, message, name, email }),
+        body: JSON.stringify({ intent, answers, message, name, email, company }),
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("sent");
@@ -142,6 +143,7 @@ export default function Contact() {
     setMessage("");
     setName("");
     setEmail("");
+    setCompany("");
     setStatus("idle");
   }
 
@@ -443,6 +445,18 @@ export default function Contact() {
                     <Summary intent={intent!} answers={answers} flow={flow} />
 
                     <form onSubmit={submit} style={{ marginTop: "auto" }}>
+                      {/* Honeypot: hidden from users, tempting to bots. Not tabbable, not autofilled. */}
+                      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                        <label htmlFor="c-company">Company</label>
+                        <input
+                          id="c-company"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={company}
+                          onChange={(e) => setCompany(e.target.value)}
+                        />
+                      </div>
                       <label
                         htmlFor="c-message"
                         style={{

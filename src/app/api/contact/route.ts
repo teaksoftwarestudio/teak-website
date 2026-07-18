@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { followupEmailHtml, notificationEmailHtml } from "./emails";
+import { clientIp, rateLimit, validateContact } from "./guard";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -9,27 +10,33 @@ const FOLLOWUP_FROM = "Ifaz from Teak Software <ifaz@teaksoftware.studio>";
 const NOTIFY_FROM = "Teak Website <hello@teaksoftware.studio>";
 const FOLLOWUP_DELAY_MINUTES = Number(process.env.FOLLOWUP_DELAY_MINUTES) || 90;
 
-type ContactPayload = {
-  intent: "project" | "general";
-  answers: Record<string, string>;
-  message: string;
-  name: string;
-  email: string;
-};
-
 export async function POST(request: Request) {
-  let body: ContactPayload;
+  // Throttle by IP before doing any work, so a flood can't burn our email quota.
+  if (!rateLimit(clientIp(request)).allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again in a minute." },
+      { status: 429 }
+    );
+  }
+
+  let raw: unknown;
   try {
-    body = await request.json();
+    raw = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { intent, answers, message, name, email } = body;
-
-  if (!name || !email) {
-    return NextResponse.json({ error: "Missing name or email" }, { status: 400 });
+  const result = validateContact(raw);
+  if ("error" in result) {
+    // A tripped honeypot means a bot: pretend it worked so we don't teach the
+    // bot how to get past us, but send nothing.
+    if (result.error === "spam") {
+      return NextResponse.json({ ok: true });
+    }
+    return NextResponse.json({ error: result.error }, { status: 400 });
   }
+
+  const { intent, answers, message, name, email } = result.data;
 
   const summaryLines = Object.entries(answers)
     .map(([key, value]) => `${key}: ${value}`)
